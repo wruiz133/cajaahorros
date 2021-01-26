@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="loan_management_loan_aportacion_form_view_inherit">
+            <field name="name">loan_management_loan_aportacion_form_view_inherit</field>
+            <field name="model">loan.aportaciones</field>
+            <field name="inherit_id" ref="loan_management-master.loan_management_loan_aportacion_form_view"/>
+            <field name="arch" type="xml">
+		<xpath expr="//field[@name='move_id']" position="after">
+			<button name="set_values"  string="Calcular" type="object" class="oe_highlight" attrs="{'invisible': [('state','!=','draft')]}"/>
+		</xpath>
+		<xpath expr="//form/sheet/notebook/page[1]" position="before">
+                    <page string="Detalles">
+                        <group name="group_s11">
+                            <field name="details_ids" mode="tree" nolabel="1">
+                                <tree string="Detalles"  editable="true" delete="false" create="false">
+                                    <field  string="Detalle" name="catalogues_id"  domain="[('parent_name','=','CLASSIFICATION')]" readonly="1"/>
+                                    <field  string="% Aporte" name="name_num" readonly="1" sum="Total"/>					
+                                    <field  string="Valor" name="value" readonly="1" sum="Total"/>
+                                    <field string="Customer"  name="customer_id" invisible="1"/>
+                                </tree>
+                            </field> 
+
+                        </group>
+                    </page>
+                </xpath>
+ <!--<xpath expr="/notebook/page[@string='Notas']" position="before">
+                    <page string="Detalles">
+                        <group name="group_s11">
+                            <field name="details_ids" mode="tree" nolabel="1">
+                                <tree string="Detalles" editable="true" delete="false" create="false">
+                                    <field readonly="1" string="Detalle" name="catalogues_id"/>
+                                    <field readonly="1" string="Contract" name="value"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>-->
+            </field>
+        </record>
+
+    </data>
+</odoo>

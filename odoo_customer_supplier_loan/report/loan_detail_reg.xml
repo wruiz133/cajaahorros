@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+    	
+        <report id="partner_loan_report_analysis_reg"
+                string="Print Loan" 
+                model="partner.loan.details"
+                report_type="qweb-pdf" 
+                file = "odoo_customer_supplier_loan.partner_loan_report_qweb"
+                name = "odoo_customer_supplier_loan.partner_loan_report_qweb"/>
+
+    </data>
+</odoo>

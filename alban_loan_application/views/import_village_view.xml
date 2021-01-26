@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+    <record id="import_village_form" model="ir.ui.view">
+        <field name="name">import.village.form</field>
+        <field name="model">import.village</field>
+        <field name="arch" type="xml">
+            <form string="Village Form">
+                <group string="Record Branches">
+                    <field name="upload_transactions"/>
+                </group>
+                <footer>
+                    <button string='Import' name="import_data" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+    <act_window name="Import Village"
+        res_model="import.village"
+        src_model="admin.village"
+        view_mode="form"
+        multi="True"
+        target="new"
+        key2="client_action_multi"
+        id="import_village_wiz"/>
+
+    
+
+    </data>
+</odoo>

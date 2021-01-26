@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <record id="wizard_set_payment_ahorross_batch" model="ir.ui.view">
+        <field name="name">Pago de cuotas</field>
+        <field name="model">saving.wizard.payment.batch</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <form string="Cuotas de ahorros">
+        <header>
+    <button name="set_borrador" type="object" string="Cambiar a Borrador" states="saldo,cancelada" class="oe_highlight"/>
+    <button name="generarsaldosbatch" type="object" string="Revisar Saldos" states="borrador" class="oe_highlight"/>
+    <button name="set_pagos" type="object" string="Realizar pagos" states="saldo" class="oe_highlight"/>
+    <!--<button name="set_cancelar" type="object" string="Cancelar Pago" states="pagada" class="oe_highlight"/>-->
+     <field name="state" widget="statusbar" nolabel="1"/>
+         </header>
+            <sheet>
+            <!--<separator string="Pago de ahorros"/>-->
+                <group>
+                    <group>
+                        <field name="ahorros_id" required="1" attrs="{'readonly': [('state','=','pagada')]}"/>
+                    </group>
+                    <group cols="2">
+                        <field name="date_payment" attrs="{'readonly': [('state','=','pagada')]}"/>
+                    </group>
+
+                    <separator string="Criterios seleccion Pagos"/>
+                    <group colspan="4">
+                      <group cols="2">
+                        <field name="state_cuota" required="1" attrs="{'readonly': [('state','=','pagada')]}"/>
+                        <field name="date_start" required="1" attrs="{'readonly': [('state','=','pagada')]}"/>
+                        <field name="date_end" required="1" attrs="{'readonly': [('state','=','pagada')]}"/>
+                        <field name="bic_id" attrs="{'readonly': [('state','=','pagada')]}"/>
+                      </group>
+
+                  </group>
+                </group>
+            <separator string="Cuota a pagar"/>
+            <group colspan="4">  
+                <group cols="2">
+                    <field name="journal_id" attrs="{'readonly': [('state','=','pagada')]}" />
+                    <field name="monto" attrs="{'readonly': [('state','=','pagada')]}"/>
+                     <field name="existe_cuota_morosa" invisible="1"/>
+                     <field name="has_revision_saldo" invisible="1"/>  
+                    <field name="currency_id" invisible="1"/> 
+                     <button name="generarsaldosbatch" class="oe_highlight" string="Revisar Saldo" type="object" attrs="{'invisible': [('state','!=','borrador')]}"/>
+                </group>
+                <group cols="2">
+                    <field name="saldo_pago"/>
+                    <field name="monto_vigente"/>
+                    <field name="numero_cuota" />
+                    <field name="saldo_mora"/>
+                    <!--<field name="cuotas_mora_num" widget="many2many_tags" options="{'no_create_edit': True}"/>-->
+                     <button name="set_pagos" class="oe_highlight" string="Realizar pago" type="object" attrs="{'invisible': [('state','!=','saldo')]}"/>
+                </group>
+            </group>
+            <group colspan="4">  
+                <p  attrs="{'invisible': ['|', ('state','in',['borrador', 'cancelada', 'pagada']), ('saldo_pago', '!=', 0)]}"><strong>No existe saldos pendientes, usted realizará un abono a capital.</strong></p>
+            </group>
+            <notebook>
+                <page string="Detalle de Saldos">
+                    <field name="cuotas_ids" mode="tree" colspan="4" nolabel="1" widget="one2many_list" context="{'group_by':'afiliado_id'}">
+                    <tree editable = "bottom" readonly="0" create="1" delete="1" class="i_search_tool">
+                        <field name="ahorros_id" />
+                        <field name="afiliado_id"  filter_domain = "[('cuotas_ids.afiliado_id, '=', self)]"/>
+                        <field name="numero_cuota"/>
+                        <field name="fecha_pago" readonly="1"/>
+                        <field name="monto_cuota" sum="Total" readonly="1"/>
+                        <field name="mora" sum="Total" readonly="1"/>
+                        <field name="saldo_pendiente" sum="Total" readonly="1"/>
+                        <field name="state" readonly="1"/>
+                        <field name="currency_id" invisible="1"/> 
+                    </tree>
+                    </field>
+                </page>
+                <page string="Observaciones">
+                    <field name="notas" placeholder="Escriba observaciones acerca de este pago"/>
+                </page>
+            </notebook>
+        </sheet>
+         <div class="oe_chatter">
+            <field name="message_ids" widget="mail_thread"/>
+        </div>
+        </form>
+        </field>
+    </record>
+
+
+<record id="wizard_set_payment_ahorross_batch_tree" model="ir.ui.view">
+        <field name="name">Pago de cuotas</field>
+        <field name="model">saving.wizard.payment.batch</field>
+        <field name="arch" type="xml">
+        <tree string="Cuotas de ahorros">
+          <field name="ahorros_id" />
+          <field name="date_payment" />
+          <field name="monto" />
+          <field name="state" />
+          
+              
+        </tree>
+        </field>
+    </record>
+    
+    <record id="action_wizard_pago_batch_ahorros" model="ir.actions.act_window">
+            <field name="name">Pago Masivo de Cuotas</field>
+            <field name="res_model">saving.wizard.payment.batch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!--field name="domain">[('ahorros_id','=',active_id)]</field-->
+            <!--field name="target">new</field-->
+    </record>
+      <menuitem id="saving_pago_general" name="Pago de ahorross" string="Pago de ahorross" parent="saving_management_main" sequence="2"/>      
+
+    <menuitem string="Pago en Batch" id="menu_ahorros_pagados_batch" parent="saving_pago_general" action="action_wizard_pago_batch_ahorros" sequence="10"/>
+
+</data>
+</odoo>

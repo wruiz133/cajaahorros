@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+  <data>
+    <record id="view_prospect_menu_main_tree" model="ir.ui.view">
+      <field name="name">view.prospect.menu.tree</field>
+      <field name="model">prospect.menu</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="branch_id"/>
+            <field name="officer"/>
+            <!--<field name="customer"/>-->
+            <field name="name"/>
+            <field name="fathername"/>
+            <field name="lastname"/>
+            <field name="client_status"/>
+        </tree>
+      </field>
+    </record>
+<!--===============================prospect menu====================================== -->
+    <record id="view_prospect_menu_form" model="ir.ui.view">
+        <field name="name">view.prospect.menu.form</field>
+        <field name="model">prospect.menu</field>
+        <field name="arch" type="xml">
+            <form>
+
+               <sheet>
+                   <h2>Contacts</h2>
+                   <group string="Information About the Application">
+                       <group>
+                           <field name="branch_id" widget="selection"/>
+
+                       </group>
+                       <group>
+                           <field name="officer" widget="selection"/>
+                       </group>
+                   </group>
+                   <group string="Information About Client">
+                       <group>
+                           <field name="customer"/>
+                           <field name="date_contact" />
+                       </group>
+                       <group >
+                           <field name="name"/>
+                           <field name="fathername" />
+                           <field name="lastname" />
+
+                       </group>
+                   </group>
+                   <group>
+                        <group>
+                           <field name="relation_bus" />
+                           <field name="type_business"/>
+                           <field name="client_status" />
+                        </group>
+                       <group>
+                            <field name="reason_visit" />
+                            <field name="overall_visit" />
+                       </group>
+                   </group>
+                   <group>
+                       <group>
+                            <field name="loan_amount"/>
+                       </group>
+                       <group>
+                           <field name="currency" widget="selection"/>
+                       </group>
+                   </group>
+                   <group>
+                       <field name="notes"/>
+                   </group>
+
+                    <group string="Customer Address">
+                       <group>
+                       <label for="country" string="Address"/>
+                        <div class="o_address_format">
+                            <field name="country" widget="selection" placeholder="Country" />
+                            <field name="district_id" widget="selection" placeholder="District" domain="[('circle_id', '=', country)]" />
+                            <field name="municipality" widget="selection" placeholder="Commune" domain="[('circle_id', '=', country),('district_id', '=', district_id)]" />
+                            <field name="city_village" widget="selection" placeholder="Village" domain="[('circle_id', '=', country),('district_id', '=', district_id),('municipal_id', '=', municipality)]" />
+                            <field name="street" placeholder="Street" />
+                        </div>
+                        <field name="email" />
+
+                       </group>
+                        <group>
+                            <field name="mobile" required="1"/>
+                            <field name="phone" />
+                        </group>
+                   </group>
+
+                    <group string="Other Details">
+                       <group>
+                           <field name="created_by" readonly="True"/>
+                           <field name="create_date" readonly="True"/>
+                       </group>
+                        <group>
+                           <field name="updated_by" readonly="True"/>
+                           <field name="update_date" readonly="True"/>
+                       </group>
+
+                   </group>
+
+               </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_prospect_menu_form_individual" model="ir.actions.act_window">
+        <field name="name">Add Contact</field>
+        <field name="res_model">prospect.menu</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field eval="False" name="view_id"/>
+
+    </record>
+
+
+      <menuitem id="menu_prospect_menu_sub_menu" name = "Prospect" parent="alban_loan_application.menu_loan_appln_main" sequence="1" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+      <menuitem action='action_prospect_menu_form_individual' id="menu_action_add_contact" parent="menu_prospect_menu_sub_menu" name ="Add Contact" sequence="1" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+      <!--<menuitem action="action_loan_application_form_individual" id="menu_loan_application_form_indiv" parent="menu_action_loan_application_indiv" name ="Loan Application" sequence="7"/>-->
+
+
+
+  </data>
+</odoo>

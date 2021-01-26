@@ -1,0 +1,466 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+            <h2 class="oe_slogan" style="color:olive;"><b>Customer and Supplier Loan(s) Management</b</h2>
+        <p class="oe_mt32" style="color:olive;">
+This module allow to manage loan of your Customers/Suppliers/Partners.
+        </p>
+        <p style="color:CRIMSON;">
+          Main Features:<br/>
+        </p>
+            <p style="color:olive;">
+                - Allowed Loan Manager to add Loan Proofs/Required Documents List.<br/>
+                - Allowed Loan Manager to add Loan Types.<br/>
+                - Allowed Loan Manager to add Loan Policies.<br/>
+                - Allowed Loan User and Manager to create Loan Request.<br/>
+                - Allowed Loan Manager to Approve Loan Request.<br/>
+                - Unique Sequence for Loan Request.<br/>
+                - Allowed Accountant to Loan Disburse.<br/>
+                - Create Disburse Accounting Journal Entry.<br/>
+                - Create Interest Receivable on Loan Accounting Journal Entry.<br/>
+                - Allowed Accountant to Receive Loan Installments.<br/>
+                - Book Interest for Installment Accounting Entry.<br/>
+                - Pay Installment Accounting Journal Entry.<br/>
+                - It will Create Interest on Loan Journal Entry and Loan Installment Accounting Entry.<br/>
+                - Allowed you to Print Loan Report.<br/>
+                - Allowed your Customers to see their Loans in Portal - My Account Page.<br/>
+        </p>
+        
+        <p style="color:CRIMSON;">
+          Highlighted Steps:<br/>
+        </p>
+        <p style="color:green;">
+          Loan Request:<br/>
+        </p>
+        <p style="color:olive;">
+            Create Loan Request->Apply Loan Request->Approve Loan Request->Compute Loan Installment->Disburse Loan->
+        </p>
+        <p style="color:green;">
+          Loan Installments:<br/>
+        </p>
+        <p style="color:olive;">
+            Confirm Loan Installments -> Book Interest -> Pay
+        </p>
+        
+        <p style="color:CRIMSON;">
+          Menus:
+            <ul style="color:olive;">
+                <li>Loans
+                    <ul>
+                        <li>Loans
+                            <ul>
+                                <li>Loan Requests</li>
+                                <li>Loan Requests to Approve</li>
+                                <li>Loan Installments</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>Accounting
+                            <ul>
+                                <li>Loans to Disburse</li>
+                            </ul> 
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>Configuration
+                            <ul>
+                                <li>Loan Proofs</li>
+                                <li>Loan Types</li>
+                                <li>Loan Policies</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+             </ul>
+             <ul style="color:olive;">
+                <li>Invoicing
+                    <ul>
+                        <li>Loans
+                            <ul>
+                                <li>Loan Requests</li>
+                                <li>Loan Installments</li>
+                            </ul>
+                        </li>
+                    </ul>                
+                </li>
+             </ul>
+        </p>
+<p class="oe_mt32" style="color:olive;">
+Note: You can check detail screenshots below before buy and make sure it full fill your requirements. For support/configuration and adding new features you can contact us in future. <b>For more details please watch Video on Live Preview.
+            </p>
+    </div>
+</section>
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Loan Proofs</h2>
+            <p class="oe_mt32" style="color:olive;" >
+This loan proof menu allow Loan Manager to create and configure all loan proofs that will be required to approve loan and process it. These loan proofs will be selected on loan types and then it will be visible on loan request form.
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="1.png">
+                    <img src="2.png">
+                </div>
+            </p>
+    </div>
+</section>
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Loan Types List View</h2>
+            <p class="oe_mt32">
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="3.png">
+                </div>
+            </p>
+    </div>
+</section>
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Loan Types Form View</h2>
+            <p class="oe_mt32" style="color:olive;">
+This loan types allow Loan Manager to create different types of loan for customers/Suppliers. Also this loan type allow Loan user to configure loan given to customer/suppliers will be interest payable or not.<br/><br/>
+Also it will allow to configure that loan type repayment method will be from payroll or direct cash/bank cheque from customers/suppliers at time of installment payment. This also allow to configure disburse method will be by payroll or cash/bank. (Disbursement can be done when loan request will be approved.) <br/><br/>
+Here Loan Manager can list out Partner categories and customer/Suppliers which can request for this type of loan from company..... For example if Customer A is not eligible and not come under category selected in loan types then system will not allow him/her to submit loan request. Loan proof also configured here so that we can state that these proofs will be needed to process loan request for customers/suppliers.<br/>
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="4.png">
+                    <img src="5.png">
+                </div>
+            </p>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Loan Policies List View</h2>
+            <p class="oe_mt32" style="color:olive;"> 
+Loan Manager can configure policies or rules for loan request and based on that rules it will check before approving loan that if customer full fill that policy or not.
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="6.png">
+                </div>
+            </p>
+    </div>
+</section>
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Loan Policies Form View</h2>
+            <p class="oe_mt32" style="color:olive;">
+Policy types: 1. Max loan amount 2. Gap between two loans <br/>
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="7.png">
+                    <img src="8.png">
+                </div>
+            </p>
+    </div>
+</section>
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Loan Request Form</h2>
+            <p class="oe_mt32" style="color:olive;"> 
+Loan user can create loan request and approved it if all the required policies and proofs are available.
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="9.png">
+                    <img src="10.png">
+                    <img src="11.png">
+                    <img src="12.png">
+                </div>
+            </p>
+    </div>
+</section>
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Loan Request Approve</h2>
+            <p class="oe_mt32" style="color:olive;">
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="13.png">
+                </div>
+            </p>
+    </div>
+</section>
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Loan to Disburse by Accountant</h2>
+            <p class="oe_mt32" style="color:olive;">
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="14.png">
+                    <img src="15.png">
+                </div>
+            </p>
+    </div>
+</section>
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Disbursed Accounting Journal Entry</h2>
+            <p class="oe_mt32" style="color:olive;">
+            Disbursed Account From "Disburse Loan" Button
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="16.png">
+                </div>
+            </p>
+    </div>
+    <div class="oe_row">
+            <p class="oe_mt32" style="color:olive;">
+            Disbursed Journal Entries
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="17.png">
+                </div>
+            </p>
+    </div>
+    <div class="oe_row">
+            <p class="oe_mt32" style="color:olive;">
+            Disbursed Journal Entry.
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="18.png">
+                </div>
+            </p>
+    </div>
+    <div class="oe_row">
+            <p class="oe_mt32" style="color:olive;">
+            Ineterest on loan Journal entry
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="19.png">
+                </div>
+            </p>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Loan Installments</h2>
+            <p class="oe_mt32" style="color:olive;">
+All installments of loan will be listed here.
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="20.png">
+                </div>
+            </p>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Loan Installments Form View</h2>
+            <p class="oe_mt32" style="color:olive;">
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="21.png">
+                </div>
+            </p>
+    </div>
+    <div class="oe_row">
+            <p class="oe_mt32" style="color:olive;">
+            Pay and Book Interest of Installment
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="22.png">
+                </div>
+            </p>
+    </div>
+    <div class="oe_row">
+            <p class="oe_mt32" style="color:olive;">
+            Installment Accountig Entries
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="23.png">
+                </div>
+            </p>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Loan Interest Accounting Entry</h2>
+            <p class="oe_mt32" style="color:olive;">
+There is button on installment called "Book interest" that will raise this journal entry in system for interest for that installment.
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="24.png">
+                </div>
+            </p>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Loan Installment Interest on Journal Entry</h2>
+            <p class="oe_mt32" style="color:olive;">
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="25.png">
+                </div>
+            </p>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Loan Installment Journal Entry</h2>
+            <p class="oe_mt32" style="color:olive;">
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="26.png">
+                </div>
+            </p>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Some Other Configuration on Customer/Supplier Form</h2>
+            <p class="oe_mt32" style="color:olive;">
+Loan details and loan policy will come automatically on Customer/Supplier form.
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="27.png">
+                    <img src="28.png">
+                    <img src="29.png">
+                </div>
+            </p>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Your Customer/Supplier use Portal see all Loan Information</h2>
+            <p class="oe_mt32" style="color:olive;">
+Show Loans From Open My Account Menu / My Loans
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="30.png">
+                    <img src="31.png">
+                </div>
+            </p>
+    </div>
+    <div class="oe_row">
+            <p class="oe_mt32" style="color:olive;">
+Here Show List of loans Which was taken by that customer/supplier who logged as portal user.
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="32.png">
+                </div>
+            </p>
+    </div>
+    <div class="oe_row">
+            <p class="oe_mt32" style="color:olive;">
+Customer/Supplier can print loan which will Open Full information from the loan.
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="33.png">
+                    <img src="34.png">
+                </div>
+            </p>
+    </div>
+</section>
+
+
+<section class="oe_container">
+    <div class="oe_row">
+        <h2 class="oe_slogan" style="color:CRIMSON;"><b>Loan PDF Report</h2>
+            <p class="oe_mt32" style="color:olive;">
+            </p>
+            <p>
+                <div class="oe_demo oe_screenshot">
+                    <img src="35.png">
+                    <img src="36.png">
+                </div>
+            </p>
+    </div>
+</section>
+
+
+
+<section class="oe_container" >
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">
+            <strong><font style="color:#2dd280;" class="text-epsilon">Contact / Support<br/></font></strong>
+            <strong><font style="color:crimson" class="text-epsilon">Introducing</font>
+            <font style="color:crimson;" class="text-epsilon">Probuse Consulting Services Pvt. Ltd.</font></strong>
+          </h2>
+       <div class="oe_span6">
+           <div class="mt32 col-md-10">
+           <div class="oe_picture" style="margin: 25px 10%;">
+               <a  target='new' href="http://www.probuse.com/">
+                   <img src="logo.png">
+               </a>
+           </div>
+           <p class="oe_mt32">
+               <font style="color:crimson;">If you need any help or want more additional features, you may contact us through:</font><br/>
+               <font style="color:crimson;">Email: <a href="contact@probuse.com">contact@probuse.com</a> <br/>
+               <font style="color:crimson;">Website: </font><a href="http://www.probuse.com/" target='new'><u>www.probuse.com</u></a> <br/>
+               <font style="color:crimson;">Skype: mustufa_probuse</font><br/>
+           </p>
+           <p>
+                <h2>
+                    <a href="https://www.facebook.com/probusecs" target="new">
+                      <i class="fa fa-facebook-square" style="font-size:38px;"></i>
+                    </a>
+                    <a href="https://twitter.com/mustufa_odoo" target="new">
+                      <i class="fa fa-twitter" style="font-size:38px;"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/mustufa-rangwala-odoo-openerp-0a46777/" target="new">
+                      <i class="fa fa-linkedin" style="font-size:38px;"></i>
+                    </a>
+                    <a href="https://www.youtube.com/channel/UCHlyoC4khP44M1cOCJXo2FQ" target="new">
+                      <i class="fa fa-youtube-play" style="font-size:38px;"></i>
+                    </a>
+                    <a href="https://plus.google.com/u/0/113284573788891837715/posts" target="new" rel="publisher">
+                      <i class="fa fa-google-plus-square" style="font-size:38px;"></i>
+                    </a>
+              </h2>
+            </p>
+           </div>
+       </div>
+    <div class="mt32 col-md-5">
+           <p style="text-align: justify; ">
+            <font class="text-epsilon" style="color:crimson;">Probuse Consulting Service Pvt Ltd is an Software and Web development specialist which offers complete business application together. We are well experienced to provide a face for your business on the software and Internet level.</font>
+          </p>
+          <p style="text-align: justify;">
+            <font class="text-epsilon" style="color:crimson">Probuse Consulting Service Pvt Ltd is a specialist in Odoo/OpenERP services and could give your business open source hand to drive.</font>
+          </p>
+            <h3 class="o_animate o_anim_bounce_in" style="text-align: left; animation-play-state: paused;">
+                <font style="font-size: 18px;color:#ff8000;" class="text-epsilon"><strong>Our Services</strong></font>
+            </h3>
+            <ul style="list-style-type:square">
+                <a href="http://www.probuse.com/page/odoo-implementation" target="new"><li list-style-type: "*";><p style="text-align: left; color:crimson;">Odoo Implementation</p></a></li>
+                <a href="http://www.probuse.com/page/odoo-support" target="new"><li><p style="text-align: left; color:crimson;">Odoo Support</p></a></li>
+                <a href="http://www.probuse.com/page/odoo-customization" target="new"><li><p style="text-align: left; color:crimson;">Odoo Customization</p></li></a>
+                <a href="http://www.probuse.com/page/odoo-migration" target="new"><li><p style="text-align: left; color:crimson;">Odoo Migration</p></a></li>
+                <a href="http://www.probuse.com/page/odoo-training" target="new"><li><p style="text-align: left; color:crimson;">Odoo Training</p></a></li>
+            </ul>
+           </p>
+       </div>
+   </div>
+</section>
+

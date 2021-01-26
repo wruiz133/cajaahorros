@@ -1,0 +1,2165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+    <record id="admin_branch_form" model="ir.ui.view">
+        <field name="name">admin.branch.form</field>
+        <field name="model">admin.branch</field>
+        <field name="arch" type="xml">
+            <form string="Branch Form">
+                <sheet>
+                    <group string="Record Branches">
+                        <field name="branch_name" required="1"/>
+                        <field name="accounting_no" />
+                        <field name="sub_branch_ids" invisible="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_branch_tree" model="ir.ui.view">
+        <field name="name">admin.branch.tree</field>
+        <field name="model">admin.branch</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="branch_name" />
+                <field name="accounting_no" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="admin_branch_action" model="ir.actions.act_window">
+        <field name="name">Branch</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">admin.branch</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="view_admin_lbl_main" name="Administration" parent="alban_loan_application.menu_loan_appln_main" sequence="208"/>
+    <menuitem id="view_admin_lbl" name="Administration" parent="view_admin_lbl_main" />
+    
+    <menuitem id="menu_action_view_admin" name="Branches" parent="view_admin_lbl" action="alban_loan_application.admin_branch_action" sequence="1"/>
+
+
+    
+        <record id="admin_officer_form" model="ir.ui.view">
+        <field name="name">admin.officer.form</field>
+        <field name="model">admin.officer</field>
+        <field name="arch" type="xml">
+            <form string="Officer Form">
+                <sheet>
+                   <group string="Record Officer">
+                        <field name="branch_id" required="1" widget="selection"/>
+                        <field name="sub_branch_id" required="1" widget="selection"/>
+                        <field name="description" required="1"/>
+                        <field name="status" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_officer_tree" model="ir.ui.view">
+        <field name="name">admin.officer.tree</field>
+        <field name="model">admin.officer</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="branch_id" />
+                <field name="sub_branch_id" />
+                <field name="description" />
+                <field name="status" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="admin_officer_action" model="ir.actions.act_window">
+        <field name="name">Officer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">admin.officer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+        <menuitem id="menu_action_officer_admin" name="Officers" parent="view_admin_lbl" action="alban_loan_application.admin_officer_action" sequence="3"/>
+
+
+
+    
+
+    <record id="admin_sub_branch_form" model="ir.ui.view">
+        <field name="name">admin.sub.branch.form</field>
+        <field name="model">admin.sub.branch</field>
+        <field name="arch" type="xml">
+            <form string="Sub Branch Form">
+                <sheet>
+                    <h1>Sub Branch</h1>
+                    <group string="Increase">
+                        <field name="branch_id" required="1" widget="selection"/>
+                        <field name="desig_sub_branch" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_sub_branch_tree" model="ir.ui.view">
+        <field name="name">admin.sub.branch.tree</field>
+        <field name="model">admin.sub.branch</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="branch_id" />
+                <field name="desig_sub_branch" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="admin_sub_branch_action" model="ir.actions.act_window">
+        <field name="name">Sub Branch</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">admin.sub.branch</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+        <menuitem id="menu_action_view_sub_admin" name="Under Branches" parent="view_admin_lbl" action="alban_loan_application.admin_sub_branch_action" sequence="2"/>
+
+
+
+
+
+        <record id="officer_con_user_form" model="ir.ui.view">
+        <field name="name">admin.officer.form</field>
+        <field name="model">officers.con.user</field>
+        <field name="arch" type="xml">
+            <form string="Officer Form">
+                <sheet>
+                    <group>
+                        <field name="branch_id" required="1" widget="selection"/>
+                        <field name="officer_id" required="1" widget="selection"/>
+                        <field name="user_system_id" required="1"  widget="selection"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="officer_con_user_tree" model="ir.ui.view">
+        <field name="name">officers.con.user.tree</field>
+        <field name="model">officers.con.user</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="branch_id" />
+                <field name="officer_id" />
+                <field name="user_system_id" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="officer_con_user_action" model="ir.actions.act_window">
+        <field name="name">Officers connection with Users</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">officers.con.user</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+        <menuitem id="menu_action_officer_con_user" name="Users connecting Officers" parent="view_admin_lbl" action="alban_loan_application.officer_con_user_action" sequence="4"/>
+
+
+
+
+
+
+        <record id="circle_counties_form" model="ir.ui.view">
+        <field name="name">circle.counties.form</field>
+        <field name="model">circle.counties</field>
+        <field name="arch" type="xml">
+            <form string="List of counties Form">
+                <sheet>
+                    <group string="Add a circuit">
+                        <field name="catalog" required="1"/>
+                        <field name="desp_count" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="circle_counties_tree" model="ir.ui.view">
+        <field name="name">circle.counties.tree</field>
+        <field name="model">circle.counties</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog" />
+                <field name="desp_count" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="circle_counties_action" model="ir.actions.act_window">
+            <field name="name">List of counties</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">circle.counties</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        
+        <record id="res_counties_new_action" model="ir.actions.act_window">
+            <field name="name">counties</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.country</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_res_counties_new_action" name="Circle" parent="view_admin_lbl" action="alban_loan_application.res_counties_new_action" sequence="5"/>
+
+
+
+
+
+
+        <record id="admin_city_form" model="ir.ui.view">
+        <field name="name">admin.city.form</field>
+        <field name="model">admin.city</field>
+        <field name="arch" type="xml">
+            <form string="City Form">
+                <sheet>
+                    <group string="Record about">
+                        <field name="circle_id"  required="1" widget="selection"/>
+                        <field name="city_code" required="1"/>
+                        <field name="name" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_city_tree" model="ir.ui.view">
+        <field name="name">admin.city.tree</field>
+        <field name="model">admin.city</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="circle_id" />
+                <field name="city_code" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="admin_city_action" model="ir.actions.act_window">
+            <field name="name">City</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">admin.city</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_admin_city_action" name="City" parent="view_admin_lbl" action="admin_city_action" sequence="6"/>
+
+    <record id="admin_district_tree" model="ir.ui.view">
+        <field name="name">admin.district.tree</field>
+        <field name="model">admin.district</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="circle_id" widget="selection"/>
+                <field name="district_code" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="admin_district_action" model="ir.actions.act_window">
+            <field name="name">District</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">admin.district</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_action_admin_district" name="Districts" parent="view_admin_lbl" action="alban_loan_application.admin_district_action" sequence="6"/>
+
+
+        <record id="admin_municipal_form" model="ir.ui.view">
+        <field name="name">admin.municipal.form</field>
+        <field name="model">admin.municipal</field>
+        <field name="arch" type="xml">
+            <form string="Commune Form">
+                <sheet>
+                    <group string="Record municipality">
+                        <field name="circle_id"  required="1" widget="selection"/>
+                        <field name="district_id"  required="1" widget="selection" domain="[('circle_id', '=', circle_id)]"/>
+                        <field name="district_code" required="1"/>
+                        <field name="name" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_municipal_tree" model="ir.ui.view">
+        <field name="name">admin.municipal.tree</field>
+        <field name="model">admin.municipal</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="circle_id"/>
+                <field name="district_code" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="admin_municipal_action" model="ir.actions.act_window">
+            <field name="name">Commune</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">admin.municipal</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_action_admin_municipal" name="Commune" parent="view_admin_lbl" action="alban_loan_application.admin_municipal_action" sequence="7"/>
+        
+        
+        <record id="admin_village_form" model="ir.ui.view">
+        <field name="name">admin.village.form</field>
+        <field name="model">admin.village</field>
+        <field name="arch" type="xml">
+            <form string="Village Form">
+                <sheet>
+                    <group string="Record village">
+                        <field name="circle_id"  required="1" widget="selection"/>
+                        <field name="district_id"  required="1" widget="selection" domain="[('circle_id', '=', circle_id)]"/>
+                        <field name="municipal_id" required="1" widget="selection" domain="[('circle_id', '=', circle_id),('district_id', '=', district_id)]"/>
+                        <field name="district_code" required="1"/>
+                        <field name="name" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_village_tree" model="ir.ui.view">
+        <field name="name">admin.village.tree</field>
+        <field name="model">admin.village</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="district_code" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="admin_village_action" model="ir.actions.act_window">
+            <field name="name">Villages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">admin.village</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_action_admin_village" name="Villages" parent="view_admin_lbl" action="alban_loan_application.admin_village_action" sequence="8"/>
+
+
+        <record id="civil_registry_form" model="ir.ui.view">
+        <field name="name">civil.registry.form</field>
+        <field name="model">civil.registry</field>
+        <field name="arch" type="xml">
+            <form string="Civil Registry Form">
+                <sheet>
+                    <group string="Add a civil state">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="civil_registry_tree" model="ir.ui.view">
+        <field name="name">civil.registry.tree</field>
+        <field name="model">civil.registry</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="civil_registry_action" model="ir.actions.act_window">
+            <field name="name">Civil Registry</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">civil.registry</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_action_civil_registry" name="Civil Registry" parent="view_admin_lbl" action="alban_loan_application.civil_registry_action" sequence="9"/>
+
+        <record id="civil_registry_form" model="ir.ui.view">
+        <field name="name">professional.status.form</field>
+        <field name="model">professional.status</field>
+        <field name="arch" type="xml">
+            <form string="Professional Status Form">
+                <sheet>
+                    <group string="Add a professional situation">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="civil_registry_tree" model="ir.ui.view">
+        <field name="name">professional.status.tree</field>
+        <field name="model">professional.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="professional_status_action" model="ir.actions.act_window">
+            <field name="name">Professional Situation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">professional.status</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_action_professional_status" name="Professional Situations" parent="view_admin_lbl" action="alban_loan_application.professional_status_action" sequence="10"/>
+
+
+        <record id="admin_education_form" model="ir.ui.view">
+        <field name="name">admin.education.form</field>
+        <field name="model">admin.education</field>
+        <field name="arch" type="xml">
+            <form string="admin Education Form">
+                <sheet>
+                    <group string="Add An Education">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_education_tree" model="ir.ui.view">
+        <field name="name">admin.education.tree</field>
+        <field name="model">admin.education</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="admin_education_action" model="ir.actions.act_window">
+            <field name="name">Education</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">admin.education</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_admin_education"
+                name="Education"
+                parent="view_admin_lbl"
+                action="alban_loan_application.admin_education_action" sequence="11"/>
+
+
+
+        <record id="admin_marketing_form" model="ir.ui.view">
+        <field name="name">admin.marketing.form</field>
+        <field name="model">admin.marketing</field>
+        <field name="arch" type="xml">
+            <form string="admin Marketing Form">
+                <sheet>
+                    <group string="Add Marketing">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_marketing_tree" model="ir.ui.view">
+        <field name="name">admin.marketing.tree</field>
+        <field name="model">admin.marketing</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="admin_marketing_action" model="ir.actions.act_window">
+            <field name="name">Marketing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">admin.marketing</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_admin_marketing"
+                name="Marketing"
+                parent="view_admin_lbl"
+                action="alban_loan_application.admin_marketing_action" sequence="12"/>
+
+
+        <record id="admin_currencies_form" model="ir.ui.view">
+        <field name="name">admin.currencies.form</field>
+        <field name="model">admin.currencies</field>
+        <field name="arch" type="xml">
+            <form string="admin currencies Form">
+                <sheet>
+                    <group string="Add a Currency">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_currencies_tree" model="ir.ui.view">
+        <field name="name">admin.currencies.tree</field>
+        <field name="model">admin.currencies</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="admin_currencies_action" model="ir.actions.act_window">
+            <field name="name">Currencies</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.currency</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_admin_currencies"
+                name="Currencies"
+                parent="view_admin_lbl"
+                action="alban_loan_application.admin_currencies_action" sequence="51"/>
+
+
+        <record id="type_companies_form" model="ir.ui.view">
+        <field name="name">type.companies.form</field>
+        <field name="model">type.companies</field>
+        <field name="arch" type="xml">
+            <form string="type companies Form">
+                <sheet>
+                    <group string="Submit a Tip Company">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="type_companies_tree" model="ir.ui.view">
+        <field name="name">type.companies.tree</field>
+        <field name="model">type.companies</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="type_companies_action" model="ir.actions.act_window">
+            <field name="name">Type of Companies</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">type.companies</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_type_companies"
+                name="Type of Companies"
+                parent="view_admin_lbl"
+                action="alban_loan_application.type_companies_action" sequence="14"/>
+
+
+        <record id="sector_companies_form" model="ir.ui.view">
+        <field name="name">sector.companies.form</field>
+        <field name="model">sector.companies</field>
+        <field name="arch" type="xml">
+            <form string="sector companies Form">
+                <sheet>
+                    <group string="Add a Company Sector">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sector_companies_tree" model="ir.ui.view">
+        <field name="name">sector.companies.tree</field>
+        <field name="model">sector.companies</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="sector_companies_action" model="ir.actions.act_window">
+            <field name="name">Sector Companies</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sector.companies</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_sector_companies"
+                name="Sector Companies"
+                parent="view_admin_lbl"
+                action="alban_loan_application.sector_companies_action" sequence="15"/>
+
+
+
+
+        <record id="industries_companies_form" model="ir.ui.view">
+        <field name="name">industries.companies.form</field>
+        <field name="model">industries.companies</field>
+        <field name="arch" type="xml">
+            <form string="Industries Companies Form">
+                <sheet>
+                    <group string="Add a Company's Industry">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="industries_companies_tree" model="ir.ui.view">
+        <field name="name">industries.companies.tree</field>
+        <field name="model">industries.companies</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="industries_companies_action" model="ir.actions.act_window">
+            <field name="name">Industries Companies</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">industries.companies</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_industries_companies"
+                name="Industries Companies"
+                parent="view_admin_lbl"
+                action="alban_loan_application.industries_companies_action" sequence="16"/>
+
+
+
+        <record id="custom_credit_form" model="ir.ui.view">
+        <field name="name">custom.credit.form</field>
+        <field name="model">custom.credit</field>
+        <field name="arch" type="xml">
+            <form string="Custom Credit Form">
+                <sheet>
+                    <group string="Add Type Of Loan">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="custom_credit_tree" model="ir.ui.view">
+        <field name="name">custom.credit.tree</field>
+        <field name="model">custom.credit</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="custom_credit_action" model="ir.actions.act_window">
+            <field name="name">Custom Credit</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">custom.credit</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_custom_credit"
+                name="Custom Credit"
+                parent="view_admin_lbl"
+                action="alban_loan_application.custom_credit_action" sequence="17"/>
+
+
+        <record id="valid_ident_form" model="ir.ui.view">
+        <field name="name">valid.ident.form</field>
+        <field name="model">valid.ident</field>
+        <field name="arch" type="xml">
+            <form string="Valid Identification Form">
+                <sheet>
+                    <group string="Add Identification">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="valid_ident_tree" model="ir.ui.view">
+        <field name="name">valid.ident.tree</field>
+        <field name="model">valid.ident</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="valid_ident_action" model="ir.actions.act_window">
+            <field name="name">Valid Identification</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">valid.ident</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_valid_ident"
+                name="Identification"
+                parent="view_admin_lbl"
+                action="alban_loan_application.valid_ident_action" sequence="18"/>
+
+        <record id="admin_residential_form" model="ir.ui.view">
+        <field name="name">admin.residential.form</field>
+        <field name="model">admin.residential</field>
+        <field name="arch" type="xml">
+            <form string="Residential Form">
+                <sheet>
+                    <group string="Add Lodging">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_residential_tree" model="ir.ui.view">
+        <field name="name">admin.residential.tree</field>
+        <field name="model">admin.residential</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="admin_residential_action" model="ir.actions.act_window">
+            <field name="name">Residential</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">admin.residential</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_admin_residential"
+                name="Residential"
+                parent="view_admin_lbl"
+                action="alban_loan_application.admin_residential_action" sequence="19"/>
+
+
+
+        <record id="customer_relationship_form" model="ir.ui.view">
+        <field name="name">customer.relationship.form</field>
+        <field name="model">customer.relationship</field>
+        <field name="arch" type="xml">
+            <form string="Customer Relationship Form">
+                <sheet>
+                    <group string="Add Relation Application">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="customer_relationship_tree" model="ir.ui.view">
+        <field name="name">customer.relationship.tree</field>
+        <field name="model">customer.relationship</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="customer_relationship_action" model="ir.actions.act_window">
+            <field name="name">Customer Relationship</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer.relationship</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_customer_relationship"
+                name="Customer Relationship"
+                parent="view_admin_lbl"
+                action="alban_loan_application.customer_relationship_action" sequence="20"/>
+
+
+
+        <record id="legal_status_form" model="ir.ui.view">
+        <field name="name">legal.status.form</field>
+        <field name="model">legal.status</field>
+        <field name="arch" type="xml">
+            <form string="Legal Status Form">
+                <sheet>
+                    <group string="Add Legal Status">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="legal_status_tree" model="ir.ui.view">
+        <field name="name">legal.status.tree</field>
+        <field name="model">legal.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="legal_status_action" model="ir.actions.act_window">
+            <field name="name">Legal Status</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">legal.status</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_legal_status"
+                name="Legal Status"
+                parent="view_admin_lbl"
+                action="alban_loan_application.legal_status_action" sequence="21"/>
+
+
+
+        <record id="purpose_loan_form" model="ir.ui.view">
+        <field name="name">purpose.loan.form</field>
+        <field name="model">purpose.loan</field>
+        <field name="arch" type="xml">
+            <form string="Purpose Of Loan Form">
+                <sheet>
+                    <group string="Add Reasons Borrowing">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="purpose_loan_tree" model="ir.ui.view">
+        <field name="name">purpose.loan.tree</field>
+        <field name="model">purpose.loan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="purpose_loan_action" model="ir.actions.act_window">
+            <field name="name">Purpose Of Loan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purpose.loan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_purpose_loan"
+                name="Purpose Of Loan"
+                parent="view_admin_lbl"
+                action="alban_loan_application.purpose_loan_action" sequence="22"/>
+
+
+
+        <record id="type_guarantees_form" model="ir.ui.view">
+        <field name="name">type.guarantees.form</field>
+        <field name="model">type.guarantees</field>
+        <field name="arch" type="xml">
+            <form string="Type Guarantee Form">
+                <sheet>
+                    <group string="Add Guarantees">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="type_guarantees_tree" model="ir.ui.view">
+        <field name="name">type.guarantees.tree</field>
+        <field name="model">type.guarantees</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="type_guarantees_action" model="ir.actions.act_window">
+            <field name="name">Type Guarantee</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">type.guarantees</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_type_guarantees"
+                name="Type Guarantee"
+                parent="view_admin_lbl"
+                action="alban_loan_application.type_guarantees_action" sequence="23"/>
+
+
+
+
+        <record id="loan_products_form" model="ir.ui.view">
+        <field name="name">loan.products.form</field>
+        <field name="model">loan.products</field>
+        <field name="arch" type="xml">
+            <form string="Loans for Products Form">
+                <sheet>
+                    <group string="Add Credit For Products">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="loan_products_tree" model="ir.ui.view">
+        <field name="name">loan.products.tree</field>
+        <field name="model">loan.products</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="loan_products_action" model="ir.actions.act_window">
+            <field name="name">Loans For Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">loan.products</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_loan_products"
+                name="Loans for Products"
+                parent="view_admin_lbl"
+                action="alban_loan_application.loan_products_action" sequence="24"/>
+
+
+        <record id="admin_banks_form" model="ir.ui.view">
+        <field name="name">admin.banks.form</field>
+        <field name="model">admin.banks</field>
+        <field name="arch" type="xml">
+            <form string="Banks">
+                <sheet>
+                    <group string="Add Bank">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_banks_tree" model="ir.ui.view">
+        <field name="name">admin.banks.tree</field>
+        <field name="model">admin.banks</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="admin_banks_action" model="ir.actions.act_window">
+            <field name="name">Banks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.bank</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_admin_banks"
+                name="Banks"
+                parent="view_admin_lbl"
+                action="alban_loan_application.admin_banks_action" sequence="25"/>
+
+
+        <record id="type_material_form" model="ir.ui.view">
+        <field name="name">type.material.form</field>
+        <field name="model">type.material</field>
+        <field name="arch" type="xml">
+            <form string="Type of Materials">
+                <sheet>
+                    <group string="Add type of material">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="type_material_tree" model="ir.ui.view">
+        <field name="name">type.material.tree</field>
+        <field name="model">type.material</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="type_material_action" model="ir.actions.act_window">
+            <field name="name">Type of Materials</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">type.material</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_type_material"
+                name="Type of Materials"
+                parent="view_admin_lbl"
+                action="alban_loan_application.type_material_action" sequence="26"/>
+
+
+        <record id="property_type_form" model="ir.ui.view">
+        <field name="name">property.type.form</field>
+        <field name="model">property.type</field>
+        <field name="arch" type="xml">
+            <form string="Property Type">
+                <sheet>
+                    <group string="Add Property">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="property_type_tree" model="ir.ui.view">
+        <field name="name">property.type.tree</field>
+        <field name="model">property.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="property_type_action" model="ir.actions.act_window">
+            <field name="name">Property Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">property.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_property_type"
+                name="Property Type"
+                parent="view_admin_lbl"
+                action="alban_loan_application.property_type_action" sequence="27"/>
+
+
+        <record id="mortgage_type_form" model="ir.ui.view">
+        <field name="name">mortgage.type.form</field>
+        <field name="model">mortgage.type</field>
+        <field name="arch" type="xml">
+            <form string="Mortgage Type">
+                <sheet>
+                    <group string="Add Hostage">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mortgage_type_tree" model="ir.ui.view">
+        <field name="name">property.type.tree</field>
+        <field name="model">mortgage.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="mortgage_type_action" model="ir.actions.act_window">
+            <field name="name">Hostages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mortgage.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_mortgage_type"
+                name="Hostages"
+                parent="view_admin_lbl"
+                action="alban_loan_application.mortgage_type_action" sequence="28"/>
+
+
+
+        <record id="insurance_companies_form" model="ir.ui.view">
+        <field name="name">insurance.companies.form</field>
+        <field name="model">insurance.companies</field>
+        <field name="arch" type="xml">
+            <form string="Insurance Companies">
+                <sheet>
+                    <group string="Add Insurance Company">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="insurance_companies_tree" model="ir.ui.view">
+        <field name="name">insurance.companies.tree</field>
+        <field name="model">insurance.companies</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog"/>
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="insurance_companies_action" model="ir.actions.act_window">
+            <field name="name">Insurance Companies</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">insurance.companies</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_insurance_companies"
+                name="Insurance Companies"
+                parent="view_admin_lbl"
+                action="alban_loan_application.insurance_companies_action" sequence="29"/>
+
+
+
+        <record id="currency_exchange_form" model="ir.ui.view">
+        <field name="name">currency.exchange.form</field>
+        <field name="model">currency.exchange</field>
+        <field name="arch" type="xml">
+            <form string="Currency Exchange">
+                <sheet>
+                    <group string="Record Foreign Course">
+                        <field name="date" required="1"/>
+                        <field name="currency_id" required="1" widget="selection"/>
+                        <field name="exeRate" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="currency_exchange_tree" model="ir.ui.view">
+        <field name="name">currency.exchange.tree</field>
+        <field name="model">currency.exchange</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="currency_id" />
+                <field name="exeRate" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="currency_exchange_action" model="ir.actions.act_window">
+            <field name="name">Currency Exchange</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">currency.exchange</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_currency_exchange"
+                name="Currency Exchange"
+                parent="view_admin_lbl"
+                action="alban_loan_application.currency_exchange_action" sequence="30"/>
+
+
+
+        <record id="document_type_form" model="ir.ui.view">
+        <field name="name">document.type.form</field>
+        <field name="model">document.type</field>
+        <field name="arch" type="xml">
+            <form string="Document Type">
+                <sheet>
+                    <group string="Record Type Document">
+                        <field name="ranking" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="document_type_tree" model="ir.ui.view">
+        <field name="name">document.type.tree</field>
+        <field name="model">document.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ranking" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="document_type_action" model="ir.actions.act_window">
+            <field name="name">Document Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">document.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_document_type"
+                name="Document Type"
+                parent="view_admin_lbl"
+                action="alban_loan_application.document_type_action" sequence="31"/>
+
+
+
+        <record id="admin_document_form" model="ir.ui.view">
+        <field name="name">admin.type.form</field>
+        <field name="model">admin.document</field>
+        <field name="arch" type="xml">
+            <form string="Document">
+                <sheet>
+                    <group string="Record Document">
+                        <field name="ranking" required="1"/>
+                        <field name="description" required="1"/>
+                        <field name="document_type_id" widget="selection"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admin_document_tree" model="ir.ui.view">
+        <field name="name">admin_document.type.tree</field>
+        <field name="model">admin.document</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ranking" />
+                <field name="description" />
+                <field name="document_type_id" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="admin_document_action" model="ir.actions.act_window">
+            <field name="name">Document</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">admin.document</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_document"
+                name="Document"
+                parent="view_admin_lbl"
+                action="alban_loan_application.admin_document_action" sequence="32"/>
+
+
+    <record id="coll_status_form" model="ir.ui.view">
+            <field name="name">status.type.form</field>
+            <field name="model">coll.status</field>
+            <field name="arch" type="xml">
+                <form string="collateral status" create="false" delete="false">
+                    <sheet>
+                        <group>
+                            <field name="name" required="0" readonly="1"/>
+                            <!--<field name="status" required="1"/>-->
+                            <field name="coll_status_ids" >
+                                <tree editable="bottom">
+                                    <field name="name" required="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+    </record>
+
+    <record id="coll_status_tree" model="ir.ui.view">
+            <field name="name">status.type.tree</field>
+            <field name="model">coll.status</field>
+            <field name="arch" type="xml">
+                <tree delete="false" create="false">
+                    <field name="name" />
+                    <!--<field name="status" />-->
+                </tree>
+            </field>
+    </record>
+
+        <record id="coll_status_action" model="ir.actions.act_window">
+            <field name="name">Collateral Status</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">coll.status</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_coll_status"
+                name="Collateral Status"
+                parent="view_admin_lbl"
+                action="alban_loan_application.coll_status_action" sequence="33"/>
+
+
+            <record id="citizenship_info_form" model="ir.ui.view">
+        <field name="name">citizenship.type.form</field>
+        <field name="model">citizenship.info</field>
+        <field name="arch" type="xml">
+            <form string="citizenship">
+                <sheet>
+                    <group string="Add Citizenship">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="citizenship_info_tree" model="ir.ui.view">
+        <field name="name">citizenship.type.tree</field>
+        <field name="model">citizenship.info</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="citizenship_info_action" model="ir.actions.act_window">
+            <field name="name">citizenship</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">citizenship.info</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_citizenship_info"
+                name="Citizenship"
+                parent="view_admin_lbl"
+                action="alban_loan_application.citizenship_info_action" sequence="34"/>
+
+               <record id="gurantor_roles_form" model="ir.ui.view">
+        <field name="name">gurantor_roles.type.form</field>
+        <field name="model">gurantor.roles</field>
+        <field name="arch" type="xml">
+            <form string="gurantor_roles">
+                <sheet>
+                    <group string="Add Role">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="gurantor_roles_tree" model="ir.ui.view">
+        <field name="name">gurantor_roles.type.tree</field>
+        <field name="model">gurantor.roles</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="gurantor_roles_action" model="ir.actions.act_window">
+            <field name="name">Gurantor Roles</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">gurantor.roles</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_gurantor_roles"
+                name="Gurantor Roles"
+                parent="view_admin_lbl"
+                action="alban_loan_application.gurantor_roles_action" sequence="35"/>
+
+        <record id="status_securing_form" model="ir.ui.view">
+        <field name="name">status_securing.type.form</field>
+        <field name="model">status.securing</field>
+        <field name="arch" type="xml">
+            <form string="status securing Charge">
+                <sheet>
+                    <group string="Add Status">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="status_securing_tree" model="ir.ui.view">
+        <field name="name">status_securing.type.tree</field>
+        <field name="model">status.securing</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="status_securing_action" model="ir.actions.act_window">
+            <field name="name">status securing Charge</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">status.securing</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_status_securing"
+                name="Status Securing Charge"
+                parent="view_admin_lbl"
+                action="alban_loan_application.status_securing_action" sequence="36"/>
+
+
+        <record id="company_executive_form" model="ir.ui.view">
+        <field name="name">company_executive.type.form</field>
+        <field name="model">company.executive</field>
+        <field name="arch" type="xml">
+            <form string="company executive">
+                <sheet>
+                    <group string="Submit">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="company_executive_tree" model="ir.ui.view">
+        <field name="name">company_executive.type.tree</field>
+        <field name="model">company.executive</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="company_executive_action" model="ir.actions.act_window">
+            <field name="name">Company Executive</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">company.executive</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_company_executive"
+                name="Company Executive"
+                parent="view_admin_lbl"
+                action="alban_loan_application.company_executive_action" sequence="37"/>
+
+
+
+    <record id="society_executive_form" model="ir.ui.view">
+        <field name="name">society_executive.type.form</field>
+        <field name="model">society.executive</field>
+        <field name="arch" type="xml">
+            <form string="society executive">
+                <sheet>
+                    <group string="Subsidiaries Of Companies Executive Filial Record">
+                        <field name="companyexecutive" required="1" widget="selection"/>
+                        <field name="subsidiary" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="society_executive_tree" model="ir.ui.view">
+        <field name="name">society_executive.type.tree</field>
+        <field name="model">society.executive</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="companyexecutive" />
+                <field name="subsidiary" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="society_executive_action_new" model="ir.actions.act_window">
+        <field name="name">Society Executive Branch</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">society.executive</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            id="menu_action_society_executive_new"
+            name="Society Executive Branch"
+            parent="view_admin_lbl"
+            action="alban_loan_application.society_executive_action_new" sequence="38"/>
+
+
+    <record id="execution_status_form" model="ir.ui.view">
+        <field name="name">execution_status.type.form</field>
+        <field name="model">execution.status</field>
+        <field name="arch" type="xml">
+            <form string="Execution status property">
+                <sheet>
+                    <group string="Add Status">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="execution_status_tree" model="ir.ui.view">
+        <field name="name">execution_status.type.tree</field>
+        <field name="model">execution.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="execution_status_action" model="ir.actions.act_window">
+            <field name="name">Execution status property</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">execution.status</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_society_executive"
+                name="Execution status property"
+                parent="view_admin_lbl"
+                action="alban_loan_application.execution_status_action" sequence="39"/>
+
+
+        <record id="property_execution_form" model="ir.ui.view">
+        <field name="name">property_execution.type.form</field>
+        <field name="model">property.execution</field>
+        <field name="arch" type="xml">
+            <form string="company executive">
+                <sheet>
+                    <group string="Add Type Of Property">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="property_execution_tree" model="ir.ui.view">
+        <field name="name">property_execution.type.tree</field>
+        <field name="model">property.execution</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="property_execution_action" model="ir.actions.act_window">
+            <field name="name">Type of Property execution</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">property.execution</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_property_execution"
+                name="Type of Property execution"
+                parent="view_admin_lbl"
+                action="alban_loan_application.property_execution_action" sequence="40"/>
+
+
+        <record id="credit_categorization_form" model="ir.ui.view">
+        <field name="name">credit_categorization.type.form</field>
+        <field name="model">credit.categorization</field>
+        <field name="arch" type="xml">
+            <form string="company executive">
+                <sheet>
+                    <group string="Categorization By Modules Record Category">
+                        <field name="module" required="1"/>
+                        <field name="description" required="1"/>
+                        <field name="order"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="credit_categorization_tree" model="ir.ui.view">
+        <field name="name">credit_categorization.type.tree</field>
+        <field name="model">credit.categorization</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="module" />
+                <field name="description" />
+                <field name="order" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="credit_categorization_action" model="ir.actions.act_window">
+            <field name="name">Online credit Categorization</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">credit.categorization</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_credit_categorization"
+                name="Online credit Categorization"
+                parent="view_admin_lbl"
+                action="alban_loan_application.credit_categorization_action" sequence="41"/>
+
+        <record id="method_payment_form" model="ir.ui.view">
+        <field name="name">method_payment.type.form</field>
+        <field name="model">method.payment</field>
+        <field name="arch" type="xml">
+            <form string="Method of payment">
+                <sheet>
+                    <group string="Execution Payment Method Adding Record">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="method_payment_tree" model="ir.ui.view">
+        <field name="name">method_payment.type.tree</field>
+        <field name="model">method.payment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="method_payment_action" model="ir.actions.act_window">
+            <field name="name">Method of payment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">method.payment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_method_payment"
+                name="Method of payment"
+                parent="view_admin_lbl"
+                action="alban_loan_application.method_payment_action" sequence="42"/>
+
+       <record id="documents_modules_form" model="ir.ui.view">
+        <field name="name">documents_modules.type.form</field>
+        <field name="model">documents.modules</field>
+        <field name="arch" type="xml">
+            <form string="Documents Modules">
+                <sheet>
+                    <group string="Documents Modules Record Document">
+                        <field name="order" required="1"/>
+                        <field name="description" required="1"/>
+                        <field name="module"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="documents_modules_tree" model="ir.ui.view">
+        <field name="name">documents_modules.type.tree</field>
+        <field name="model">documents.modules</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="order" />
+                <field name="description" />
+                <field name="module"/>
+            </tree>
+        </field>
+    </record>
+
+        <record id="documents_modules_action" model="ir.actions.act_window">
+            <field name="name">Documents Modules</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">documents.modules</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_documents_modules"
+                name="Documents Modules"
+                parent="view_admin_lbl"
+                action="alban_loan_application.documents_modules_action" sequence="43"/>
+
+ <record id="credit_module_form" model="ir.ui.view">
+        <field name="name">credit_module.type.form</field>
+        <field name="model">credit.module</field>
+        <field name="arch" type="xml">
+            <form string="Online credit module">
+                <sheet>
+                    <group string="Online Credit Module Adding Record">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="credit_module_tree" model="ir.ui.view">
+        <field name="name">credit_module.type.tree</field>
+        <field name="model">credit.module</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="credit_module_action" model="ir.actions.act_window">
+            <field name="name">Online credit module</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">credit.module</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_credit_module"
+                name="Online credit module"
+                parent="view_admin_lbl"
+                action="alban_loan_application.credit_module_action" sequence="44"/>
+
+ <record id="execution_payment_form" model="ir.ui.view">
+        <field name="name">execution_payment.type.form</field>
+        <field name="model">execution.payment</field>
+        <field name="arch" type="xml">
+            <form string="Execution Payment Type">
+                <sheet>
+                    <group string="Execution Payment Type Adding Record">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="execution_payment_tree" model="ir.ui.view">
+        <field name="name">execution_payment.type.tree</field>
+        <field name="model">execution.payment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="execution_payment_action" model="ir.actions.act_window">
+            <field name="name">Execution Payment Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">execution.payment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_execution_payment"
+                name="Execution Payment Type"
+                parent="view_admin_lbl"
+                action="alban_loan_application.execution_payment_action" sequence="45"/>
+
+ <record id="guarantors_execution_form" model="ir.ui.view">
+        <field name="name">guarantors_execution.type.form</field>
+        <field name="model">guarantors.execution</field>
+        <field name="arch" type="xml">
+            <form string="Guarantors execution status">
+                <sheet>
+                    <group string="Guarantors Execution Status Adding Record">
+                        <field name="catalog" required="1"/>
+                        <field name="description" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="guarantors_execution_tree" model="ir.ui.view">
+        <field name="name">guarantors_execution.type.tree</field>
+        <field name="model">guarantors.execution</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="catalog" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="guarantors_execution_action" model="ir.actions.act_window">
+            <field name="name">Guarantors execution status</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">guarantors.execution</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_guarantors_execution"
+                name="Guarantors execution status"
+                parent="view_admin_lbl"
+                action="alban_loan_application.guarantors_execution_action" sequence="46"/>
+
+
+ <record id="event_execution_form" model="ir.ui.view">
+        <field name="name">event_execution.type.form</field>
+        <field name="model">event.execution</field>
+        <field name="arch" type="xml">
+            <form string="Writeoff event execution status">
+                <sheet>
+                    <group string="By Modules Statuses Events Record Status">
+                        <field name="module" required="1"/>
+                        <field name="description" required="1"/>
+                        <field name="order" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="event_execution_tree" model="ir.ui.view">
+        <field name="name">event_execution.type.tree</field>
+        <field name="model">event.execution</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="module" />
+                <field name="description" />
+                <field name="order" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="event_execution_action" model="ir.actions.act_window">
+            <field name="name">Writeoff event execution status</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">event.execution</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_event_execution"
+                name="Writeoff event execution status"
+                parent="view_admin_lbl"
+                action="alban_loan_application.event_execution_action" sequence="47"/>
+
+ <record id="execution_writeoff_form" model="ir.ui.view">
+        <field name="name">execution_writeoff.type.form</field>
+        <field name="model">execution.writeoff</field>
+        <field name="arch" type="xml">
+            <form string="Nenstatusi event execution writeoff">
+                <sheet>
+                    <group string="Nenstatuset Execution Of Events, Writeoff Filial Record">
+                        <field name="status" required="1"/>
+                        <field name="understatus" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="execution_writeoff_tree" model="ir.ui.view">
+        <field name="name">execution_writeoff.type.tree</field>
+        <field name="model">execution.writeoff</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="status" />
+                <field name="understatus" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="execution_writeoff_action" model="ir.actions.act_window">
+            <field name="name">Nenstatusi event execution writeoff</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">execution.writeoff</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_execution_writeoff"
+                name="Execution writeoff event nenstatusi"
+                parent="view_admin_lbl"
+                action="execution_writeoff_action" sequence="48"/>
+
+
+        <record id="process_status_form" model="ir.ui.view">
+        <field name="name">process_status.type.form</field>
+        <field name="model">process.status</field>
+        <field name="arch" type="xml">
+            <form string="The process status">
+                <sheet>
+                    <group string="Status Of Processes Under Modules Record Status">
+                        <field name="module" required="1"/>
+                        <field name="description" required="1"/>
+                        <field name="order"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="process_status_tree" model="ir.ui.view">
+        <field name="name">process_status.type.tree</field>
+        <field name="model">process.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="module" />
+                <field name="description" />
+                <field name="order" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="process_status_action" model="ir.actions.act_window">
+            <field name="name">The Process Status</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">process.status</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_process_status"
+                name="The Process Status"
+                parent="view_admin_lbl"
+                action="process_status_action" sequence="49"/>
+
+    <record id="product_code_form_view" model="ir.ui.view">
+        <field name="name">product.code.form.view</field>
+        <field name="model">product.code</field>
+        <field name="arch" type="xml">
+            <form string="Product Code">
+                <sheet>
+                    <!--<h1>Sub Branch</h1>-->
+                    <group>
+                        <field name="name" required="1"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Calculation">
+                            <group>
+                                <group string="General">
+                                    <field name="calc_meth"/>
+                                    <field name="loan_resch"/>
+                                </group>
+                                <group string="Interest">
+                                    <field name="daily_rate" />
+                                    <field name="quote_rate" />
+
+                                </group>
+                                <group string="Payment Schedule">
+                                    <field name="sch_type" />
+                                    <field name="term_length" />
+                                    <field name="pay_day" />
+                                    <field name="rounding" />
+                                    <field name="proc_fees" />
+                                    <field name="grace_per" />
+                                    <field name="locked" />
+
+                                </group>
+                                 <group string="Penalties">
+                                    <field name="daily_pen_rate" />
+                                    <field name="pen_grace_per" />
+                                    <field name="max_pen_days" />
+                                    <field name="grace_penalty" />
+                                </group>
+                                <group string="Currencies">
+                                    <field name="index_curr" />
+                                    <field name="pay_curr" />
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Controls">
+                            <group>
+                                <group string="Control Loan Amt">
+                                    <field name="min_loan_amt" />
+                                    <field name="max_loan_amt" />
+                                    <field name="loan_amt_con" />
+
+                                </group>
+                                <group string="Control Client">
+                                    <field name="lindur_ne" />
+                                </group>
+                                <group string="Control Open Date">
+                                    <field name="min_open_date" />
+                                    <field name="max_open_date" />
+                                </group>
+                                <group string="Control Nr Accts">
+                                    <field name="nr_acct_allowed" />
+                                </group>
+                                <group >
+                                    <field name="credit_line_meth" />
+                                </group>
+                            </group>
+
+                        </page>
+                        <page string="Authorize">
+                            <group>
+                                <group string="Authorize Account">
+                                    <field name="auth1" />
+                                    <field name="auth2" />
+                                    <field name="auth3" />
+                                </group>
+                            </group>
+
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>   
+
+
+    <record id="product_code_tree_view" model="ir.ui.view">
+        <field name="name">product.code.tree.view</field>
+        <field name="model">product.code</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="quote_rate" />
+                <field name="daily_rate" />
+                <field name="sch_type" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="product_code_action" model="ir.actions.act_window">
+            <field name="name">Product Code</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.code</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+      <menuitem id="menu_action_view_product_code" name="Product Code"
+                parent="view_admin_lbl"
+                action="product_code_action" sequence="13"/>
+
+
+        <record id="process_workflow_form" model="ir.ui.view">
+        <field name="name">process_workflow.type.form</field>
+        <field name="model">process.workflow</field>
+        <field name="arch" type="xml">
+            <form string="process workflow">
+                <sheet>
+                    <group string="Add / Update Diagrams">
+                        <field name="module" required="1"/>
+                        <field name="designation" required="1"/>
+                        <field name="status"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="process_workflow_tree" model="ir.ui.view">
+        <field name="name">process_workflow.type.tree</field>
+        <field name="model">process.workflow</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="module" />
+                <field name="designation" />
+                <field name="status" />
+            </tree>
+        </field>
+    </record>
+
+        <record id="process_workflow_action" model="ir.actions.act_window">
+            <field name="name">Process Workflow</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">process.workflow</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_action_process_workflow"
+                name="Process Workflow"
+                parent="view_admin_lbl"
+                action="process_workflow_action" sequence="50"/>
+
+    </data>
+</odoo>

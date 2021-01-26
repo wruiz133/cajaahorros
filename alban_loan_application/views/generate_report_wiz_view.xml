@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--<record id="view_excel_generate_report" model="ir.ui.view">-->
+            <!--<field name="name">view.excel.generate.report</field>-->
+            <!--<field name="model">generate.report</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="Excel Export" version="7.0">-->
+                    <!--<group>-->
+                        <!--<field name="name" invisible="1"/>	-->
+                        <!--<field name="file" filename="name"/>-->
+                    <!--</group>-->
+                    <!--<footer>-->
+                        <!--<button special="cancel" string="Cancel" icon="gtk-cancel" colspan="2"/>-->
+                    <!--</footer>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="financial_report_wizard_view" model="ir.ui.view">
+            <field name="name">financial.report.wizard</field>
+            <field name="model">financial.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Financial Report" >
+
+                    <group>
+                        <group>
+                            <field name="partner_id" required="1"/>
+                            <field name="loan_no" widget="selection"/>
+                            <field name="customer_no" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="account_report_id" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="generate_fin_report_csv" string="Print Report" type="object" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_print_financial_report" model="ir.actions.act_window">
+            <field name="name">Financial Report</field>
+            <field name="res_model">financial.report.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+       </record>
+
+       <!--<menuitem name="Financial Report" action="sg_action_print_sale_target" id="menu_print_sale_target" parent="alban_loan_application.menu_sg_sale_commision_Report"/>-->
+
+       <menuitem id="menu_finance_report_sub_menu" name = "Reports"  parent="alban_loan_application.menu_loan_appln_main" />
+      <menuitem id="menu_loan_report" parent="menu_finance_report_sub_menu" action= "action_print_financial_report" name ="Financial Report"/>
+    </data>
+
+</openerp>

@@ -1,0 +1,85 @@
+<odoo>
+    <data>        
+        <template id="loan_pagos_ventas_template"> 
+            <t t-call="report.html_container"> 
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="report.external_layout"> 
+                        <div class="page"> 
+                            <h4 align="center">COMPROBANTE</h4> 
+                            <body>
+                                <br></br>
+                                <!--<t t-set="liquido" t-value="0" />
+                                <t t-set="saldo" t-value="0" />
+                                <t t-set="interes" t-value="0" />-->
+                                <tr style="font-size:10px" >
+                                    <td text-align="left">
+                                        <br><strong>Tipo Comprobante:</strong><td style="text-align:right"><span t-field="o.name"/></td></br>
+                                        <br><strong>Fecha:</strong><td style="text-align:right"><span  t-field="o.payment_date"/></td></br>
+                                        <br><strong>Cliente:</strong><td style="text-align:right"><span t-field="o.partner_id.name"/></td></br>
+                                        <br><strong>Método de Pago:</strong><td style="text-align:right"><span t-field="o.payment_type"/></td></br>
+                                        <br><strong>Referencia:</strong><td style="text-align:right"><span t-field="o.communication"/></td></br>                            
+                                        <br><strong>Valor:</strong><td style="text-align:right"><span t-field="o.amount"/></td></br>   
+                                    </td>
+                                </tr> 
+
+                                   <br></br>
+
+                                   <table class="table underheader-lines">
+                                    <br></br>
+                                    <thead>                                        
+                                        <tr style="font-size:10px">
+                                            <th>Ítem de Diario</th>
+                                            <th>N°Factura</th>
+                                            <th>Fecha</th>
+                                            <th>Monto</th>                                           
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <t t-foreach="o.move_line_ids" t-as="n">
+                                            <tr style="font-size:10px">
+                                                <td><span t-field="n.account_id"/></td>
+                                                <td><span t-field="n.ref"/></td>
+                                                <td><span t-field="n.date"/></td>
+                                                <td><span t-field="n.credit"/></td>                                     
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+
+                                <table class="table underheader-lines">
+                                    <br></br>
+                                    <thead>                                        
+                                        <tr style="font-size:10px">
+                                            <th>Cuenta</th>
+                                            <th>Nombre de la Cuenta</th>
+                                            <th>Débitos</th>
+                                            <th>Créditos</th>                                           
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <t t-foreach="o.move_line_ids" t-as="c">
+                                            <tr style="font-size:10px">
+                                                <td><span t-field="c.account_id.code"/></td>
+                                                <td><span t-field="c.account_id.name"/></td>
+                                                <td><span t-field="c.debit"/></td>
+                                                <td><span t-field="c.credit"/></td>                                     
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+
+
+                               
+                            </body>
+                               
+                            </div>
+                        
+                        </t>
+                    </t> 
+                </t> 
+  
+        </template>
+    </data>
+</odoo>

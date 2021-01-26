@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherited Journal Items view-->
+        <record id="view_move_line_form_inherited" model="ir.ui.view">
+            <field name="name">account.move.line.inherited.form</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_form"/>
+
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='date']" position="after">
+                    <field name="bank_date" />
+
+                 </xpath>
+
+                <xpath expr="//notebook/page" position="inside">
+                    <group>
+                        <group string="Loan Application">
+                            <field name="receipt_no" />
+                            <field name="loan_no" />
+                            <field name="fund_src" />
+                            <!--<field name="loan_no"/>-->
+                        </group>
+                    </group>
+                </xpath>
+
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

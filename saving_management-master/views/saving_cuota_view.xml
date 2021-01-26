@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<data>
+  <!-- Vista Formulario Presamo-->
+    <record model="ir.ui.view" id="saving_management_saving_cuota_form_view">
+        <field name="name">saving.management.saving.cuota.form</field>
+        <field name="model">saving.management.saving.cuota</field>
+        <field name="arch" type="xml">
+            <form string="Cuotas de Ahorros">
+                <header>
+                    <field name="state" widget="statusbar" nolabel="1"/>
+                </header>
+                <sheet>
+<!--                    <separator string="Información General"/>-->
+                    <group colspan="4">
+                        <group cols="2">
+                            <field name="ahorros_id"/>
+                            <field name="numero_deposito"/>
+                            <field name="cuenta_banco" invisible = "1"/>
+                        </group>
+                        <group cols="2">
+                            <field name="afiliado_id"/>
+                        </group>
+                    </group>
+<!--                <separator string="Información de Cuota"/>-->
+                <notebook>
+                    <page string="Plazo Fijo - Programado" attrs="{'invisible': [('forma_producto','in',['av'])]}">
+                        <group colspan="4">
+                            <group cols="2">
+                                <field name="forma_producto" invisible="1"/>
+                                <field name="saldo_ahorro"/>
+                                <field name="mora"/>
+                                <field name="monto_pagado"/>
+                                <field name="saldo_pendiente"/>
+                            </group>
+                            <group cols="2">
+                                <field name="fecha_pago" />
+                                <field name="monto_cuota" />
+                                <field name="capital"/>
+                                <field name="interes"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Ahorro a la Vista" attrs="{'invisible': [('forma_producto','in',['ap','pf'])]}">
+                        <group colspan="4">
+                            <group cols="2">
+                                <field name="forma_producto" invisible="1"/>
+                                <field name="registro_tipo" />
+                                <field name="fecha_pago" />
+                                <field name="deposito" attrs="{'invisible': [('registro_tipo','in',['retiro'])]}"/>
+                                <field name="retiro" attrs="{'invisible': [('registro_tipo','in',['deposito'])]}"/>
+                                <field name="interes" string="Interes a favor" invisible = "1"/>
+                            </group>
+                            <group cols="2">
+                                <field name="interes_contra" string="Interes en contra" invisible = "1" />
+                                <field name="state" readonly="1"/>
+                                <field name="numero_cuota" />
+                                <field name="saldo_acumulado" />
+                                <field name="saldo_pendiente" invisible = "1" />
+                                <field name="saldo_ahorro" invisible = "1"/>
+                                <field name="currency_id" invisible = "1"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+
+                    <notebook>
+                        <page string="Notas">
+                            <field name="description" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Fin de Vista form  -->
+    <!--forms para que se llame desde dentro del registro de cuotas en ahorro-->
+    <!--<record model="ir.ui.view" id="saving_management_saving_cuota_av_form_view">
+        <field name="name">saving.management.saving.cuota.av.form</field>
+        <field name="model">saving.management.saving.cuota</field>
+        <field name="arch" type="xml">
+            <form string="Cuotas de Ahorros">
+                <header>
+                    <field name="state" widget="statusbar" nolabel="1"/>
+                </header>
+                <sheet>
+                        <group colspan="4">
+                            <group cols="2">
+                                <field name="ahorros_id"/>
+                                <field name="numero_deposito"/>
+                            </group>
+                            <group cols="2">
+                                <field name="afiliado_id"/>
+                            </group>
+                        </group>
+                        <separator string="Información de Cuota"/>
+                    <notebook>
+                    <page string="A la Vista" attrs="{'invisible': [('forma_producto','in',['ap','pf'])]}">
+                            <group colspan="4">
+                                <group cols="2">
+                                    <field name="forma_producto" invisible="1"/>
+                                    <field name="registro_tipo" />
+                                    <field name="fecha_pago" />
+                                    <field name="deposito" attrs="{'invisible': [('registro_tipo','in',['retiro'])]}"/>
+                                    <field name="retiro" attrs="{'invisible': [('registro_tipo','in',['deposito'])]}"/>
+                                </group>
+                                <group cols="2">
+                                    <field name="numero_cuota" />
+                                    <field name="state" readonly="1"/>
+
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <notebook>
+                        <page string="Notas">
+                            <field name="description" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>-->
+    <!--  Vista Tree Tipo de ahorros-->
+    <record model="ir.ui.view" id="saving_management_saving_cuota_view">
+        <field name="name">saving.management.saving.cuota.tree</field>
+        <field name="model">saving.management.saving.cuota</field>
+        <field name="arch" type="xml">
+            <tree string="Tipo de Ahorros" create="0">
+                <field name="fecha_pago" />
+                <field name="ahorros_id"/>
+                <field name="afiliado_id"/>
+                <field name="monto_cuota" />
+                <field name="capital"/>
+                <field name="interes"/>
+                <field name="monto_pagado"/>
+                <field name="cuenta_banco"/>
+            </tree>
+        </field>
+    </record>
+    <!--  Accion para cuotas ahorros -->
+    <record model="ir.actions.act_window" id="saving_management_saving_cuota_vigente_action">
+        <field name="name">Cuotas vigentes</field>
+        <field name="res_model">saving.management.saving.cuota</field>
+        <field name="view_type">form</field>
+        <field name="view_model">form</field>
+        <field name="domain">[('state','=','vigente')]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Crear cuotas de ahorros</p>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="saving_management_saving_cuota_novigenete_action">
+        <field name="name">Cuotas no vigentes</field>
+        <field name="res_model">saving.management.saving.cuota</field>
+        <field name="view_type">form</field>
+        <field name="view_model">form</field>
+        <field name="domain">[('state','=','novigente')]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Crear cuotas de ahorros</p>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="saving_management_saving_cuota_mora_action">
+        <field name="name">Cuotas en mora</field>
+        <field name="res_model">saving.management.saving.cuota</field>
+        <field name="view_type">form</field>
+        <field name="view_model">form</field>
+        <field name="domain">[('state','=','morosa')]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Crear cuotas de ahorros</p>
+        </field>
+    </record>
+<!--    <record id="action_wizard_pago_cuota_prestamo_av" model="ir.actions.act_window">-->
+<!--            <field name="name">Pago de Cuotas</field>-->
+<!--            <field name="res_model">saving.management.saving.cuota</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="domain">[('prestamo_id','=',active_id)]</field>-->
+<!--            <field name="view_id" ref="saving_management_saving_cuota_av_form_view"/>-->
+<!--            &lt;!&ndash;<field name="target">new</field>&ndash;&gt;-->
+<!--    </record>-->
+    <!-- Fin de Action de Contratos -->
+    <!--  Menu Principal de ahorross-->
+    <menuitem id="saving_cuota_management" name="Estado Cuotas Ahorros" string="Cuota de Ahorros" parent="saving_management_main" sequence="10"/>
+    <menuitem string="Cuotas viegentes"  id="menu_cuota_ahorros" parent="saving_cuota_management" action="saving_management_saving_cuota_vigente_action" sequence="5"/>
+    <menuitem string="Cuotas no vigentes"  id="menu_cuota_ahorros_no_vigente" parent="saving_cuota_management" action="saving_management_saving_cuota_novigenete_action"  sequence="10"/>
+
+    <menuitem string="Cuotas en mora"  id="menu_cuota_ahorros_mora" parent="saving_cuota_management" action="saving_management_saving_cuota_mora_action"  sequence="20"/>
+
+</data>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

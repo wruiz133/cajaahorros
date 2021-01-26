@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+      <record id="loan_report_view" model="ir.ui.view">
+        <field name="name">Financial Reports</field>
+        <field name="model">loan.report</field>
+        <field name="arch" type="xml">
+          <form string="Report Options">
+            
+            <group col="4">
+                    <field name="partner_id"/>
+                    <field name="loan_no"/>
+                    <field name="account_report_id"/>
+            </group>
+            <group>
+                
+            </group>
+            <footer>
+                <button name="print_report" string="Print" type="object" default_focus="1" class="oe_highlight"/>
+                or 
+                <button string="Cancel" class="oe_link" special="cancel" />
+            </footer>
+          </form>
+       
+        </field>
+      </record>
+
+      <record id="action_loan_report" model="ir.actions.act_window">
+          <field name="name">Financial Reports</field>
+          <field name="res_model">loan.report</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="loan_report_view"/>
+          <field name="target">new</field>
+      </record>
+
+      <menuitem id="menu_loan_report_sub_menu" name = "Reports"  parent="alban_loan_application.menu_loan_appln_main" />
+      <menuitem id="menu_loan_report" parent="menu_loan_report_sub_menu" action= "action_loan_report" name ="Financial Report"/> 
+
+
+</odoo>

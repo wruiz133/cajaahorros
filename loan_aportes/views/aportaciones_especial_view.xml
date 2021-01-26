@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+     <record id="view_aportaciones_calendar_esp" model="ir.ui.view">
+            <field name="name">loan.aportaciones.calendar.esp</field>
+            <field name="model">loan.aportaciones.esp</field>
+            <field name="arch" type="xml">
+                <calendar string="Aportaciones" color="cliente_id" date_start="fecha">
+                    <field name="cliente_id"/>
+                    <field name="monto_aportacion"/>
+                   <field name="tipo_aportacion"/>
+                </calendar>
+            </field>
+        </record>
+   <!-- Vista search Aportes WR-->
+    <record model="ir.ui.view" id="loan_aportacion_loan_search_esp">
+      <field name="name">loan.aportacion.loan.search.esp</field>
+      <field name="model">loan.aportaciones.esp</field>
+      <field name="arch" type="xml">
+        <search string ='Buscar'>
+            <field name="cliente_id" operator="child_of" string="Con parte del nombre"/>
+            <field name="fecha" string="Por fecha de Aporte"/>
+            <field name="name" string="Por Numero Aportacion"/>
+            <field name="nro_deposito" string="Por Numero Deposito"/>
+         <separator/>
+         <field name="cliente_id"/>
+        <group expand="0" string="Agrupado por">
+            <filter string="Cliente" domain="[]" context="{'group_by':'cliente_id'}"/>
+            <filter string="Periodo Aporte"  domain="[]" context="{'group_by':'fecha'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+   <!-- Vista Formulario Presamo-->
+   <record model="ir.ui.view" id="loan_management_loan_aportacion_form_view_esp">
+   <field name="name">loan.aportaciones.form.esp</field>
+   <field name="model">loan.aportaciones.esp</field>
+   <field name="arch" type="xml">
+   <form string="Cuotas de Prestamo">
+      <header>
+        <button name="action_ingresar" type="object" string="Validar Transacción" states="draft" class="oe_highlight"/>
+       <field name="state" widget="statusbar" nolabel="1"/>
+      </header>   
+       <sheet> 
+          <h2>
+            <field name="name" class="oe_inline" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+          </h2>
+          <group colspan="4">
+             <group cols="2">   
+                <field name="cliente_id" options="{'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                <field name="monto_aportacion" attrs="{'readonly': [('state','!=','draft')]}"/>
+                <field name="nro_deposito" attrs="{'readonly': [('state','!=','draft')]}"/>
+           </group>
+          <group cols="2">
+              <field name="tipo_aportacion" attrs="{'readonly': [('state','!=','draft')]}"/>
+              <field name="journal_id" options="{'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+              <field name="fecha" attrs="{'readonly': [('state','!=','draft')]}"/>
+              <field name="move_id" attrs="{'readonly': [('state','!=','draft')]}"/>
+          </group>
+        </group>    
+        <notebook>
+         <page string="Notas">
+        <field name="observaciones" />
+         </page> 
+      </notebook>
+  </sheet>     
+  <div class="oe_chatter">
+            <field name="message_ids" widget="mail_thread"/>
+    </div>
+   </form>
+   </field> 
+   </record> 
+   <!-- Fin de Vista form  -->
+   <!--  Vista Tree Tipo de Prestamo-->
+   <record model="ir.ui.view" id="loan_aportaciones_tree_view_esp">
+   <field name="name">loan.aportaciones.tree.esp</field>
+   <field name="model">loan.aportaciones.esp</field>
+   <field name="arch" type="xml">
+       <tree string="Tipo de Prestamos"  delete="1">
+          <field name="name"/>
+           <field name="cliente_id"/>
+           <field name="fecha" />
+           <field name="monto_aportacion" sum="Total"/>
+           <field name="tipo_aportacion" />
+			     <field name="state"/>
+       </tree>
+   </field> 
+   </record>
+   <!--  Accion para Prestamos -->
+   <record model="ir.actions.act_window" id="loan_aportaciones_action_esp">
+   <field name="name">Registro de Aportaciones Especiales</field>
+   <field name="res_model">loan.aportaciones.esp</field>
+   <field name="view_type">form</field>
+   <field name="view_mode">tree,form,calendar</field>
+   <field name="domain">[('tipo_aportacion','=','aportacion')]</field>
+    <field name="context">{'default_tipo_aportacion':'aportacion'}</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">Registrar aportaciones especiales del socio</p>
+   </field>
+   </record>
+   <!-- Fin de Action de Contratos -->
+     <!--  Menu Principal de Prestamos-->
+      <!--<menuitem
+              id="loan_aportaciones_management"
+              name="Aportaciones y Retiros"
+              string="Gestión de aportaciones"
+              parent="loan_management-master.loan_management_main"
+              sequence="10"/>-->
+    
+     <menuitem string="Aportaciónes"
+               id="loan_aportaciones_management_action_esp"
+               parent="loan_management-master.loan_aportaciones_management"
+               action="loan_aportaciones_action_esp"
+               sequence="30"/>
+
+
+   </data>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

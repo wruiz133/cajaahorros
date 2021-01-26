@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="report_cash_ruminahui">CODIGO ORIENTACION;CUENTA EMPRESA;SECUENCIAL;COMPROBANTE DE COBRO;CONTRAPARTIDA;MONEDA;VALOR;FORMA DE COBRO;CODIGO BANCO;TIPO CUENTA;NUMERO DE CUENTA;TIPO ID CLIENTE(BENEFICIARIO O DEUDOR);NUMERO ID CLIENTE BENEFICIARIO/DEUDOR;NOMBRE CLIENTE BENEFICIARIO/DEUDOR;REFERENCIA;NUMERO FACTURA;BASE IMPONIBLE RENTA SERVICIO;CONCEPTO RETENCION RENTA SERVICIO;
+<t t-set= "seq" t-value="0"/><t t-set= "seq1" t-value="0"/><t t-foreach="docs" t-as="o">CO;<t t-foreach="o.afiliado_id.bank_ids" t-as="c"><t t-esc="c.acc_number"/></t>;<t t-set= "seq" t-value="seq+1"/><t t-esc="seq"/>;<t t-set= "seq1" t-value="seq1+1"/><t t-esc="seq1"/>;<t t-esc="o.afiliado_id.identifier"/>;USD;<t t-esc="'%.2f'% o.saldo_pendiente"/>;CTA;<t t-esc="o.cuenta_banco"/>;<t t-foreach="o.afiliado_id.bank_ids" t-as="c"><t t-esc="c.acc_type"/></t>;<t t-foreach="o.afiliado_id.bank_ids" t-as="c"><t t-esc="c.acc_number"/></t>;C;<t t-esc="o.afiliado_id.identifier"/>;<t t-esc="o.afiliado_id.name"/>;COBRO PRESTAMO;0;<t t-esc="'%.2f'% o.saldo_pendiente"/>;332;
+</t>
+</template>
+
+</odoo>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="module_partner_loan_category" model="ir.module.category">
+            <field name="name">Loan Management</field>
+            <field name="sequence">17</field>
+        </record>
+        <record id="partner_loan_group_user" model="res.groups">
+            <field name="name">Loan User</field>
+            <field name="category_id" ref="module_partner_loan_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        <record id="partner_loan_group_manager" model="res.groups">
+            <field name="name">Loan Manager</field>
+            <field name="implied_ids" eval="[(4, ref('partner_loan_group_user'))]"/>
+            <field name="category_id" ref="module_partner_loan_category"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+        
+        <!--Employee Loan Details -->
+        <record id="partner_property_rule_partner_loan_officer" model="ir.rule">
+            <field name="name">Officer loan Details</field>
+            <field name="model_id" ref="model_partner_loan_details" />
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('odoo_customer_supplier_loan.partner_loan_group_manager'))]" />
+        </record>
+        
+        
+        
+        <!--Loan Installments Details -->
+        <record id="partner_rule_partner_loan_installment_officer" model="ir.rule">
+            <field name="name">Officer Loan Installments</field>
+            <field name="model_id" ref="model_partner_loan_installment_details" />
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('odoo_customer_supplier_loan.partner_loan_group_manager'))]" />
+        </record>
+        
+        <record id="partner_property_rule_loan_employee" model="ir.rule">
+            <field name="name">Partner loan Details</field>
+            <field name="model_id" ref="model_partner_loan_details" />
+            <field name="domain_force">[('user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('base.group_user'))]" />
+        </record>
+        
+        <record id="partner_property_rule_loan_accountant" model="ir.rule">
+            <field name="name">Accountant loan Details</field>
+            <field name="model_id" ref="model_partner_loan_details" />
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('account.group_account_invoice'))]" />
+        </record>
+        
+        <record id="partner_rule_loan_installment_accountant" model="ir.rule">
+            <field name="name">Accountant Loan Installments</field>
+            <field name="model_id" ref="model_partner_loan_installment_details" />
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('account.group_account_invoice'))]" />
+        </record>
+    </data>
+</odoo>

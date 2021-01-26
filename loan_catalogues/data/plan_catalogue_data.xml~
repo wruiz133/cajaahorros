@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Contract Types -->
+        <!-- <record id="plan_catalogues_ctype" model="loan.catalogues">
+            <field name="name">Tipo Contrato</field>
+            <field name="code">CTYPE</field>
+        </record> -->
+		<!-- Loan Catalogues -->		
+        <record id="loan_catalogues_nasp" model="loan.catalogues">
+            <field name="name">LOAN CATALOGO</field>
+            <field name="code">CPLAN</field>
+            <field name="parent">1</field>            
+        </record>
+        
+		<!-- Clasification -->
+        <record id="loan_catalogues_clasification" model="loan.catalogues">
+            <field name="name">Clasificación</field>
+            <field name="code">CLASSIFICATION</field>
+            <field name="parent">1</field>
+            <field ref="loan_catalogues_nasp" name="parent_id"/>                                                                    
+        </record>
+        <record id="loan_catalogues_pago_navidad" model="loan.catalogues">
+            <field name="name">Pago Navideño</field>
+            <field name="name_num">44</field>
+            <field name="code">PANA</field>
+            <field ref="loan_catalogues_clasification" name="parent_id"/>                        
+        </record>
+        <record id="loan_catalogues_aniversario_nucleo" model="loan.catalogues">
+            <field name="name">Aniversario Núcleo</field>
+            <field name="name_num">15</field>
+            <field name="code">ANNU</field>
+            <field ref="loan_catalogues_clasification" name="parent_id"/>                                                                    
+        </record>
+        <record id="loan_catalogues_fondo_mortuorio" model="loan.catalogues">
+            <field name="name">Fondo Mortuorio</field>
+            <field name="name_num">25</field>            
+            <field name="code">FOMO</field>
+            <field ref="loan_catalogues_clasification" name="parent_id"/>                                              
+        </record>
+        <record id="loan_catalogues_eventos_sociales" model="loan.catalogues">
+            <field name="name">Eventos Sociales</field>
+            <field name="name_num">5</field>
+            <field name="code">EVSO</field>
+            <field ref="loan_catalogues_clasification" name="parent_id"/>                                                                     
+        </record>
+        
+        <record id="loan_catalogues_operaciones_administrativo" model="loan.catalogues">
+            <field name="name">Operaciones y Administrativo</field>
+            <field name="name_num">11</field>
+            <field name="code">OPAD</field>
+            <field ref="loan_catalogues_clasification" name="parent_id"/>
+        </record>
+
+    </data>
+</odoo>
+

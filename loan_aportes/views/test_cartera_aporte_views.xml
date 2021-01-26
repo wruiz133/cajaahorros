@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- test -->
+
+        <record id="aporte_test_filter" model="ir.ui.view">
+            <field name="name">aporte.test.filter</field>
+            <field name="model">cartera.aportes.test</field>
+            <field name="arch" type="xml">
+                <search string="Search Payslip Batches">
+                    <field name="name" string="Payslip Batches"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <filter string="Draft" domain="[('state','=','draft')]" help="Draft Payslip Batches"/>
+                    <filter name="done_filter" string="Done" domain="[('state','=','close')]" help="Done Payslip Batches"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="aporte_test_tree" model="ir.ui.view">
+            <field name="name">aporte.test.tree</field>
+            <field name="model">cartera.aportes.test</field>
+            <field name="arch" type="xml">
+                <tree string="Payslips Batches">
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="credit_amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="aporte_test_form" model="ir.ui.view">
+            <field name="name">aporte.test.form</field>
+            <field name="model">cartera.aportes.test</field>
+            <field name="arch" type="xml">
+                <form string="Payslips Batches">
+                <header>
+                    <button name="%(action_partner_list_test)d" type="action" states="draft" string="Generate Aport List" class="oe_highlight"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group col="4">
+                        <label for="date_start" string="Period"/>
+                         <div>
+                               <field name="date_start" class="oe_inline"/> - <field name="date_end" class="oe_inline"/>
+                         </div>
+                        <field name="credit_amount"/>
+                    </group>
+                    <separator string="NO Aportantes..."/>
+                    <field name="nopay_list_ids">
+                         <!--detalle del campo o2m WHRC-->
+                        <tree>
+                            <field name = "cliente_id"/>
+                            <field name = "fechai"/>
+                            <field name = "fechaf"/>
+                            <field name = "monto_aportacion"/>
+                            <field name = "state"/>
+                        </tree>
+                    </field>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_aporte_test_tree" model="ir.actions.act_window">
+            <field name="name">Test Aportes</field>
+            <field name="res_model">cartera.aportes.test</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="aporte_test_tree"/>
+            <field name="search_view_id" ref="aporte_test_filter"/>
+        </record>
+        <menuitem action="action_aporte_test_tree" id="menu_aporte_test_run" parent="loan_management-master.loan_aportaciones_management"/>
+
+    <data>
+        <!--herencia desde otra forma y otro modulo-->
+         <record model="ir.ui.view" id="loan_test_loan_aportacion_form_view_inherit">
+            <field name="name">loan.test.loan.aportacion.form.view.inherit</field>
+            <field name="model">loan.aportaciones</field>
+            <field name="inherit_id" ref="loan_management-master.loan_management_loan_aportacion_form_view"/>
+		     <field name="arch" type="xml">
+                <field name="nro_deposito" position="after">
+                    <field name="cartera_test_id" invisible="1"/>
+                </field>
+            </field>
+         </record>
+    </data>
+
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="partner_loan_account_menu" name="Loans" parent="account.menu_finance" sequence="3" groups="account.group_account_user"/>
+        <menuitem id="partner_loan_request_menu" name="Loan Requests" parent="partner_loan_account_menu" action="partner_action_loan_todisburse"/>
+        
+        <record id="partner_view_loan_install_account_filter" model="ir.ui.view">
+            <field name="name">partner.loan.install.list.select</field>
+            <field name="model">partner.loan.installment.details</field>
+            <field name="inherit_id" ref="partner_view_loan_installment_filter"/>
+            <field name="arch" type="xml">
+                <search string="Search Loan Installment">
+                    <filter string="Confirmed" name="approved" domain="[('state','=','approve')]" help="Installment that has been confirmed" />
+                </search>
+            </field>
+        </record>
+        
+        <record id="partner_action_loan_install_confirm" model="ir.actions.act_window">
+            <field name="name">Confirmed Loan Installments</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partner.loan.installment.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{'search_default_approved': 'approve'}</field>
+            <field name="search_view_id" ref="partner_view_loan_install_account_filter" />
+            <field name="help">This is the view where you can Disburse the loan
+				that are approved</field>
+        </record>
+        
+        <menuitem id="partner_loan_install_ment_menu" name="Loan Installments" parent="partner_loan_account_menu" action="partner_action_loan_install_confirm"/>
+    </data>
+</odoo>

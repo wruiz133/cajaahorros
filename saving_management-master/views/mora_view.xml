@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+  <!-- Vista Formulario Mora-->
+   <record model="ir.ui.view" id="saving_management_mora_form_view">
+   <field name="name">saving.management.saving.mora.mora.form</field>
+   <field name="model">saving.management.saving.mora</field>
+   <field name="arch" type="xml">
+     <form string="Tipo de ahorros">				
+          <sheet>  
+           <h1>
+              <field name="name" placeholder="Nombre de tasa IR ejemplo Mora 3.5% ..." class="oe_inline"/>
+          </h1>
+          <group colspan="4">
+               <group cols="2">            
+               <field name="tasa_mora"/>
+	      </group>
+	      <group cols="2">
+				<field name="dias_mora"/>
+	            <field name="active" />
+	      </group>
+	   </group>		
+    <notebook>
+      <page string="Contabilidad">
+        <group colspan="4">
+          <group cols="2">
+            <field name="cuenta_mora"/>
+          </group>
+        </group>
+      </page> 
+    </notebook>
+  <field name="description" />
+	</sheet>   
+     </form>
+   </field> 
+   </record> 
+   <!-- Fin de Vista form  -->
+   <!--  Vista -->
+   <record model="ir.ui.view" id="management_saving_mora_tree_view">
+   <field name="name">saving.management.saving.mora.tree</field>
+   <field name="model">saving.management.saving.mora</field>
+   <field name="arch" type="xml">
+       <tree string="Tasa Mora">
+             <field name="name"/>
+             <field name="tasa_mora"/>
+       </tree>
+   </field> 
+   </record>
+   <!--  Accion para ahorross -->
+   <record model="ir.actions.act_window" id="saving_management_mora_action">
+   <field name="name">Tasas Impueto Renta</field>
+   <field name="res_model">saving.management.saving.mora</field>
+   <field name="view_type">form</field>
+   <field name="view_model">form</field>
+   <field name="help" type="html">
+   <p class="oe_view_nocontent_create">Crear primer tasa de impuesto Renta</p>
+   </field>
+   </record>
+   <!-- Fin de Action de Contratos -->
+     <!--  Menu Principal de ahorross-->
+   <menuitem string="Tasas Moratorias" id="menu_tasa_moratoria" parent="saving_management_configuration" action="saving_management_mora_action" sequence="10"/>
+   </data>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

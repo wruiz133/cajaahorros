@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_funds_requisition_manager,funds.requisition,model_funds_requisition,financial.group_funds_requisition_manager,1,1,1,1
+access_contract_sale_user,contratos.contractsale,model_funds_requisition,financial.group_funds_requisition_user,1,1,1,0

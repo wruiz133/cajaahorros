@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Vista Formulario Presamo-->
+        <record model="ir.ui.view" id="loan_management_loan_form_words">
+            <field name="name">loan.management.loan.form.words</field>
+            <field name="model">loan.management.loan</field>
+            <field name="inherit_id" ref="loan_management-master.loan_management_loan_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group[1]/group[3]" position="after">
+                    <group colspan="6">
+                        <field name="monto_en_letras" invisible="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

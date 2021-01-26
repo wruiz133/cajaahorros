@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Contract Types -->
+        <!-- <record id="plan_catalogues_ctype" model="plan.catalogues">
+            <field name="name">Tipo Contrato</field>
+            <field name="code">CTYPE</field>
+        </record> -->
+		<!-- Plan Catalogues -->		
+        <record id="plan_catalogues_plan" model="plan.catalogues">
+            <field name="name">Catálogo Plan</field>
+            <field name="code">CPLAN</field>
+            <field name="parent">1</field>            
+        </record>
+        
+		<!-- Clasification -->
+        <record id="plan_catalogues_limit" model="plan.catalogues">
+            <field name="name">Clasificación</field>
+            <field name="code">CLASSIFICATION</field>
+            <field name="parent">1</field>
+            <field ref="plan_catalogues_plan" name="parent_id"/>                                                                    
+        </record>
+        <record id="plan_catalogues_twelve" model="plan.catalogues">
+            <field name="name">Navidad</field>
+            <field name="name_num">1</field>
+            <field name="code">45</field>
+            <field ref="plan_catalogues_limit" name="parent_id"/>                        
+        </record>
+        <record id="plan_catalogues_twentyfour" model="plan.catalogues">
+            <field name="name"></field>
+            <field name="name_num">24</field>            
+            <field name="code">L24</field>
+            <field ref="plan_catalogues_limit" name="parent_id"/>                                              
+        </record>
+        <record id="plan_catalogues_thirtysix" model="plan.catalogues">
+            <field name="name">36</field>
+            <field name="name_num">36</field>
+            <field name="code">L36</field>
+            <field ref="plan_catalogues_limit" name="parent_id"/>                                                                     
+        </record>
+        <record id="plan_catalogues_fortyeight" model="plan.catalogues">
+            <field name="name">48</field>
+            <field name="name_num">48</field>
+            <field name="code">L48</field>
+            <field ref="plan_catalogues_limit" name="parent_id"/>                                                                    
+        </record>
+        <record id="plan_catalogues_sixty" model="plan.catalogues">
+            <field name="name">60</field>
+            <field name="name_num">60</field>
+            <field name="code">L60</field>
+            <field ref="plan_catalogues_limit" name="parent_id"/>
+        </record>
+
+    </data>
+</odoo>

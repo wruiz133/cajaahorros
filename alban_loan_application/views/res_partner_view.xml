@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+  <data>
+    <record id="res_partner_tree_prelim_app_inherit" model="ir.ui.view">
+        <field name="name">res.partner.tree.view.prelim</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='display_name']" position="after">
+                <field name="national_id" string ="hello here" />
+            </xpath>
+        </field>
+    </record>
+    
+
+    
+    <record id="view_res_partner_tree_123" model="ir.ui.view">
+        <field name="name">view.res.partner.tree</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+          <tree>
+              <field name="national_id"/>
+              <field name="name"/>
+              <field name="fathername"/>
+              <field name="lastname"/>
+              <field name="birthday"/>
+              <field name="city_id"/>
+			  <field name="black_list"/>
+              <field name="client_guarantor"/>
+          </tree>
+        </field>
+    </record>
+    
+    <record id="view_res_partner_form_123" model="ir.ui.view">
+        <field name="name">view.res.partner.individual.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_submit" states="draft" type="object" string="Submit"/>
+                    <button name="action_approve" states="monitor" type="object" string="Approve"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+               <sheet>
+                   <h2>Base Number Individuals</h2>
+                    <group>
+                        <group>
+                            <field name="branch_id" widget="selection"/>
+                            <field name="sub_branch_id" widget="selection" domain="[('branch_id', '=', branch_id)]"/>
+                        </group>
+                        <group>
+                            <field name="client_guarantor"/>
+                            <field name="is_company" invisible="1"/>
+                            <field name="is_company_customer" invisible="1"/>
+                            <field name="is_bank_customer" invisible="1"/>
+                            <field name="account_id" readonly="1"/>
+                        </group>
+                   </group>
+                   <group string="Customer Information/Guarantor">
+                        <group>
+                            <field name="customer_type_name" string ="Salutation"/>
+                            <field name="name" required="1" string="First Name"/>
+                            <field name="fathername"/>
+                            <field name="lastname"/>
+                            <field name="maiden_name"/>
+                            <field name="last_name_bef"/>
+                            <field name="preferedname"/>
+                            <field name="gender" />
+                            
+                        </group>
+                        <group>
+                            <field name="national_id"/>
+                            <label for="city_id" string="City Of Birth"/>
+                            <div class="o_address_format">
+                                <field name="birth_country" widget="selection" placeholder="Country" class="o_address_street"/>
+                                <field name="city_id" widget="selection" placeholder="City" domain="[('circle_id', '=', birth_country)]" class="o_address_street"/>
+                            </div>
+                            <field name="birthday"/>
+                        </group>
+                   </group> 
+                   <group string="Identification Document">
+                        <group>
+                            <field name="national_id_type"/>
+                            <field name="document_client_id"/>
+                            <field name="date_release"/>
+                        </group>
+                        <group>
+                            <field name="country_issuance" widget="selection"/>
+                            <field name="citizenship"/>
+                            <field name="date_expiry"/>
+                        </group>
+                   </group>
+                   <group string="Industry Identification">
+                        <group>
+                            <field name="industry_sector"/>
+                        </group>
+                        <group>
+                            <field name="industry_group"/>
+                            <field name="industry_code"/>
+                        </group>
+                   </group>
+                   <!--
+                   <group string="Industry Identification">
+                        <group>
+                            <field name="customer_type_name"/>
+                            <field name="industry_sector"/>
+                        </group>
+                        <group>
+                            <field name="industry_group"/>
+                            <field name="industry_code"/>
+                        </group>
+                   </group>
+                   -->
+                   <group string="Customer Address">
+                        <group>
+                            <label for="country_id" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="country_id" required="1" widget="selection" placeholder="Country" class="o_address_street"/>
+                                <field name="district_id" required="1" widget="selection" placeholder="District" domain="[('circle_id', '=', country_id)]" class="o_address_street"/>
+                                <field name="municipality" required="1" widget="selection" placeholder="Commune" class="o_address_street" domain="[('circle_id', '=', country_id),('district_id', '=', district_id)]"/>
+                                <field name="city_village" required="1" widget="selection" placeholder="Village"  class="o_address_street" domain="[('circle_id', '=', country_id),('district_id', '=', district_id),('municipal_id', '=', municipality)]"/>
+                                <field name="street" required="1" placeholder="Street"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="mobile" required="1"/>
+                            <field name="phone"/>
+                            <field name="fax"/>
+                        </group>
+                   </group> 
+                   <group>
+                        <field name="comment" string = "Comments"/>
+                   </group>
+                    
+                    <group string="About Black List">
+                        <field name="black_list"/>
+                        <field name="note"/>
+                   </group>
+               </sheet>
+            </form>
+        </field>
+    </record>
+  
+    
+    <record id="view_res_partner_filter_123" model="ir.ui.view">
+        <field name="name">res.partner.search</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search string="Submit">
+                <field name="black_list" />
+                <field name="client_guarantor" />
+                <field name="name" />
+                <field name="lastname" />
+                <field name="national_id" />
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="black_list" string="Black List" context="{'group_by':'black_list'}"/>
+                    <filter name="client_guarantor" string="Client/Guarantor" context="{'group_by':'client_guarantor'}"/>
+                    <filter name="name" string="Name" context="{'group_by':'name'}"/>
+                    <filter name="lastname" string="Surname" context="{'group_by':'lastname'}"/>
+                    <filter name="national_id" string="National Id" context="{'group_by':'national_id'}"/>
+                    <separator/>
+                </group>
+           </search>
+        </field>
+    </record>
+
+        
+        
+    <record id="action_res_partner_form_123_new" model="ir.actions.act_window">
+        <field name="name">Base Number</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,search</field>
+        <field eval="False" name="view_id"/>
+        <field name="context">{'default_is_company':0,'default_is_company_customer':-10,'default_is_bank_customer':-1,'search_default_is_bank_customer':-10,'search_default_is_company_customer':-1}</field>
+        <field name="domain">[('is_company_customer','=','-10'),('is_bank_customer','=','-1')]</field>
+        <field name="search_view_id" ref="view_res_partner_filter_123"/>
+    </record>
+    
+    
+    <record id="action_res_partner_ind_tree_view1" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_res_partner_tree_123"/>
+        <field name="act_window_id" ref="action_res_partner_form_123_new"/>
+    </record>
+
+    <record id="action_res_partner_ind_form_view2" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_res_partner_form_123"/>
+        <field name="act_window_id" ref="action_res_partner_form_123_new"/>
+    </record>
+    
+    <menuitem id="menu_base_numbers_main" name = "Base Numbers" parent="menu_loan_appln_main" sequence="3" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+    <menuitem id="menu_action_res_partner_indiv" parent="menu_base_numbers_main" name ="Individual" sequence="1" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+    <menuitem action="action_res_partner_form_123_new" id="menu_action_res_partner_123" parent="menu_action_res_partner_indiv" name ="Base Number" sequence="1" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+     
+    <menuitem
+            id="account_report_folder"
+            name="Reports"
+            parent="menu_loan_appln_main"
+            sequence="6" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+    
+    
+    <record id="view_res_partner_tree_com_123" model="ir.ui.view">
+        <field name="name">view.res.partner.com.tree</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+          <tree>
+              <field name="account_id"/>
+              <field name="national_id"/>
+              <field name="name"/>
+              <field name="detail_name_com"/>
+              <field name="birthday" string = "Date of Creation"/>
+              <field name="black_list"/>
+              <field name="client_guarantor"/>
+          </tree>
+        </field>
+    </record>
+    
+    <record id="view_res_partner_form_com_123" model="ir.ui.view">
+        <field name="name">view.res.partner.individual.com.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_submit" states="draft" type="object" string="Submit"/>
+                    <button name="action_approve" states="monitor" type="object" string="Approve"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+               <sheet>
+                   <h2>Base Number Companies</h2>
+                    <group>
+                        <group>
+                            <field name="branch_id" widget="selection"/>
+                            <field name="sub_branch_id" widget="selection" domain="[('branch_id', '=', branch_id)]"/>
+                        </group>
+                        <group>
+                            <field name="client_guarantor"/>
+                            <field name="is_company" invisible="1"/>
+                            <field name="is_company_customer" invisible="1"/>
+                            <field name="is_bank_customer" invisible="1"/>
+                            <field name="account_id" readonly="1"/>
+                        </group>
+                   </group>
+                   <group string="Customer Information/Garantorin">
+                        <group>
+                            <field name="national_id" required="1" string = "National Business Id"/>
+                            <field name="name" required="1"/>
+                            <field name="detail_name_com" />
+                        </group>
+                        <group>
+                            <field name="birthday" string="Creation Date"/>
+                        </group>
+                   </group> 
+                   <group string="Identification Document">
+                        <group>
+                            <field name="national_id_type"/>
+                            <field name="document_client_id" required="1"/>
+                            <field name="date_release"/>
+                        </group>
+                        <group>
+                            <field name="country_issuance" widget="selection"/>
+                            <field name="citizenship"/>
+                            <field name="date_expiry"/>
+                        </group>
+                   </group>
+                   <group string="Industry Identification">
+                        <group>
+                            <field name="customer_type_name" string ="Company Type"/>
+                            <field name="industry_sector"/>
+                        </group>
+                        <group>
+                            <field name="industry_group"/>
+                            <field name="industry_code"/>
+                        </group>
+                   </group>
+                   <group string="Customer Address">
+                        <group>
+                            <label for="country_id" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="country_id" required="1" widget="selection" placeholder="Country" class="o_address_street"/>
+                                <field name="district_id" required="1" widget="selection" placeholder="District" domain="[('circle_id', '=', country_id)]" class="o_address_street"/>
+                                <field name="municipality" required="1" widget="selection" placeholder="Commune" class="o_address_street" domain="[('circle_id', '=', country_id),('district_id', '=', district_id)]"/>
+                                <field name="city_village" required="1" widget="selection" placeholder="Village"  class="o_address_street" domain="[('circle_id', '=', country_id),('district_id', '=', district_id),('municipal_id', '=', municipality)]"/>
+                                <field name="street" required="1" placeholder="Street"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="mobile" required="1"/>
+                            <field name="phone"/>
+                            <field name="fax"/>
+                        </group>
+                   </group> 
+                   <group>
+                        <field name="comment" string="Comments"/>
+                   </group>
+                    
+                    <group string="About Black List">
+                        <field name="black_list"/>
+                        <field name="note"/>
+                   </group>
+               </sheet>
+            </form>
+        </field>
+    </record>
+  
+    
+    <record id="view_res_partner_filter_com_123" model="ir.ui.view">
+        <field name="name">res.partner.com.search</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search string="Submit">
+                <field name="black_list" />
+                <field name="client_guarantor" />
+                <field name="national_id" />
+                <field name="detail_name_com" />
+                <field name="name" />
+                <field name="national_id" />
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="black_list" string="Black List" context="{'group_by':'black_list'}"/>
+                    <filter name="client_guarantor" string="Client/Guarantor" context="{'group_by':'client_guarantor'}"/>
+                    <filter name="national_id" string="Vat Number" context="{'group_by':'national_id'}"/>
+                    <filter name="detail_name_com" string="Detail Name" context="{'group_by':'detail_name_com'}"/>
+                    <filter name="name" string="Name" context="{'group_by':'name'}"/>
+                    <filter name="account_id" string="Account Id" context="{'group_by':'account_id'}"/>
+                    <separator/>
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <record id="action_res_partner_form_com_123_new" model="ir.actions.act_window">
+        <field name="name">Base Number</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,search</field>
+        <field eval="False" name="view_id"/>
+        <field name="context">{'default_is_company':1,'default_is_company_customer':-20,'default_is_bank_customer':-1, 'search_default_is_bank_customer':-20,'search_default_is_company_customer':-1}</field>
+        <field name="domain">[('is_company','=','True'),('is_company_customer','=','-20'), ('is_bank_customer','=','-1')]</field>
+        <field name="search_view_id" ref="view_res_partner_filter_com_123"/>
+    </record>
+
+
+
+    <record id="action_res_partner_new_tree_view1" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_res_partner_tree_com_123"/>
+        <field name="act_window_id" ref="action_res_partner_form_com_123_new"/>
+    </record>
+
+    <record id="action_res_partner_new_form_view2" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_res_partner_form_com_123"/>
+        <field name="act_window_id" ref="action_res_partner_form_com_123_new"/>
+    </record>
+    
+    <menuitem id="menu_action_res_partner_com" parent="menu_base_numbers_main" name ="Company" sequence="2" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+    <menuitem action="action_res_partner_form_com_123_new" id="menu_action_res_partner_com_123" parent="menu_action_res_partner_com" name ="Base Number" sequence="1" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+     
+
+    <record id="view_res_users_inherit" model="ir.ui.view">
+        <field name="name">res.users.select.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="branch_id" widget="selection" />
+                    <field name="sub_branch_id" widget="selection" domain="[('branch_id', '=', branch_id)]"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+    
+    
+  </data>
+</openerp>

@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+  <data>
+    
+    <record id="view_prelim_app_tree" model="ir.ui.view">
+      <field name="name">view.prelim.app.tree</field>
+      <field name="model">prelim.app</field>
+      <field name="arch" type="xml">
+        <tree delete='false'>
+            <field name="branch_id"/>
+            <field name="officer"/>
+            <field name="account_id1"/>
+            <field name="name"/>
+            <field name="fathername"/>
+            <field name="lastname"/>
+            <field name="create_date"/>
+            <field name="state"/>
+        </tree>
+      </field>
+    </record>
+    
+    <record id="view_prelim_app_form" model="ir.ui.view">
+        <field name="name">view.prelim.app.form</field>
+        <field name="model">prelim.app</field>
+        <field name="arch" type="xml">
+            <form delete='false'>
+                <header>
+                    <button name="action_ready" states="draft" type="object" string="Ready"/>
+                    <button name="action_eliminate" type="object" string="Eliminate" attrs="{'invisible':[('state', 'in', ('ready','approve','reject'))]}"/>
+                    <button name="action_approve" states="ready" type="object" string="Approve" attrs="{'invisible':[('state', 'in', ('draft','eliminate','reject','approve'))]}"/>
+                    <button name="action_return_data"  type="object" string="Return" attrs="{'invisible':[('state', 'in', ('draft','eliminate','reject','approve'))]}"/>
+                    <button name="action_reject" type="object" string="Do Not Approve" attrs="{'invisible':[('state', 'in', ('draft','eliminate','approve'))]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,ready,approve"/>
+                </header>
+               <sheet>
+                   <h2>Preliminary Application Individuals</h2>
+                    <group string="Information Application" >
+                        <group>
+                            <field name="branch_id" widget="selection" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="sub_branch_id" widget="selection" domain="[('branch_id', '=', branch_id)]" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                        </group>
+                        <group>
+                            <field name="officer" widget="selection" domain="[('branch_id', '=', branch_id), ('sub_branch_id', '=', sub_branch_id)]" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="user_officer_id" widget="selection" domain="[('branch_id', '=', branch_id), ('sub_branch_id', '=', sub_branch_id)]" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="account_id1"  readonly="1"  attrs="{'readonly': [('state', 'in', ('ready','draft','approve','eliminate','reject'))]}"/>
+                            <field name="is_company_customer" invisible="1"/>
+                            <field name="is_bank_customer" invisible="1"/>
+                        </group>
+                   </group>
+                   <group string="Customer Information">
+                        <group>
+                            <field name="partner_id" options="{'no_quick_create': True, 'no_create_edit' : True}" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="customer_type_name" string="Salutation" required="1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="name" required = "1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="fathername" required = "1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="lastname" required = "1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="maiden_name" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="last_name_bef" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="preferedname" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="gender" required = "1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                        </group>
+                        <group >
+                            <field name="national_id" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="mstatus" required = "1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="ssituation" required="1" attrs="{'readonly':[('state','in',('approve','eliminate','reject'))]}"/>
+                            <field name="educat" required = "1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="exp" required = "1" attrs="{'readonly': [('state', 'in',      ('approve','eliminate','reject'))]}"/>
+                            <field name="chdrn" required = "1" attrs="{'readonly': [('state', 'in',     ('approve','eliminate','reject'))]}"/>
+                            <field name="tmember" required = "1" attrs="{'readonly': [('state', 'in',     ('approve','eliminate','reject'))]}"/>
+                        </group>
+
+                   </group>
+                    <group string="Identification Information">
+                        <group>
+                            <field name="national_id_type" required = "1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="document_client_id" required = "1"  attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="date_release"  required = "1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="date_expiry"  required = "1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                         </group>
+                         <group>
+                            <field name="country_issuance" required = "1"  attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="citizenship" required = "1"  attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <label for="city_id" string="City Of Birth"/>
+                            <div class="o_address_format">
+                                <field name="birth_country" required = "1"  widget="selection" placeholder="Country" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}" class="o_address_street"/>
+                                <field name="city_id"  required = "1" widget="selection" placeholder="City" domain="[('circle_id', '=', birth_country)]" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}" class="o_address_street"/>
+                            </div>
+                            <field name="birthday" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                         </group>
+                         
+                   </group>
+                   <group string="Industry Information">
+                         <group>
+                            <!--
+                            <field name="national_id" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            -->
+                            <field name="industry_sector"  required="1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="industry_group"  required="1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="industry_code"  required="1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+
+
+                   <group string="Other Names" ></group>
+                    <field name="other_name_ids" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}">
+                        <tree string="Other Names" editable="bottom">
+                            <field name="name" />
+                            <field name="ppuse" />
+                            <field name="prelim_id" invisible="1"/>
+                        </tree>
+                    </field>
+                   
+                   <group string="Customer Address">
+                        <group>
+                            <label for="country_id" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="country_id"  required = "1" widget="selection" placeholder="Country" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                                <field name="district_id"  required = "1" widget="selection" placeholder="District" domain="[('circle_id', '=', country_id)]" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}" class="o_address_street"/>
+                                <field name="municipality"  required = "1" widget="selection" placeholder="Commune" domain="[('circle_id', '=', country_id),('district_id', '=', district_id)]" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}" class="o_address_street"/>
+                                <field name="city_village"  required = "1" widget="selection" placeholder="Village" domain="[('circle_id', '=', country_id),('district_id', '=', district_id),('municipal_id', '=', municipality)]" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}" class="o_address_street"/>
+                                <field name="street"  required = "1" placeholder="Street" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}" class="o_address_street"/>
+                            </div>
+                            <field name="data_placement" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                        </group>
+                        <group>
+                            <field name="phone" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="mobile"  required = "1"  attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="fax" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="email" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="oaddress" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                    </group>
+                    <group string="The contact persons of the company"></group>
+                    <field name="contact_company_ids" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}">
+                        <tree string="The contact persons of the company" editable="bottom">
+                            <field name="position" />
+                            <field name="name" />
+                            <field name="pk" />
+                            <field name="wire" />
+                            <field name="document" />
+                            <field name="email" />
+                            <field name="note" />
+                            <field name="prelim_com_id" invisible="1"/>
+                        </tree>
+                    </field>
+                    
+                    <group string="Other phones"></group>
+                    <field name="phone_ids" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}">
+                        <tree string="Other Phones" editable="bottom">
+                            <field name="nrte" />
+                            <field name="descp" />
+                            <field name="prelim_id" invisible="1"/>
+                        </tree>
+                    </field>
+                    
+                    <group string="Income/Credit" >
+                        <group>
+                            <field name="amount_available" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="friend_relative" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                        </group>
+                        <group>
+                            <field name="loan_credit" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="currency" widget="selection" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+
+                        </group>
+                        
+                    </group>
+                    <group>
+                            <field name="investment" required="1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                    </group>
+
+                    <group string="Guarantees"></group>
+                    <field name="guarantee_ids" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}">
+                        <tree string="Guarantees" editable="bottom">
+                            <field name="guarantee" />
+                            <field name="value_guarantee" />
+                            <field name="prelim_id" invisible="1"/>
+                        </tree>
+                    </field>
+                    
+                    <group string="Marketing/Notes" >
+                            <field name="inform_by" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="notes" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                    </group>
+                    
+                    <group>
+                        <field name="eliminate_note" attrs="{'invisible':[('state', '!=', 'eliminate')],'readonly': [('state', 'in', ('approve','reject'))]}"/>
+                        <field name="reject_note" attrs="{'invisible':[('state', '!=', 'reject')], 'readonly': [('state', 'in', ('approve','eliminate'))]}"/>
+                    </group>
+                    
+                    <group>
+                        <group>
+                            <field name="user_id" readonly="1" />
+                            <field name="create_date" readonly="1"/>
+                            <field name="user_authorize_id" readonly="1" attrs="{'invisible':[('state', 'in', ('draft','ready','reject','eliminate'))]}"/>
+                            <field name="authorize_date" readonly="1" attrs="{'invisible':[('state', 'in', ('draft','ready','reject','eliminate'))]}"/>
+                        </group>
+                        <group>
+                            <field name="user_update_id" readonly="1"/>
+                            <field name="update_date" readonly="1"/>
+                        </group>
+                    </group>
+                   
+                   
+               </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_prelim_app_filter" model="ir.ui.view">
+        <field name="name">prelim.app.search</field>
+        <field name="model">prelim.app</field>
+        <field name="arch" type="xml">
+            <search string="Preliminary Application">
+                
+                <field name="name" />
+                <field name="lastname" />
+                <field name="branch_id"/>
+                <field name="officer"/>
+            <separator/>
+            <group expand="0" string="Group By">
+                <filter name="branch_id" string="Branch" context="{'group_by':'branch_id'}"/>
+                <filter name="officer" string="Officer" context="{'group_by':'officer'}"/>
+                <filter name="name" string="Name" context="{'group_by':'name'}"/>
+                <filter name="lastname" string="Last Name" context="{'group_by':'lastname'}"/>
+            <separator/>
+            </group>
+            </search>
+        </field>
+    </record>
+        
+        
+    <record id="action_prelim_app_form" model="ir.actions.act_window">
+        <field name="name">Preliminary Application</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">prelim.app</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="context">{'default_is_company_customer':-10,'default_is_bank_customer':-1,'search_default_is_bank_customer':-1,'search_default_is_company_customer':-10}</field>
+        <field name="domain">[('is_company_customer','=','-10'),('is_bank_customer','=','-1')]</field>
+        <!--
+        <field name="context">{'default_individual':1,'default_company':0, 'search_default_individual':1}</field>
+        <field name="domain">[('individual','=','True')]</field>
+        -->
+        <field eval="False" name="view_id"/>
+        <field name="search_view_id" ref="view_prelim_app_filter"/>
+     </record>
+     
+      
+     <record id="action_prelim_app_form_tree_view1" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_prelim_app_tree"/>
+        <field name="act_window_id" ref="action_prelim_app_form"/>
+    </record>
+
+    <record id="action_prelim_app_form_form_view2" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_prelim_app_form"/>
+        <field name="act_window_id" ref="action_prelim_app_form"/>
+    </record>
+      
+   
+
+    <record id="action_prelim_app_form_officer" model="ir.actions.act_window">
+        <field name="name">Preliminary Application</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">prelim.app</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="context">{'default_is_company_customer':-10,'default_is_bank_customer':-1,'search_default_is_bank_customer':-1,'search_default_is_company_customer':-10}</field>
+        <!--ketu per te rregulluar userat
+        <field name="domain">[('is_company_customer','=','-10'),('is_bank_customer','=','-1'),('user_officer_id','=',uid)]</field>
+        -->
+        <field name="domain">[('is_company_customer','=','-10'),('is_bank_customer','=','-1'),('user_officer_id','=',uid)]</field>
+        <!--
+        <field name="context">{'default_individual':1,'default_company':0, 'search_default_individual':1}</field>
+        <field name="domain">[('individual','=','True'),('user_officer_id','=',uid)]</field>
+        -->
+        <field eval="False" name="view_id"/>
+        <field name="search_view_id" ref="view_prelim_app_filter"/>
+     </record>
+     
+      
+     <record id="action_prelim_app_form_tree_view1_officer" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_prelim_app_tree"/>
+        <field name="act_window_id" ref="action_prelim_app_form_officer"/>
+    </record>
+
+    <record id="action_prelim_app_form_form_view2_officer" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_prelim_app_form"/>
+        <field name="act_window_id" ref="action_prelim_app_form_officer"/>
+    </record>
+
+
+    
+    
+
+    <record id="view_prelim_app_tree_com" model="ir.ui.view">
+      <field name="name">view.prelim.app.com.tree</field>
+      <field name="model">prelim.app</field>
+      <field name="arch" type="xml">
+        <tree delete='false'>
+            <field name="branch_id"/>
+            <field name="officer"/>
+            <field name="account_id1"/>
+            <field name="national_id"/>
+            <field name="detail_name_com"/>
+            <field name="name"/>
+            <field name="create_date"/>
+            <field name="state"/>
+        </tree>
+      </field>
+    </record>
+    
+    <record id="view_prelim_app_form_com" model="ir.ui.view">
+        <field name="name">view.prelim.app.com.form</field>
+        <field name="model">prelim.app</field>
+        <field name="arch" type="xml">
+            <form delete='false'>
+                <header>
+                    <button name="action_ready" states="draft" type="object" string="Ready"/>
+                    <button name="action_eliminate" type="object" string="Eliminate" attrs="{'invisible':[('state', 'in', ('ready','approve','reject'))]}"/>
+                    <button name="action_approve" states="ready" type="object" string="Approve" attrs="{'invisible':[('state', 'in', ('draft','eliminate','reject','approve'))]}"/>
+                    <button name="action_return_data"  type="object" string="Return" attrs="{'invisible':[('state', 'in', ('draft','eliminate','reject','approve'))]}"/>
+                    <button name="action_reject" type="object" string="Do Not Approve" attrs="{'invisible':[('state', 'in', ('draft','eliminate','approve'))]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,register,ready,approve"/>
+                </header>
+               <sheet>
+                   <h2>Preliminary Application Companies</h2>
+                    <group string="Information Application" >
+                        <group>
+                            <field name="branch_id" widget="selection" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="sub_branch_id" widget="selection" domain="[('branch_id', '=', branch_id)]" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                        </group>
+                        <group>
+                            <field name="officer" widget="selection" domain="[('branch_id', '=', branch_id), ('sub_branch_id', '=', sub_branch_id)]" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="user_officer_id" widget="selection" domain="[('branch_id', '=', branch_id), ('sub_branch_id', '=', sub_branch_id)]" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="account_id1" readonly = "1" attrs="{'readonly': [('state', 'in', ('ready','draft','approve','eliminate','reject'))]}"/>
+                            <field name="is_company_customer" invisible="1"/>
+                            <field name="is_bank_customer" invisible="1"/>
+                        </group>
+                   </group>
+                   <group string="Customer Information">
+                        <group>
+                            <field name="partner_id" options="{'no_quick_create': True, 'no_create_edit' : True}" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="national_id" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="name" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="detail_name_com" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            
+                            
+                        </group>
+                        <group>
+                            <!--
+                            <field name="national_id" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            -->
+                            <field name="customer_type_name" string="Company Type" required="1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="industry_sector"  required="1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="industry_group"  required="1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="industry_code"  required="1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                        </group>
+                   </group>
+                   <group>
+                       <field name="productservice" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                   </group>
+                   <group string="Identification Information">
+                        <group>
+                            <field name="national_id_type" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="document_client_id" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="date_release" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="date_expiry" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                         </group>
+                         <group>
+                            <field name="country_issuance" required = "1"  attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="citizenship" required = "1"  attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <label for="city_id" string="City Of Birth"/>
+                            <div class="o_address_format">
+                                <field name="birth_country" widget="selection" placeholder="Country" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}" class="o_address_street"/>
+                                <field name="city_id" widget="selection" placeholder="City" domain="[('circle_id', '=', birth_country)]" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}" class="o_address_street"/>
+                            </div>
+                            <field name="birthday" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                         </group>
+                         
+                   </group>
+
+
+
+
+                  
+                   
+                   <group string="Customer Address">
+                        <group>
+                            <label for="country_id" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="country_id"  required="1" widget="selection" placeholder="Country" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                                <field name="district_id"  required="1" widget="selection" placeholder="District" domain="[('circle_id', '=', country_id)]" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}" class="o_address_street"/>
+                                <field name="municipality"  required="1" widget="selection" placeholder="Commune" domain="[('circle_id', '=', country_id),('district_id', '=', district_id)]" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}" class="o_address_street"/>
+                                <field name="city_village"  required="1" widget="selection" placeholder="Village" domain="[('circle_id', '=', country_id),('district_id', '=', district_id),('municipal_id', '=', municipality)]" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}" class="o_address_street"/>
+                                <field name="street"  required="1" placeholder="Street" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}" class="o_address_street"/>
+                            </div>
+                            <field name="data_placement" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                        </group>
+                        <group>
+                            <field name="phone" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="mobile"  required="1" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="fax" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="email" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="oaddress" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                    </group>
+                    <group string="The contact persons of the company"></group>
+                    <field name="contact_company_ids" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}">
+                        <tree string="The contact persons of the company" editable="bottom">
+                            <field name="position" />
+                            <field name="name" />
+                            <field name="pk" />
+                            <field name="wire" />
+                            <field name="document" />
+                            <field name="email" />
+                            <field name="note" />
+                            <field name="prelim_com_id" invisible="1"/>
+                        </tree>
+                    </field>
+                    
+                    <group string="Other phones"></group>
+                    <field name="phone_ids" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}">
+                        <tree string="Other Phones" editable="bottom">
+                            <field name="nrte" />
+                            <field name="descp" />
+                            <field name="prelim_id" invisible="1"/>
+                        </tree>
+                    </field>
+                    
+                    <group string="Income/Credit">
+                        <group>
+                            <field name="amount_available" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="monthly_turnover" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                            <field name="friend_relative" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                        </group>
+                        <group>
+                            <field name="loan_credit" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+
+                            <field name="currency" widget="selection" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <!--
+                        <field name="project" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                        -->
+                        <field name="investment" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                    </group>
+                    
+                    <group string="Guarantees"></group>
+                    <field name="guarantee_ids" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}">
+                        <tree string="Guarantees" editable="bottom">
+                            <field name="guarantee" />
+                            <field name="value_guarantee" />
+                            <field name="prelim_id" invisible="1"/>
+                        </tree>
+                    </field>
+                        
+                    <group string="Marketing/Notes">
+                        <field name="inform_by" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                        <field name="notes" attrs="{'readonly': [('state', 'in', ('approve','eliminate','reject'))]}"/>
+                    </group>
+                    
+                   <group>
+                        <field name="eliminate_note" attrs="{'invisible':[('state', '!=', 'eliminate')],'readonly': [('state', 'in', ('approve','reject'))]}"/>
+                        <field name="reject_note" attrs="{'invisible':[('state', '!=', 'reject')], 'readonly': [('state', 'in', ('approve','eliminate'))]}"/>
+                    </group>
+                    
+                    <group>
+                        <group>
+                            <field name="user_id" readonly="1" />
+                            <field name="create_date" readonly="1"/>
+                            <field name="user_authorize_id" readonly="1" attrs="{'invisible':[('state', 'in', ('draft','ready','reject','eliminate'))]}"/>
+                            <field name="authorize_date" readonly="1" attrs="{'invisible':[('state', 'in', ('draft','ready','reject','eliminate'))]}"/>
+                        </group>
+                        <group>
+                            <field name="user_update_id" readonly="1"/>
+                            <field name="update_date" readonly="1"/>
+                        </group>
+                    </group>
+                   
+               </sheet>
+            </form>
+        </field>
+    </record>
+
+    
+    <record id="view_prelim_app_filter_com" model="ir.ui.view">
+        <field name="name">prelim.app.com.search</field>
+        <field name="model">prelim.app</field>
+        <field name="arch" type="xml">
+            <search string="Preliminary Application">
+                
+                <field name="name" />
+                <field name="national_id" />
+                <field name="branch_id"/>
+                <field name="officer"/>
+            <separator/>
+            <group expand="0" string="Group By">
+                <filter name="branch_id" string="Branch" context="{'group_by':'branch_id'}"/>
+                <filter name="officer" string="Officer" context="{'group_by':'officer'}"/>
+                <filter name="name" string="Name" context="{'group_by':'name'}"/>
+                <filter name="national_id" string="TIN" context="{'group_by':'national_id'}"/>
+            <separator/>
+            </group>
+            </search>
+        </field>
+    </record>
+        
+        
+    <record id="action_prelim_app_form_com" model="ir.actions.act_window">
+        <field name="name">Preliminary Application</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">prelim.app</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="context">{'default_is_company_customer':-20,'default_is_bank_customer':-1,'search_default_is_bank_customer':-1,'search_default_is_company_customer':-20}</field>
+        <field name="domain">[('is_company_customer','=','-20'),('is_bank_customer','=','-1')]</field>
+        <!--
+        <field name="context">{'default_individual':0,'default_company':1, 'search_default_company':1}</field>
+        <field name="domain">[('company','=','True')]</field>
+        -->
+        <field eval="False" name="view_id"/>
+        <field name="search_view_id" ref="view_prelim_app_filter_com"/>
+     </record>
+      
+     <record id="action_prelim_app_form_com_tree_view1" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_prelim_app_tree_com"/>
+        <field name="act_window_id" ref="action_prelim_app_form_com"/>
+    </record>
+
+    <record id="action_prelim_app_form_com_form_view2" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_prelim_app_form_com"/>
+        <field name="act_window_id" ref="action_prelim_app_form_com"/>
+    </record>
+     
+<!--    <menuitem id="menu_preliminary_appln_main_com" parent="menu_preliminary_appln_main" name ="Company" sequence="2" />-->
+    
+    
+    
+    
+    <record id="action_prelim_app_form_com_officer" model="ir.actions.act_window">
+        <field name="name">Preliminary Application</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">prelim.app</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'default_is_company_customer':-20,'default_is_bank_customer':-1,'search_default_is_bank_customer':-1,'search_default_is_company_customer':-20}</field>
+        <field name="domain">[('is_company_customer','=','-20'),('is_bank_customer','=','-1'),('user_officer_id','=',uid)]</field>
+        <!--
+        <field name="context">{'default_individual':0,'default_company':1, 'search_default_company':1}</field>
+        <field name="domain">[('company','=','True'),('user_officer_id','=',uid)]</field>
+        -->
+        <field eval="False" name="view_id"/>
+        <field name="search_view_id" ref="view_prelim_app_filter_com"/>
+     </record>
+      
+     <record id="action_prelim_app_form_com_tree_view1_officer" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_prelim_app_tree_com"/>
+        <field name="act_window_id" ref="action_prelim_app_form_com_officer"/>
+    </record>
+
+    <record id="action_prelim_app_form_com_form_view2_officer" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_prelim_app_form_com"/>
+        <field name="act_window_id" ref="action_prelim_app_form_com_officer"/>
+    </record>
+
+
+    <menuitem id="menu_loan_appln_main" name = "Loan" sequence="202" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+    
+     <menuitem id="menu_preliminary_appln_main" name = "Preliminary Application"  parent="menu_loan_appln_main"  sequence="2" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+    
+    <menuitem id="menu_preliminary_appln_main_ind" parent="menu_preliminary_appln_main" name ="Individual" sequence="1" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+    <menuitem id="menu_preliminary_appln_main_com" parent="menu_preliminary_appln_main" name ="Company" sequence="2" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+   
+
+    <menuitem action="action_prelim_app_form" id="menu_action_prelim_app_form" name="Preliminary Application" parent="menu_preliminary_appln_main_ind" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new" sequence="1"/>
+    <menuitem action="action_prelim_app_form_com" id="menu_action_prelim_app_form_com" name="Preliminary Application" parent="menu_preliminary_appln_main_com" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new" sequence="2"/>
+
+    
+    <!--
+
+    
+
+    <menuitem action="action_prelim_app_form_com" id="menu_action_prelim_app_form_com" name="Preliminary Application" parent="menu_preliminary_appln_main_com" groups="alban_loan_application.group_for_admin_alban_new"/>
+
+    -->
+
+
+  
+
+    <!--<menuitem action="action_prelim_app_form" id="menu_action_prelim_app_form" name="Preliminary Application" parent="menu_preliminary_appln_main_ind" groups="alban_loan_application.group_for_admin_alban_new" sequence="1"/>-->
+    
+     
+    <!--<menuitem action="action_prelim_app_form_com_officer" id="menu_action_prelim_app_form_com_officer_new" name="Preliminary Application" parent="menu_preliminary_appln_main_com" groups="alban_loan_application.group_for_user_alban_new" sequence="3"/>-->
+    
+
+  </data>
+</openerp>

@@ -1,0 +1,1 @@
+aportaciobes.xml debe seguir opcion de retiro de ahorros, hay que trabajar en la logica

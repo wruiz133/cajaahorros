@@ -1,0 +1,12 @@
+<odoo>
+  <data>
+    <report
+        string="Préstamos y Tabla de Amortización"
+        id="action_loan_report"
+        model="loan.management.loan"
+        report_type="qweb-pdf"
+        name="loan_catalogues.loan_report_template"
+    />
+  
+  </data>
+</odoo>

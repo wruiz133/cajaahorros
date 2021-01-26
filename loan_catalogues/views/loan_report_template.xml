@@ -1,0 +1,173 @@
+<odoo>
+	<data>
+
+		<template id="loan_report_template"> 
+			<t t-call="report.html_container"> 
+				<t t-foreach="docs" t-as="o">
+					<t t-call="report.external_layout"> 
+						<div class="page"> 
+							<h3 align="center">NÚCLEO AEROTÉCNICOS SERVICIO PASIVO REGIÓN SIERRA 
+								<br>DEPARTAMENTO ADMINISTRATIVO</br>
+								<br>PRÉSTAMO Y TABLA DE AMORTIZACIÓN</br>
+							</h3> 
+							<body>
+								<br></br>
+								<t t-set="liquido" t-value="0" />
+								<t t-set="saldo" t-value="0" />
+								<t t-set="interes" t-value="0" />
+								<table class="table table-bordered">
+									<br></br>
+									<caption>DETALLE DEL PRÉSTAMO DEL SOCIO</caption>
+									<tbody>
+										<tr style="font-size:15px">
+											<td><strong>Cédula:</strong></td>
+											<td><span text-align="center" t-field="o.afiliado_id.identifier"/></td>
+											<td><strong>Tipo Préstamo:</strong></td>
+											<td><span t-field="o.tipo_prestamo_id"/></td>
+										</tr>
+										<tr style="font-size:15px">
+											<td colspan="4"><strong>Socio:</strong><span style="text-transform:uppercase" t-field="o.afiliado_id.name"/></td>
+										</tr>
+										<tr style="font-size:15px">
+											<td><strong>Voucher:</strong></td>
+											<td><span text-align="center" t-field="o.referencia_desembolso"/></td>
+											<td><strong>Estado:</strong></td>
+											<td><span t-field="o.state"/></td>
+										</tr>
+										<tr style="font-size:15px">
+											<td><strong>Forma Pago:</strong></td>
+											<td><span t-field="o.journal_id"/></td>
+											<td><strong>Fecha:</strong></td>
+											<td><span t-field="o.fecha_solicitud"/></td>
+										</tr>
+										<tr style="font-size:15px">
+											<td><strong>Monto Crédito:</strong></td>
+											<td><span t-field="o.monto_solicitado"/></td>
+											<td><strong>Interés:</strong></td>
+											<td><span t-field="o.total_interes"/></td>
+										</tr>
+										<tr style="font-size:15px">
+											<td><strong>Seguro Desgr:</strong></td>
+											<td><span t-field="o.gastos_papeleria"/></td>
+											<td><strong>Total Deuda:</strong></td>
+											<td><span t-field="o.total_monto"/></td>
+										</tr>
+										<tr style="font-size:15px">
+
+											<td><strong>Líquido Recibe:</strong></td>
+											<t t-set="liquido" t-value="o.monto_solicitado-o.gastos_papeleria" />
+											<td><t t-esc="liquido" /></td>
+											<!--<td><span t-field="liquido"/></td>-->
+											<td><strong>Plazo:</strong></td>
+											<td><span t-field="o.plazo_pago"/></td>
+										</tr>
+										<tr style="font-size:15px">
+												<!--<t t-if="o.state == 'No vigente'" >
+													<t t-set="saldo" t-value="o.saldo_pendiente" />
+													<td><strong>Saldo Capital:</strong><span t-esc="saldo"/></td>
+													
+												</t>-->
+												<td><strong>Saldo Capital:</strong></td>
+												<td>
+													<t t-foreach="o.cuota_ids" t-as="k"> 
+														<t t-if="k.state =='novigente'" >
+															<t t-set="saldo" t-value="sum(s.saldo_prestamo for s in o.cuota_ids)" />
+														</t>
+													</t>
+													<t t-esc="saldo"/>
+												</td>
+												
+												<td><strong>Saldo Interés:</strong></td>
+												<td>
+													<t t-foreach="o.cuota_ids" t-as="p"> 
+														<t t-if="p.state =='novigente'" >
+															<t t-set="interes" t-value="sum(i.interes for i in o.cuota_ids)" />
+														</t>
+													</t>
+													<t t-esc="interes"/>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</body>
+
+
+								<table class="table table-bordered">
+									<br></br>
+									<thead>
+										<caption>TABLA DE AMORTIZACION</caption>
+										<tr style="font-size:15px">
+											<th>Número</th>
+											<th>Fecha Vencimiento</th>
+											<th>Saldo</th>
+											<th>Interés</th>
+											<th>Principal</th>
+											<th>Dividendo</th>
+											<th>Novedad</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<t t-foreach="o.cuota_ids" t-as="c">
+											<tr style="font-size:15px">
+												<td><span t-field="c.numero_cuota"/></td>
+												<td><span t-field="c.fecha_pago"/></td>
+												<td><span t-field="c.saldo_prestamo"/></td>
+												<td><span t-field="c.interes"/></td>
+												<td><span t-field="c.capital"/></td>
+												<td><span t-field="c.monto_cuota"/></td>
+												<td><span t-field="c.state"/></td>
+											</tr>
+										</t>
+									</tbody>
+								</table>
+							</div>
+						
+						</t>
+					</t> 
+				</t> 
+			</template>
+
+		</data>
+	</odoo>
+
+<!--<br></br>
+									
+									<caption>DETALLE DEL PRÉSTAMO DEL SOCIO</caption>
+									<tr>
+										<br></br>
+										<td><strong>Cédula:</strong><b></b><span class="indent" t-field="o.afiliado_id.identifier"/></td>
+										<td><strong>Tipo Préstamo:</strong><span t-field="o.tipo_prestamo_id"/></td>	  		
+									</tr>
+									<tr>
+										<td colspan="4"><strong>Socio:</strong><span t-field="o.afiliado_id.name"/></td>
+									</tr>
+									<tr>
+										<td><strong>Voucher:</strong><span t-field="o.referencia_desembolso"/></td>
+										<td><strong>Estado:</strong><span t-field="o.state"/></td>
+									</tr>
+									<tr>
+										<td><strong>Forma pago:</strong><span t-field="o.journal_id"/></td>
+										<td><strong>Fecha:</strong><span t-field="o.fecha_solicitud"/></td>
+									</tr>
+									<tr>
+										<td><strong>Monto Cŕedito:</strong><span  class="text-right" t-field="o.monto_solicitado"/></td>
+										<td><strong>Interés:</strong><span  class="text-right" t-field="o.total_interes"/></td>
+									</tr>
+									<tr>
+										<td><strong>Seguro Desgr:</strong><span t-field="o.gastos_papeleria"/></td>
+										<td><strong>Total Deuda:</strong><span t-field="o.total_monto"/></td>
+									</tr>
+									<tr>
+										<td><strong>Liquido Recibe:</strong><span t-field="o.monto_solicitado"/></td>
+										<td><strong>Plazo:</strong><span t-field="o.plazo_pago"/></td>
+									</tr>
+
+									<tr>
+										<td><strong>Saldo Capital:</strong><span t-field="o.saldo_pendiente"/></td>
+										<td><strong>Saldo Interés:</strong><span t-field="o.total_interes"/></td>
+									</tr>-
+
+								</table>
+							
+							</body>-->

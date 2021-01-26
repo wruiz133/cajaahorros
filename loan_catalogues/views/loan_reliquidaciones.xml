@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--  Vista Tree Tipo de Prestamo-->
+        <record model="ir.ui.view" id="loan_management_loan_tree_view_inherit">
+            <field name="name">loan.management.loan.tree.inherit</field>
+            <field name="model">loan.management.loan</field>
+            <field name="inherit_id" ref="loan_management-master.loan_management_loan_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='prestamo_moroso']" position="after">
+                    <field name="is_reliquidation" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Vista Formulario Presamo-->
+        <record model="ir.ui.view" id="loan_management_loan_form_view_inherit">
+            <field name="name">loan.management.loan.form.inherit</field>
+            <field name="model">loan.management.loan</field>
+            <field name="inherit_id" ref="loan_management-master.loan_management_loan_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group[1]/group[3]" position="after">
+                    <group colspan="6">
+                        <field name="is_reliquidation"  invisible="1"/>
+                        <field name="lista_cuotas_activod" attrs="{'invisible': [('is_reliquidation','=',False)]}" domain="[('afiliado_id','=',afiliado_id),('state','=','progreso')]"/>
+                        <button name="%(loan_management-master.action_wizard_pago_cuota_prestamo)d" states="desembolso" class="oe_highlight" string="Reliquidar" type="action" attrs="{'invisible': ['|',('is_reliquidation','=',False),('gasto_timbre','>',0.0)]}"
+                        context="{'default_prestamo_id': lista_cuotas_activod}"
+                        />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!--  Accion para solicitud de Prestamos con RELIQUIDACIONS-->
+        <record model="ir.actions.act_window" id="loan_prestamo_reliquidacion_action">
+            <field name="name">Prestamos-Reliquidación</field>
+            <field name="res_model">loan.management.loan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="domain">[('is_reliquidation','=',True)]</field>
+            <field name="context">{'default_is_reliquidation':1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear primera solicitud de prestamo con reliquidación</p>
+            </field>
+        </record>
+
+
+        <menuitem action="loan_prestamo_reliquidacion_action"
+                  string="Reliquidación Préstamos"
+                  id="loan_reliquidations_menu"
+                  parent="loan_management-master.loan_management_general"
+                  sequence="60"
+        />
+    </data>
+</odoo>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <record id="wizard_generar_status_cuotas" model="ir.ui.view">
+        <field name="name">Generar Cartea de Cuotas</field>
+        <field name="model">loan.wizard.generar.cuotas</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <form string="Cuotas de Prestamo">
+            <sheet>
+            <!--<separator string="Pago de Prestamo"/>-->
+                <group>
+                    <group>
+                        <field name="date_generation" />
+                        <!--context="{'default_prestamo_id': lista_prestamos}-->
+                        <field name="lista_prestamos" placeholder = "Nro Prestamos a generar cuotas a pago" />
+                    </group>
+                    <group>
+                      
+                     </group>
+                </group>
+           
+            <group colspan="4">  
+    <p><strong>Se generarán la cartera de cuotas de prestamos a cobrar, este se debe de realizar diariamente.</strong></p>
+            </group>
+         <footer>
+            <button name="generar_status_cuotas" string="Generar Cobranzas" type="object" class="oe_highlight"/>
+            <button class="oe_highlight" special="cancel" string="Cancel"/>
+        </footer>
+        </sheet>
+        </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_status_cuotas" model="ir.actions.act_window">
+            <field name="name">Generar Cartera de Cobros</field>
+            <field name="res_model">loan.wizard.generar.cuotas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_generar_status_cuotas"/>
+            <field name="target">new</field>
+    </record>
+
+    <menuitem string="Generar Cartere de Cobros"  id="menu_generar_cartera_cobros" parent="loan_cuota_management" action="action_wizard_status_cuotas"  sequence="20"/>
+    
+	<!-- WIZARD GENERAR PLAN DE CUOTAS
+	 DCLS-->
+	 <record id="wizard_generar_plan_cuotas" model="ir.ui.view">
+        <field name="name">Generar Plan Pago</field>
+        <field name="model">loan.wizard.generar.plan.cuotas</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <form string="Plan Pago">
+    		<p><strong>Se generará la tabla de plan de pago de prestamos seleccionados.</strong></p>
+         <footer>
+            <button name="generate_plan_cuotas" string="Generar" type="object" class="oe_highlight"/>
+            <button class="oe_highlight" special="cancel" string="Cancel"/>
+        </footer>
+        </form>
+        </field>
+    </record>
+
+    <act_window id="action_generar_plan_cuotas"
+            multi="True"
+            key2="client_action_multi" name="Generar Plan Cuotas"
+            res_model="loan.wizard.generar.plan.cuotas" src_model="loan.management.loan"
+            view_mode="form" target="new" view_type="form" />
+     
+     
+     <!-- WIZARD APROBAR PRESTAMOS
+	 DCLS-->       
+            
+     <record id="wizard_approve_loan" model="ir.ui.view">
+        <field name="name">Aprobar Prestamos</field>
+        <field name="model">loan.wizard.approve</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <form string="Aprobar Prestamos">
+    		<p><strong>Se aprobaran los prestamos seleccionados.</strong></p>
+         <footer>
+            <button name="generate_approve" string="Aprobar" type="object" class="oe_highlight"/>
+            <button class="oe_highlight" special="cancel" string="Cancel"/>
+        </footer>
+        </form>
+        </field>
+    </record>
+
+    <act_window id="action_approve_loan"
+            multi="True"
+            key2="client_action_multi" name="Aprobar Prestamos"
+            res_model="loan.wizard.approve" src_model="loan.management.loan"
+            view_mode="form" target="new" view_type="form" />
+    
+     <!-- WIZARD GENERAR CONTABILIDAD PRESTAMOS
+	 DCLS-->       
+            
+     <record id="wizard_accounting_loan" model="ir.ui.view">
+        <field name="name">Generar Contabilidad Prestamos</field>
+        <field name="model">loan.wizard.generate.accounting</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <form string="Generar Contabilidad Prestamos">
+    		<p><strong>Se generara la contabilidad de los prestamos seleccionados.</strong></p>
+         <footer>
+            <button name="generate_accounting" string="Generar Contabilidad" type="object" class="oe_highlight"/>
+            <button class="oe_highlight" special="cancel" string="Cancel"/>
+        </footer>
+        </form>
+        </field>
+    </record>
+
+    <act_window id="action_accounting_loan"
+            multi="True"
+            key2="client_action_multi" name="Generar Contabilidad"
+            res_model="loan.wizard.generate.accounting" src_model="loan.management.loan"
+            view_mode="form" target="new" view_type="form" />
+
+</data>
+</odoo>

@@ -1,0 +1,181 @@
+<odoo>
+
+    <template id="my_ticket" name="my ticket: project menu entry" inherit_id="website_portal.portal_layout" priority="28">
+       <xpath expr="//ul[contains(@class,'o_portal_submenu')]" position="inside">
+            <li   t-att-class="page_name == 'ticket' and 'active' or ''">
+                 <a href="/my/loans">Loans</a>
+            </li>
+        </xpath>
+    </template>
+    
+    <template id="portal_my_loan" name="Portal My loan: project entries" inherit_id="website_portal.portal_my_home" priority="28">
+        <xpath expr="//div[contains(@class,'o_my_home_content')]" position="inside">
+            <h3  class="page-header">
+                <a href="/my/loans">Your Loans
+                    <small class="ml8">
+                      <t t-if="loan_count">
+                        <span class='badge'><t t-esc="loan_count"/></span>
+                    </t>
+                    <t t-if =" not loan_count">
+                        There are currently no ticket for your account.
+                    </t>
+                    </small>
+                </a>
+            </h3>
+        </xpath>
+    </template>
+    
+    <template id="display_loans" name="Display Loans">
+        <t t-call="website_portal.portal_layout">
+        <h3 class="page-header">Your Loans</h3>
+            <div class="panel-body">
+                <div class='row'>
+                    <table class="table table-hover o_my_status_table">
+                        <thead>
+                          <tr class="active">
+                            <th>Loan Number</th>
+                            <th>Loan Type</th>
+                            <th>Date Applied</th>
+                            <th>Date Approved</th>
+                            <th>Status</th>
+                            <th>Total Amont</th>
+<!--                            <th></th>-->
+                          </tr>
+                        </thead>
+                        <t t-foreach="loans" t-as="loan">
+                            <tr>
+                                <td>
+<!--                                    <a t-att-href="'/report/pdf/odoo_customer_supplier_loan.partner_loan_report_qweb/'+str(loan.id)" t-att-title="loan.name"><t t-esc="loan.name"/></a>-->
+<!--                                    t-att-href="'/report/pdf/account.report_invoice/'+str(invoice.id)"-->
+                                    <a t-attf-href="/my/loan/#{loan.id}?{{ keep_query() }}"><span t-field="loan.name"/></a>
+                                </td>
+                                <td>
+                                    <span t-field="loan.loan_type"/>
+                                </td>
+                                <td>
+                                    <span t-field="loan.date_applied"/>
+                                </td>
+                                <td>
+                                    <span t-field="loan.date_approved"/>
+                                </td>
+                                 <td>
+                                    <span t-field="loan.state"/>
+                                </td>
+                                <td>
+                                    <span t-field="loan.final_total"/>
+                                </td>
+<!--                                <td>-->
+<!--                                    <butto>-->
+<!--                                </td>-->
+                            </tr>
+                        </t>
+                    </table>
+                </div>
+            </div>
+         </t>
+    </template>
+    
+    <template id="display_loan" name="display loan">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="oe_structure">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb mt8">
+                                    <li><a href="/my/home"><i class="fa fa-home"/></a></li>
+                                    <li><a t-attf-href="/my/loans?#{keep_query()}">My Loans</a></li>
+                                    <li><span t-esc="loan.name"/></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>
+                                            <span t-field="loan.name"/> - <span t-field="loan.state"/>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class='row'>
+                                    <div class="col-md-6">
+                                        <div class="mb8">
+                                            <strong>Loan Type :</strong> <span t-field="loan.loan_type"/>
+                                        </div>
+                                         <div class="mb8">
+                                            <strong>Principal Amount :</strong> <span t-field="loan.principal_amount"/>
+                                        </div>
+                                        <div class="mb8">
+                                            <strong>Interest Rate :</strong> <span t-field="loan.int_rate"/>
+                                        </div>
+                                        <div class="mb8">
+                                            <strong>Total Loan :</strong> <span t-field="loan.final_total"/>
+                                        </div>
+                                    </div>
+                                </div>
+<!--                                <div class="container" t-if="ticket.description">-->
+<!--                                    <p t-field="ticket.description" />-->
+<!--                                </div>-->
+                                <table class="table table-hover o_my_status_table">
+                                    <thead>
+                                      <tr class="active">
+                                        <th>Installment Number</th>
+                                        <th>Date From</th>
+                                        <th>Date To</th>
+                                        <th>Principle Amount</th>
+                                        <th>Interest Amount</th>
+                                        <th>EMI(Installment)</th>
+                                        <th>State</th>
+                                      </tr>
+                                    </thead>
+                                    <t t-foreach="loan.installment_lines" t-as="installment">
+                                        <tr>
+                                            <td>
+                                                <span t-field="installment.install_no"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="installment.date_from"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="installment.date_to"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="installment.principal_amt"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="installment.interest_amt"/>
+                                            </td>
+                                             <td>
+                                                <span t-field="installment.total"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="installment.state"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </table>
+                            </div>
+                        </div>
+<!--                        <div class="row mt32">-->
+<!--                            <div class="col-md-12">-->
+<!--                                <h4><strong>Message and communication history</strong></h4>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-10 col-md-offset-1 mt16">-->
+<!--                                <t t-call="website_mail.message_thread">-->
+<!--                                    <t t-set="object" t-value="ticket"/>-->
+<!--                                    <t t-set="chatter_mode" t-value="'json'"/>-->
+<!--                                </t>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+</odoo>

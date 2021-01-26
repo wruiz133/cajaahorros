@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="partner_list_test" model="ir.ui.view">
+            <field name="name">Lista Aportantes</field>
+            <field name="model">aporte.list.test</field>
+            <field name="arch" type="xml">
+                <form string="List by Partners">
+                    <header>
+                        <button icon="fa-cogs" string="Test Aport" name="compute_sheet" type="object" class="oe_highlight"  />
+                    </header>
+                    <group>
+                        <label colspan="4" nolabel="1" string="This wizard will generate aports for all selected partner(s) based on the dates on aports." />
+                    </group>
+                    <group colspan="4" >
+                        <separator string="Asociados" colspan="4"/>
+                        <newline/>
+                        <field name="partner_ids" nolabel="1" domain = "[('customer','=',True)]"/>
+                    </group>
+               </form>
+            </field>
+        </record>
+     <!--aqui la accion que detalla el wizard-->
+        <record id="action_partner_list_test" model="ir.actions.act_window">
+            <field name="name">Generate List Aports</field>
+            <field name="res_model">aporte.list.test</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="partner_list_test"/>
+            <field name="target">new</field>
+        </record>
+
+</odoo>

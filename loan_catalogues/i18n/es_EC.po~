@@ -1,0 +1,211 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* loan_catalogues
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0-20170607\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-24 20:37+0000\n"
+"PO-Revision-Date: 2019-06-24 20:37+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: loan_catalogues
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_management_loan_aportacion_form_view_inherit
+msgid "% Aporte"
+msgstr "% Ingreso"
+
+#. module: loan_catalogues
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_management_loan_aportacion_form_view_inherit
+msgid "Calcular"
+msgstr "Calcular"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_catalogues_child_ids
+msgid "Catalogue"
+msgstr "Catálogos"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_catalogues_code
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_catalogues_view_form
+msgid "Catalogue Code"
+msgstr "Código"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_catalogues_name
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_catalogues_view_form
+msgid "Catalogue Name"
+msgstr "Nombre"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_catalogues_name_num
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_catalogues_view_form
+msgid "Catalogue Name Numeric"
+msgstr "Nombre numérico"
+
+#. module: loan_catalogues
+#: model:ir.actions.act_window,name:loan_catalogues.action_loan_catalogues
+#: model:ir.ui.menu,name:loan_catalogues.loan_catalogues_menu
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_catalogues_view_form
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_catalogues_view_tree
+msgid "Catalogues"
+msgstr "Aporte ordinario"
+
+#. module: loan_catalogues
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_catalogues_view_form
+msgid "Check if it is the main"
+msgstr "Seleccionar si es principal"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_catalogues_create_uid
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_details_create_uid
+msgid "Created by"
+msgstr "Creado por:"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_catalogues_create_date
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_details_create_date
+msgid "Created on"
+msgstr "Creado"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_details_customer_id
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_management_loan_aportacion_form_view_inherit
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: loan_catalogues
+#: model:ir.ui.view,arch_db:loan_catalogues.mapia_management_cliente_form_inherit
+msgid "Details"
+msgstr "Detalles"
+
+#. module: loan_catalogues
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_management_loan_aportacion_form_view_inherit
+msgid "Detalle"
+msgstr "Ingreso ordinario"
+
+#. module: loan_catalogues
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_management_loan_aportacion_form_view_inherit
+msgid "Detalles"
+msgstr "Detalles"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_catalogues_display_name
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_details_display_name
+msgid "Display Name"
+msgstr "Nombre a Mostrar"
+
+#. module: loan_catalogues
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_catalogues_view_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_catalogues_id
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_details_id
+msgid "ID"
+msgstr "ID"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_catalogues_parent
+msgid "Is parent?"
+msgstr "Es padre?"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_catalogues___last_update
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_details___last_update
+msgid "Last Modified on"
+msgstr "Fecha de modificación"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_catalogues_write_uid
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_details_write_uid
+msgid "Last Updated by"
+msgstr "Última Actualización por"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_catalogues_write_date
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_details_write_date
+msgid "Last Updated on"
+msgstr "Actualizado en"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_details_loan_aportaciones_id
+msgid "Loan Aportaciones"
+msgstr "Número de Aportación"
+
+#. module: loan_catalogues
+#: model:ir.model,name:loan_catalogues.model_loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_details_catalogues_id
+msgid "Loan Catalogues"
+msgstr "Ingreso ordinario"
+
+#. module: loan_catalogues
+#: model:ir.actions.act_window,name:loan_catalogues.act_loan_details
+msgid "Loan Details"
+msgstr "Ingresos ordinarios"
+
+#. module: loan_catalogues
+#: model:ir.model,name:loan_catalogues.model_loan_details
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_aportaciones_details_ids
+msgid "Loan Detalles"
+msgstr "Ingresos ordinarios"
+
+#. module: loan_catalogues
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_catalogues_view_search
+msgid "Parent Catalogue"
+msgstr "Catálogo padre"
+
+#. module: loan_catalogues
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_catalogues_view_search
+msgid "Parent Name"
+msgstr "Nombre padre"
+
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_catalogues_parent_id
+msgid "Related Catalogue"
+msgstr "Related Catalogue"
+
+#. module: loan_catalogues
+#: model:ir.ui.view,arch_db:loan_catalogues.search_tree_loan_details
+msgid "Search"
+msgstr "Búsqueda"
+
+#. module: loan_catalogues
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_catalogues_view_search
+msgid "Search Catalogues"
+msgstr "Buscar catalogos"
+
+#. module: loan_catalogues
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_management_loan_aportacion_form_view_inherit
+#: model:ir.ui.view,arch_db:loan_catalogues.tree_loan_details
+msgid "Total"
+msgstr "Total"
+
+#. module: loan_catalogues
+#: model:ir.ui.view,arch_db:loan_catalogues.loan_management_loan_aportacion_form_view_inherit
+msgid "Valor"
+msgstr "Valor"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_details_value
+msgid "Value"
+msgstr "Valor"
+
+#. module: loan_catalogues
+#: model:ir.model,name:loan_catalogues.model_loan_aportaciones
+msgid "loan.aportaciones"
+msgstr "Aportaciones"
+
+#. module: loan_catalogues
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_catalogues_parent_name
+#: model:ir.model.fields,field_description:loan_catalogues.field_loan_details_name_num
+msgid "loan.catalogues"
+msgstr "% Ingreso"
+

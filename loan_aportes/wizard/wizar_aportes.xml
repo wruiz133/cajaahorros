@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--desde el action presenta form para modelo loan.wizard.calcular.validar-->
+        <record id="wizard_calcula_valida_transaccion" model="ir.ui.view">
+            <field name="name">Calcular y Validar</field>
+            <field name="model">loan.wizard.calcular.validar</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Calcular y Validar Aportes">
+                    <h2>
+                        <strong>Se calculará los ingresos ordinarios y prorratea %suaplicacion aportes seleccionada</strong>
+                    </h2>
+                    <footer>
+                        <button name="CalcularValidarTransaccion" string="Ejecutar cálculos" type="object" class="oe_highlight"/>
+                        <button class="oe_highlight" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <!--se pone Calcular y Validar en el Action del modelo loan.aportaciones-->
+        <act_window id="action_wizard_calcula_valida_transaccion"
+                    multi="True"
+                    key2="client_action_multi" name="Calcular % Distribucion"
+                    res_model="loan.wizard.calcular.validar" src_model="loan.aportaciones"
+                    view_mode="form" target="new" view_type="form"/>
+<!--
+
+        &lt;!&ndash;desde el action presenta form para modelo loan.wizard.contabilizar&ndash;&gt;
+        <record id="wizard_contabiliza_ordinario" model="ir.ui.view">
+            <field name="name">Contabiliza Aporte Regular</field>
+            <field name="model">loan.wizard.contabilizar</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Contabilizar Aportes Regulaes">
+                    <h2>
+                        <strong>Se contabiliza los ingresos ordinarios en las transacciones seleccionadas</strong>
+                    </h2>
+                    <footer>
+                        <button name="AporteDistribuidoAsiento" string="Realiza Asientos Distribuidos en %" type="object" class="oe_highlight"/>
+                        <button class="oe_highlight" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        &lt;!&ndash;se pone Contabiliza en el Action del modelo loan.aportaciones&ndash;&gt;
+        <act_window id="action_wizard_contabiliza_aporte_masivo"
+                    multi="True"
+                    key2="client_action_multi" name="Contabilizar Seleccionados"
+                    res_model="loan.wizard.contabilizar" src_model="loan.aportaciones"
+                    view_mode="form" target="new" view_type="form"/>
+-->
+
+        <!--wizard para otro modelo desde aqui-->
+    <!--se presenta el wizar desde el action presenta form del modelo loan.aportaciones_esp-->
+        <record id="wizard_contabiliza_transaccion" model="ir.ui.view">
+            <field name="name">Contabiliza Transaccion Esp</field>
+            <field name="model">loan.wizard.contabiliza.spc</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Validar Contabiliza Aportes">
+                    <h2>
+                        <strong> Valida y contabiliza las transacciones seleccionadas</strong>
+                    </h2>
+                    <footer>
+                        <button name="ContabilizaTranEspec" string="Asiento de transacccion" type="object" class="oe_highlight"/>
+                        <button class="oe_highlight" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <!--se pone Calcular y Validar en el Action del modelo loan.aportaciones-->
+        <act_window id="action_wizard_contabiliza_transaccion_esp"
+                    multi="True"
+                    key2="client_action_multi" name="Contabiliza Aporte Especial"
+                    res_model="loan.wizard.contabiliza.spc" src_model="loan.aportaciones.esp"
+                    view_mode="form" target="new" view_type="form"/>
+    </data>
+</odoo>

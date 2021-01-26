@@ -1,0 +1,12 @@
+<odoo>
+  <data>
+    <report
+        string="Comprobante de Egreso de Crédito"
+        id="action_loan_report_credit"
+        model="loan.management.loan"
+        report_type="qweb-pdf"
+        name="loan_report_words.loan_voucher_template"
+    />
+  
+  </data>
+</odoo>

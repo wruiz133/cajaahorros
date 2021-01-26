@@ -1,0 +1,1763 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+  <data>
+        <record id="view_loan_application_main_tree_indiv" model="ir.ui.view">
+          <field name="name">view.loan.application.tree.indiv</field>
+          <field name="model">loan.application</field>
+          <field name="arch" type="xml">
+            <tree delete='false'>
+                <field name="branch"/>
+                <field name="officer_id"/>
+                <field name="customer_acc_id"/>
+                <field name="appln_no"/>
+                <field name="name" />
+                <field name="fathername"/>
+                <field name="lastname"/>
+                
+                <field name="requested_amt"/>
+                <field name="financing_amt"/>
+                <field name="interest_rate"/>
+                <field name="ins_start_date"/>
+                
+                <field name="currency"/>
+                <field name="status"/>
+
+            </tree>
+          </field>
+
+        </record>
+      <record id="view_loan_application_filter_individ" model="ir.ui.view">
+        <field name="name">loan.application.search</field>
+        <field name="model">loan.application</field>
+        <field name="arch" type="xml">
+            <search string="Submit">
+                
+                <field name="name" />
+                <field name="fathername" />
+                <field name="lastname"/>
+                <field name="branch" />
+                <field name="officer_id" />
+                <field name="national_id" />
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="branch" string="Branch" context="{'group_by':'branch'}"/>
+                    <filter name="officer_id" string="Officer" context="{'group_by':'officer_id'}"/>
+                    <filter name="name" string="First Name" context="{'group_by':'name'}"/>
+                    <filter name="fathername" string="Father Name" context="{'group_by':'fathername'}"/>
+                    <filter name="lastname" string="Last Name" context="{'group_by':'lastname'}"/>
+
+                    <filter name="national_id" string="National Id" context="{'group_by':'national_id'}"/>
+                    <separator/>
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <record id="view_loan_application_filter_company" model="ir.ui.view">
+        <field name="name">loan.application.search</field>
+        <field name="model">loan.application</field>
+        <field name="arch" type="xml">
+            <search string="Submit">
+                
+                <field name="name" />
+                <field name="branch" />
+                <field name="officer_id" />
+                
+                <field name="national_id" />
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="branch" string="Branch" context="{'group_by':'branch'}"/>
+                    <filter name="officer_id" string="Officer" context="{'group_by':'officer_id'}"/>
+                    <filter name="name" string="First Name" context="{'group_by':'name'}"/>
+                    
+
+                    <filter name="national_id" string="National Id" context="{'group_by':'national_id'}"/>
+                    <separator/>
+                </group>
+           </search>
+        </field>
+    </record>
+      <record id="view_loan_application_main_tree_comp" model="ir.ui.view">
+          <field name="name">view.loan.application.tree.comp</field>
+          <field name="model">loan.application</field>
+          <field name="arch" type="xml">
+            <tree>
+                <field name="branch"/>
+                <field name="officer_id"/>
+                <field name="customer_acc_id"/>
+                <field name="appln_no"/>
+                <field name="name"/>
+                <!--
+                <field name="tin_no"/>
+                
+                <field name="s_name"/>
+                -->
+                <field name="requested_amt"/>
+                <field name="financing_amt"/>
+                <field name="interest_rate"/>
+                <field name="ins_start_date"/>
+                
+                <field name="currency"/>
+                <!--
+                <field name="customer_acc_id"/>
+                -->
+                <field name="status"/>
+            </tree>
+          </field>
+
+        </record>
+<!--======================loan for individual================================ -->
+    <record id="view_loan_application_individual_form" model="ir.ui.view">
+        <field name="name">view.loan_application.individual.form</field>
+        <field name="model">loan.application</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_ready_approve" type="object" string="Ready"
+                        attrs="{'invisible':[('status', 'not in', ('open','draft'))]}"/>
+                    <button name="action_loan_approve"  string="Approve" type="object" class="oe_highlight"
+                        attrs="{'invisible':[('status', 'in', ('open','draft','approve','reject'))]}"/>
+                    <button name="action_return_data"  type="object" string="Return"
+                        attrs="{'invisible':[('status', 'in', ('open','draft'))]}"/>
+                    <button name="action_loan_reject" string="Reject" type="object" class="oe_highlight"
+                        attrs="{'invisible':[('status', 'in', ('approve',))]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="open,ready,approve"/>
+                </header>
+               <sheet>
+                   <h2>Loan Application</h2>
+                   <group>
+                       <group>
+                           <field name="priority" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                           <field name="is_company_customer" invisible="1"/>
+                           <!--<field name="individual" />-->
+                           <field name="appl_type" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                           <field name="product_code" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                           <field name="prelim_id" readonly="True"/>
+                           <field name="norm_restruct" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                       </group>
+                       <group >
+                           <field name="customer_acc_id" readonly="True" />
+                           <field name="appln_no" readonly="True" />
+                           <field name="usr_ref_no" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                           <field name="date" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                           <field name="purpose" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                       </group>
+                       <group>
+                           <field name="branch" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                           <field name="sub_branch" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+
+                       </group>
+                       <group>
+                           <field name="office" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                           <field name="officer_id" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                       </group>
+                   </group>
+
+
+                     <notebook>
+                          <!--=================Customer tab= for individuals======================  -->
+                        <page string="Customer" name="customer_i" >
+                                    <!--Removed
+                                    <separator string="Applicant Details"/>
+                                    -->
+                                     <!--<field name="applicant_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))],'invisible':[('appl_type','=','group')]}">
+                                    -->
+                                  <group string="Applicant Details">
+                                      <field name="applicant_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                         <!-- <tree string="Applicant Details" editable='bottom'> -->
+                                          <tree string="Applicant Details">
+                                              <field name="type" />
+                                              <field name="existing" readonly="1"/>
+                                              <field name="customer_no1"/>
+                                              <field name="customer_type_name"/>
+                                              <field name="f_name"/>
+                                              <field name="m_name"/>
+                                              <field name="l_name"/>
+                                              <field name="national_id"/>
+                                              <field name="in_cont"/>
+                                          </tree>
+
+                                      </field>  
+                                 </group>
+                                 <group>
+                                      <group>
+                                          <field name="fin_currency" attrs="{'readonly':[('status','in',('approve','reject'))],}"/>
+                                          <field name="cust_category" attrs="{'readonly':[('status','in',('approve','reject'))],}"/>
+                                          <field name="accnt_no" attrs="{'readonly':[('status','in',('approve','reject'))],}"/>
+                                          <field name="accnt_class" attrs="{'readonly':[('status','in',('approve','reject'))],}"/>
+                                      </group>
+                                      <group>
+                                      </group>
+
+                                 </group>
+                        </page>
+                         <!--==================================================================-->
+
+                         <!--=================Details tab=======================  -->
+                        <!--<page string="Details" name="details_i" attrs="{'invisible':[('appl_type','=','group')]}">-->
+                        <page string="Details" name="details_i" >
+
+                            <group string="Address Details">
+                               <field name="add_det_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Address Details" >
+                                    <field name="address_type" />
+                                    <field name="mailing" />
+
+                                    <field name="country_add" />
+                                    <field name="placement_date1" />
+                                     <field name="zip" />
+                                    <field name="contact_no" />
+                                    </tree>
+
+                                </field>
+                            </group>
+                            <group string="Employment Details">
+                                <field name="emp_det_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                     <tree string="Employment Details" >
+
+                                        <field name="employer" />
+                                        <field name="empl_type" />
+                                        <field name="occupation" />
+                                        <field name="designation" />
+                                         <field name="empl_id" />
+
+                                        <field name="phone_no" />
+
+                                        <field name="dept" />
+                                    </tree>
+
+                                </field>
+
+                            </group>
+                            <group string="Insurance Details">
+                               <field name="insure_det_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                     <tree string="Employment Details" >
+                                        <field name="sec_company" />
+                                        <field name="nr_policy" />
+                                        <field name="renew_date1" />
+
+                                        <field name="policy_holder" />
+                                        <field name="contact_info" />
+                                     </tree>
+                               </field>
+
+                            </group>
+                            <group string="Information Links">
+                                <field name="info_links_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                    <tree string="Employment Details" >
+                                        <field name="part_of_an" />
+                                        <field name="specify" />
+                                        <field name="member_of_foun" />
+                                        <field name="connection_type" />
+                                    </tree>
+                               </field>
+                            </group>
+                        </page>
+                         <!--======================================================================-->
+
+
+
+                         <!--======================Company tab for individuals============================== -->
+
+                        <!--< page string="Company" name="company_i" attrs="{'invisible':[('appl_type','=','group')]}"> -->
+                        <page string="Company" name="company_i" >
+                            <group>
+                                <group>
+                                    <field name="company_name" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="type_of_business" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="legal_status" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="industry_sector" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="industry_group" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="industry_code" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    
+                                    <field name="bus_ownership"  attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+
+                                </group>
+                                <group >
+                                    <field name="tin_no" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="date_of_create" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="no_of_licence" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="date_of_license" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="no_of_owners" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="no_of_employees" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="business_env" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                            </group>
+
+                            <group string="Business Address">
+                                <group>
+                                    <field name="add_line1" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="add_line2" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="city_add" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="country_add" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="placement_date" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                                <group>
+                                    <field name="auditors" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="tel_auditor" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                            </group>
+                         </page>
+                       
+                         <!--=====================================================================-->
+
+                         <!--=================financials tab=======================  -->
+                        <!--<page string="Financials" name="finacials_i" attrs="{'invisible':[('appl_type','=','group')]}">-->
+                        <page string="Financials" name="finacials_i" >
+                            <separator string="Income Details"/>
+                            <field name="income_det_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Income Details" editable='bottom'>
+                                    <field name="income_type" />
+                                    <field name="income_sub_type"/>
+                                    <field name="unit"/>
+                                    <field name="qty"/>
+                                    <field name="currency"/>
+                                    <field name="amt"/>
+                                    <field name="freq"/>
+                                    <field name="total_value"/>
+                                    <field name="grp_id"/>
+                                    <field name="income_det_id" invisible="True"/>
+                                </tree>
+
+                             </field>
+
+                            <separator string="Liability Details" />
+                            <field name="liab_detail_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                <tree string="Liability Details" editable='bottom'>
+                                    <field name="liability_type" />
+                                    <field name="liability_sub_type"/>
+                                    <field name="unit"/>
+                                    <field name="qty"/>
+                                    <field name="freq"/>
+                                     <field name="amt"/>
+                                    <field name="acct_bal"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+
+                                    <field name="total_value"/>
+                                     <field name="grp_id"/>
+                                    <field name="liab_detail_id" invisible="True"/>
+                                </tree>
+
+                             </field>
+
+                                <group string="Asset Details">
+                                    <field name="asset_det_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                        <tree string="Liability Details" >
+                                            <field name="type" />
+                                            <field name="asset_sub_type" />
+                                            <field name="desc" />
+                                            <field name="asset_value" />
+                                        </tree>
+
+                                    </field>
+                                </group>
+                         </page>
+                         <!--========================================================================-->
+
+                         <!--=================requested tab for company=======================  -->
+                         <!--<page string="Requested" name="requested_comp" attrs="{'invisible':[('appl_type','=','individual')]}">-->
+                         <page string="Requested" name="requested_comp" >
+                             <separator string="Finacing Requested" />
+                             <group>
+                                <group>
+                                    <field name="currency" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="requested_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="tendor" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                                 <group>
+                                    <field name="person_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="family_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="specify_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                                 <group>
+                                    <field name="rate" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="do_pay_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="type_payment" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                             </group>
+
+                            <separator string="Itemizations" />
+                             <field name="req_item_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Income Details" editable='bottom'>
+                                    <field name="itemiztion" />
+                                    <field name="requested_amt"/>
+                                    <field name="comments"/>
+                                    <field name="req_item_id" invisible="True"/>
+                                </tree>
+                             </field>
+
+
+                         </page>
+                         <!--=================================================================-->
+
+                         <!--=================financing tab=======================  -->
+                         <page string="Financing" name="financing_i" >
+                             <group>
+                                 <button name="create_schedule" string="Create Payment Schedule" type="object"
+                                         default_focus="1" class="oe_highlight" attrs = "{'invisible':[('financing_amt','=','0')]}"/>
+                             </group>
+                             <separator string="Financing Details" />
+                             <group>
+                                <group>
+                                    <field name="currency_fin" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="financing_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="interest_rate" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="rate_code" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="spread" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="cl_acc_no" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="ins_start_date" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="effect_rate" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                                 <group>
+                                    <field name="grace" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="install_count" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="unit_fin" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="freq_fin" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                                 <group>
+                                    <field name="do_pay_amt_fin" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="do_pay_rate" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="rate_fin" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="value_date" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="mature_date" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+
+                                </group>
+                             </group>
+                             <!--=================newly added ======================================-->
+                             <separator string="Information on previous loans"/>
+                             <group>
+                                 <field name="purp_loan_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))],}">
+                                 <tree string="Purpose and Company Shareholders Details" editable='bottom'>
+                                    <field name="purpose" />
+                                    <field name="comp_share" />
+                                    <field name="institute"/>
+                                    <field name="type_loan"/>
+                                    <field name="amt"/>
+                                    <field name="amt_currency"/>
+                                    <field name="intrst_rate"/>
+                                    <field name="start_date"/>
+                                    <field name="tendor"/>
+                                    <field name="instl_amt"/>
+                                    <field name="notes"/>
+                                    <field name="purp_loan_id" invisible="True"/>
+                                </tree>
+                             </field>
+                             </group>
+                                <!--===================================================================-->
+                             <group >
+                                 <group>
+                                    <field name="loan_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="duration" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="nr_credit" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                 </group>
+                                 <group>
+                                    <field name="institute" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="reg_date_new" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="approve_date" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                                 <group>
+                                    <field name="notes_auth" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="notes_fin" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                             </group>
+
+
+                            <separator string="Multi Transaction Loans"/>
+                             <group>
+                                 <field name="tran_loan_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Multi Transaction Loan" editable='bottom'>
+                                    <field name="sr_no" />
+                                    <field name="amount"/>
+                                    <field name="date"/>
+                                    <field name="notes"/>
+
+                                    <field name="tran_loan_id" invisible="True"/>
+                                </tree>
+                             </field>
+                             </group>
+                         </page>
+                        <!--==========================================================-->
+
+
+                         <!--========================credit score tab===================-->
+                         <page string="Credit Score" name="creditscore_i">
+                             <separator string="Internal Credit Rating" />
+                             <field name="crd_rate_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Internal Credit Rating" editable='bottom'>
+                                    <field name="category" />
+                                    <field name="question"/>
+                                    <field name="answer"/>
+                                    <field name="crd_rate_id" invisible="True"/>
+                                </tree>
+                             </field>
+                             <group>
+                                 <group>
+                                     <field name="rule_id" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                     <field name="grade" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                     <field name="score" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                 </group>
+                             </group>
+                             <separator string="Risk Factor Details" />
+                             <field name="risk_factor_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Risk Factor Details" editable='bottom'>
+                                    <field name="risk_fac" />
+                                    <field name="description"/>
+                                    <field name="risk_fac_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                         <!--=================================================================-->
+
+                         <!--==================Bureau tab===========================-->
+                         <page string="Bureau" name="bureau_i">
+                             <separator string="Credit Bureau Details" />
+                             <field name="crd_bur_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Internal Credit Rating" editable='bottom'>
+                                    <field name="cust_id" />
+                                    <field name="bureau"/>
+                                    <field name="status"/>
+                                    <field name="remarks"/>
+                                    <field name="crd_bur_id" invisible="True"/>
+                                </tree>
+                             </field>
+
+                             <separator string="External Credit Rating" />
+                             <field name="ext_crd_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="External Credit Rating" >
+                                    <field name="ext_agency" />
+                                    <field name="bureau"/>
+                                    <field name="status"/>
+                                </tree>
+                             </field>
+                         </page>
+                         <!--=========================================================-->
+
+                          <!--==================LMC Eligibility Ratio tab===========================-->
+                         <page string="LMC Eligibility Ratio" name="lmc_eligible_i">
+
+                             <group>
+                                 <group string="Stated">
+                                     <field name="monthly_income1" />
+                                     <field name="monthly_debt1" />
+                                 </group>
+                                 <group string="Actual">
+                                     <field name="monthly_income2" />
+                                     <field name="monthly_debt2" />
+                                 </group>
+                             </group>
+                             <group>
+                                 <group>
+                                     <field name="assets" />
+                                     <field name="liabilities" />
+                                     <field name="net_worth" />
+                                 </group>
+                             </group>
+                             <group>
+                                 <group>
+                                     <field name="what_if" />
+                                 </group>
+                             </group>
+                             <separator string="Ratio" />
+                             <field name="lmc_inv_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Internal Credit Rating" editable='bottom'>
+                                     <field name="ratios" />
+                                     <field name="stated_bef1" />
+                                     <field name="stated_aft1" />
+                                     <field name="stated_bef2" />
+                                     <field name="stated_aft2" />
+                                     <field name="lmc_inv_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                         <!--=========================================================-->
+
+                         <!--======================charges tab=================-->
+                          <page string="Charges" name="charges">
+                             <separator string="Details" />
+                             <field name="charge_det_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Charges Details" editable='bottom'>
+                                    <field name="comp_name" />
+                                    <field name="event_code"/>
+                                    <field name="currency_charges"/>
+                                    <field name="charge_amount"/>
+                                    <field name="waive"/>
+                                    <field name="charge_det_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                        <!--=================================================================-->
+
+                        <!--======================Schedule tab===============================-->
+                          <page string="Schedule" name="schedule_i">
+
+                              <separator string="Schedule Details" />
+                             <field name="schedule_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Schedule Details" editable='bottom'>
+                                    <field name="schdnr" />
+                                    <field name="schddate"/>
+                                    <field name="install_percent"/>
+                                    <field name="install_amt"/>
+                                    <field name="schdint"/>
+                                    <field name="schdprin"/>
+                                    <field name="schdfee"/>
+                                    <field name="outstand_amt"/>
+                                    <field name="schedule_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                        <!--=================================================================-->
+
+                          <!--==================Investigation tab===========================-->
+                         <page string="Investigation" name="invest_i">
+                             <separator string="Invest" />
+                             <field name="inv_det_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Investigation" editable='bottom'>
+                                    <field name="customer_no_inv" />
+                                    <field name="ver_type"/>
+                                    <field name="ver_agency"/>
+                                    <field name="inv_det_id" invisible="True"/>
+                                </tree>
+                             </field>
+
+                         </page>
+                         <!--=========================================================-->
+
+                         <!--======================Checklist tab=================-->
+                          <page string="Checklist" name="chklist_i">
+                             <separator string="Checklist" />
+                             <field name="checklist_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}" >
+                                 <tree string="Checklist Details" editable="bottom" delete="false" create="false">
+                                    <field name="serial_no" readonly="1"/>
+                                    <field name="document" readonly="1"/>
+                                    <field name="status"/>
+                                    <field name="update_date" readonly="1"/>
+                                    <field name="updated_by" readonly="1"/>
+                                    <field name="checklist_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                        <!--=================================================================-->
+
+
+                         <!--======================Collateral tab=================-->
+                          <page string="Collateral" name="collateral_i">
+                             <separator string="Collateral for the Loan Application" />
+                             <group>
+                                 <group>
+                                     <button name="get_collateral_type" string="Update Collateral" type="object" default_focus="1" class="oe_highlight"  />
+                                 </group>
+                             </group>
+                              <group>
+                                 <group>
+                                    <field name="sel_collateral" widget="selection" />
+                                 </group>
+                                 <group>
+                                    <button name="get_collateral_data" string="Get Collateral" type="object" default_focus="1" class="oe_highlight"
+                                    attrs="{'invisible':[('sel_collateral','=',False)]}"/>
+                                 </group>
+                             </group>
+                              <separator />
+                             <field name="col_line_ids" attrs="{'readonly':[('status','in',('approve','reject'))],'invisible':[('sel_collateral','=',False)]}" >
+                                 <tree string="Collateral Details" >
+                                    <field name="col_type" readonly="1"/>
+                                    <field name="col_status" readonly="1"/>
+                                    <field name="data_placement"/>
+
+                                    <field name="col_line_id" invisible="True"/>
+                                </tree>
+                             </field>
+
+                         </page>
+                        <!--=================================================================-->
+
+                         <!--======================Fields tab=================-->
+                          <page string="Fields" name="fields_i">
+                             <!--<separator string="" />-->
+                             <group>
+                                 <group>
+                                     <field name="field1"  />
+                                     <field name="field2"  />
+                                    <field name="field3"  />
+                                    <field name="field4"  />
+                                    <field name="field5"  />
+                                    <field name="field6"  />
+                                    <field name="field7"  />
+                                    <field name="field8"  />
+                                    <field name="field9"  />
+                                    <field name="field10"  />
+                                    <field name="field11"  />
+                                    <field name="field12"  />
+                                    <field name="field13"  />
+                                    <field name="field14"  />
+                                    <field name="field15"  />
+                                    <field name="field16"  />
+                                    <field name="field17"  />
+                                    <field name="field18"  />
+                                    <field name="field19"  />
+                                    <field name="field20" />
+                
+                                 </group>
+                                 <group>
+                                     <field name="field_date_1"/>
+                                    <field name="field_date_2"/>
+                                    <field name="field_date_3"/>
+                                    <field name="field_date_4"/>
+                                    <field name="field_date_5"/>
+                                     <field name="field_num_1"/>
+                                     <field name="field_num_2"/>
+                                     <field name="field_num_3"/>
+                                     <field name="field_num_4"/>
+                                     <field name="field_num_5"/>
+                                     <field name="field_num_6"/>
+                                     <field name="field_num_7"/>
+                                     <field name="field_num_8"/>
+                                     <field name="field_num_9"/>
+                                     <field name="field_num_10"/>
+                                     <field name="field_num_11"/>
+                                     <field name="field_num_12"/>
+                                     <field name="field_num_13"/>
+                                     <field name="field_num_14"/>
+                                     <field name="field_num_15"/>
+
+                                 </group>
+
+                             </group>
+
+                         </page>
+                        <!--=================================================================-->
+
+                         <!--======================Document tab=================-->
+                          <page string="Documents" name="docmnts_i">
+                             <separator string="Attached Documents" />
+                             <field name="doc_det_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}" >
+                                 <tree string="Document Details"  >
+                                    <field name="doc_title"/>
+                                    <field name="desc"/>
+                                    <field name="upload_date" readonly="1"/>
+                                    <field name="uploaded_by" readonly="1"/>
+                                    <field name="type" readonly="1"/>
+                                     <field name="doc_file" readonly="1"/>
+                                    <field name="doc_det_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                        <!--=================================================================-->
+
+                         <!--======================Categorization tab=================-->
+                          <page string="Categorization" name="category_i">
+                             <separator string="Categorization" />
+                             <field name="categor_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Categorization Details">
+                                    <field name="serial_no" readonly="1"/>
+                                    <field name="month"/>
+                                    <field name="category"/>
+                                    <field name="subject"/>
+                                    <field name="notes"/>
+                                    <field name="user"/>
+                                    <field name="update_date"/>
+                                    <field name="categor_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                        <!--=================================================================-->
+
+                        <!--======================Comments tab=================-->
+                          <page string="Comments" name="comments_i">
+                             <separator string="Comments" />
+                             <field name="comment_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Comments Details">
+                                    <field name="update_date" />
+                                    <field name="status"/>
+                                    <field name="event"/>
+                                    <field name="notes"/>
+                                    <field name="module"/>
+                                    <field name="comment_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                        <!--=================================================================-->
+                     </notebook>
+                   <group string="Other Details">
+                       <group>
+                           <field name="created_by" readonly="True"/>
+                           <field name="create_date" readonly="True"/>
+                           <field name="updated_by"  readonly="True"/>
+                           <field name="update_date" readonly="True"/>
+
+                       </group>
+                       <group>
+                           <field name="authorized_by" readonly="True"/>
+                           <field name="auth_date" readonly="True"/>
+                           <field name="approved_by" readonly="True"/>
+                           <field name="approval_date" readonly="True"/>
+                       </group>
+
+                   </group>
+               </sheet>
+            </form>
+        </field>
+    </record>
+
+      <!--=======================================================================-->
+      <!--======================loan for company================================ -->
+      <!--=======================================================================-->
+    <record id="view_loan_application_company_form" model="ir.ui.view">
+        <field name="name">view.loan_application.company.form</field>
+        <field name="model">loan.application</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_ready_approve" type="object" string="Ready"
+                        attrs="{'invisible':[('status', 'not in', ('open','draft'))]}"/>
+                    <button name="action_loan_approve"  string="Approve" type="object" class="oe_highlight"
+                        attrs="{'invisible':[('status', 'in', ('open','draft','approve','reject'))]}"/>
+                    <button name="action_return_data"  type="object" string="Return"
+                        attrs="{'invisible':[('status', 'in', ('open','draft'))]}"/>
+                    <button name="action_loan_reject" string="Reject" type="object" class="oe_highlight"
+                        attrs="{'invisible':[('status', 'in', ('approve',))]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="open,ready,approve"/>
+                </header>
+               <sheet>
+                   <h2>Loan Application</h2>
+                   <group>
+                       <group>
+                           <field name="priority" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                           <field name="is_company_customer" invisible="1"/>
+                           <field name="appl_type" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                           <field name="product_code" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                           <field name="prelim_id" readonly="True"/>
+                           <field name="norm_restruct" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                       </group>
+                       <group >
+                           <field name="customer_acc_id" readonly="True" />
+                           <field name="appln_no" readonly="True" />
+                           <field name="usr_ref_no" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                           <field name="date" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                           <field name="purpose" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                       </group>
+                       <group>
+                           <field name="branch" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                           <field name="sub_branch" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+
+                       </group>
+                       <group>
+                           <field name="office" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                           <field name="officer_id" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                       </group>
+                   </group>
+
+
+                     <notebook>
+                          <!--=================Customer tab= for individuals======================  -->
+                        <page string="Customer" name="customer_i" >
+                            <!--
+                              Shikoje ketu me rendesi
+                            -->
+                            <group string="Applicant Details">
+                                      <field name="applicant_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                         <!-- <tree string="Applicant Details" editable='bottom'> -->
+                                          <tree string="Applicant Details">
+                                              <field name="type" />
+                                              <field name="existing" readonly="1"/>
+                                              <field name="customer_no1"/>
+                                              <field name="customer_type_name"/>
+                                              <field name="f_name"/>
+                                              <field name="m_name"/>
+                                              <field name="l_name"/>
+                                              <field name="national_id"/>
+                                              <field name="in_cont"/>
+                                          </tree>
+
+                                      </field>  
+                            </group>
+                            <group>
+                                 <group>
+                                     <field name="fin_currency" attrs="{'readonly':[('status','in',('approve','reject'))],}"/>
+                                     <field name="cust_category" attrs="{'readonly':[('status','in',('approve','reject'))],}"/>
+                                     <field name="accnt_no" attrs="{'readonly':[('status','in',('approve','reject'))],}"/>
+                                     <field name="accnt_class" attrs="{'readonly':[('status','in',('approve','reject'))],}"/>
+
+                                 </group> 
+                                 <group>
+                                 </group>
+                                 <!--
+                                 <group string="Incorporations" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                    <field name="date_incopr" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="capital" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="net_worth" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="country_1" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="currency_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+
+                                 </group>  
+                               -->
+                                 <!--
+                                 <group string="Incorporations" attrs="{'invisible':[('appl_type','=','individual')]}">
+                                    <field name="date_incopr" attrs="{'readonly':[('status','in',('approve','reject'))],'invisible':[('appl_type','=','individual')]}"/>
+                                    <field name="capital" attrs="{'readonly':[('status','in',('approve','reject'))],'invisible':[('appl_type','=','individual')]}"/>
+                                    <field name="net_worth" attrs="{'readonly':[('status','in',('approve','reject'))],'invisible':[('appl_type','=','individual')]}"/>
+                                    <field name="country_1" attrs="{'readonly':[('status','in',('approve','reject'))],'invisible':[('appl_type','=','individual')]}"/>
+                                    <field name="currency_amt" attrs="{'readonly':[('status','in',('approve','reject'))],'invisible':[('appl_type','=','individual')]}"/>
+
+                                 </group>-->
+                            </group>
+                        </page>
+                         <!--==================================================================-->
+
+                         <!--=================Details tab for company=======================  -->
+                        <!--<page string="Details" name="details_comp" attrs="{'invisible':[('appl_type','=','individual')]}">-->
+                        <page string="Details" name="details_comp" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                            <group string="Address Details">
+                               <field name="add_det_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Address Details" >
+                                    <field name="address_type" />
+                                    <field name="mailing" />
+
+                                    <field name="country_add" />
+                                    <field name="placement_date1" />
+                                     <field name="zip" />
+                                    <field name="contact_no" />
+                                    </tree>
+
+                                </field>
+                            </group>
+
+                            <group string="People Contact the Company">
+                                <field name="ppl_cont_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                     <tree string="People Contact" editable="bottom">
+
+                                        <field name="position" />
+                                        <field name="name_cont" />
+                                        <field name="lastname" />
+                                        <field name="pk" />
+                                         <field name="wire" />
+
+                                        <field name="docmnt" />
+
+                                        <field name="nr_doc" />
+                                        <field name="address" />
+                                    </tree>
+
+                                </field>
+
+                            </group>
+
+
+                            <group string="Stakeholders of the Company">
+                               <field name="comp_stake_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                     <tree string="Stakeholders" editable="bottom">
+                                        <field name="position" />
+                                        <field name="name" />
+                                        <field name="lastname" />
+
+                                        <field name="education" />
+                                        <field name="society" />
+                                        <field name="birthdate" />
+                                        <field name="part_per" />
+                                     </tree>
+                               </field>
+
+                            </group>
+
+                            <group string="Company's shares in other Companies">
+                               <field name="comp_share_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                     <tree string="Company's Shares" editable="bottom">
+                                        <field name="comp_share" />
+                                        <field name="institute" />
+                                        <field name="type_loan" />
+                                        <field name="amt_currency" />
+                                        <field name="intrst_rate" />
+                                        <field name="start_date" />
+                                        <field name="tendor" />
+                                        <field name="instl_amt" />
+
+                                     </tree>
+                               </field>
+
+                            </group>
+                            <group string="Information on Banks">
+                               <field name="bank_info_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                     <tree string="Inforation on Banks" editable="bottom">
+                                        <field name="bank" />
+                                        <field name="branch" />
+                                        <field name="nr_logaria" />
+
+                                     </tree>
+                               </field>
+
+                            </group>
+                            <group string="Information Links">
+                                <field name="info_links_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                    <tree string="Employment Details" >
+                                        <field name="part_of_an" />
+                                        <field name="specify" />
+                                        <field name="member_of_foun" />
+                                        <field name="connection_type" />
+                                    </tree>
+                               </field>
+                            </group>
+                        </page>
+                         <!--======================================================================-->
+
+                         <!--=============================Leasing/factoring Tab========================-->
+                         <page string="Leasing/Factoring" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                            <group >
+                                <field name="annual_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                    <tree string="Annual Turnover" editable="bottom">
+                                        <field name="annual_turn" />
+                                        <field name="curr_year" />
+                                        <field name="prev_year" />
+                                        <field name="two_year_ago" />
+                                    </tree>
+                               </field>
+                            </group>
+
+                             <group >
+                                <field name="asset_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                    <tree string="Assets" editable="bottom">
+                                        <field name="assets" />
+                                        <field name="curr_year" />
+                                        <field name="prev_year" />
+                                        <field name="two_year_ago" />
+                                    </tree>
+                               </field>
+                            </group>
+                             <group >
+                                <field name="equity_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                    <tree string="Equity" editable="bottom">
+                                        <field name="equity" />
+                                        <field name="curr_year" />
+                                        <field name="prev_year" />
+                                        <field name="two_year_ago" />
+                                    </tree>
+                               </field>
+                            </group>
+                             <group >
+                                <field name="acc_pay_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                    <tree string="Account Payable" editable="bottom">
+                                        <field name="acc_pay" />
+                                        <field name="curr_year" />
+                                        <field name="prev_year" />
+                                        <field name="two_year_ago" />
+                                    </tree>
+                               </field>
+                            </group>
+                            <separator string="Information on Clients/Suppliers"/>
+                             <group >
+                                <field name="cli_supp_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                    <tree string="Client/Suppliers" editable="bottom">
+                                        <field name="client" />
+                                        <field name="supp" />
+
+                                    </tree>
+                               </field>
+                            </group>
+                            <separator string="Assets Information "/>
+                             <group >
+                                <field name="asset_info_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                    <tree string="Assets Information" editable="bottom">
+                                        <field name="company_asset" />
+                                        <field name="value1" />
+                                        <field name="personal_asset" />
+                                        <field name="value2" />
+
+                                    </tree>
+                               </field>
+                            </group>
+                             <separator string="Asset Insurance"/>
+                             <group>
+                                 <group>
+                                     <field name="pref_ins_comp" widget="radio"/>
+                                     <field name="others" attrs="{'readonly': [('pref_ins_comp', 'in', ('sigal','eurosig','intersig'))]}"/>
+                                 </group>
+                             </group>
+
+
+                         </page>
+
+                        <!--=========================================================================-->
+
+
+                         <!--======================Company tab for individuals==============================  -->
+
+                        <!--<page string="Company" name="company_i" attrs="{'invisible':[('appl_type','=','group')]}">-->
+                        
+
+                         <!--========================new financial tab for company====================-->
+                         <page string="Financials" name="finacials_comp" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+
+                             <separator string="Income Details"/>
+                            <field name="income_det_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Income Details" editable='bottom'>
+                                    <field name="income_type" />
+                                    <field name="income_sub_type"/>
+                                    <field name="unit"/>
+                                    <field name="qty"/>
+                                    <field name="currency"/>
+                                    <field name="amt"/>
+                                    <field name="freq"/>
+                                    <field name="total_value"/>
+                                    <field name="grp_id"/>
+                                    <field name="income_det_id" invisible="True"/>
+                                </tree>
+
+                             </field>
+
+                            <separator string="Liability Details" />
+                            <field name="liab_detail_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                <tree string="Liability Details" editable='bottom'>
+                                    <field name="liability_type" />
+                                    <field name="liability_sub_type"/>
+                                    <field name="unit"/>
+                                    <field name="qty"/>
+                                    <field name="freq"/>
+                                     <field name="amt"/>
+                                    <field name="acct_bal"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+
+                                    <field name="total_value"/>
+                                     <field name="grp_id"/>
+                                    <field name="liab_detail_id" invisible="True"/>
+                                </tree>
+
+                             </field>
+
+                                <group string="Asset Details">
+                                    <field name="asset_det_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                        <tree string="Liability Details" >
+                                            <field name="type" />
+                                            <field name="asset_sub_type" />
+                                            <field name="desc" />
+                                            <field name="asset_value" />
+                                        </tree>
+
+                                    </field>
+                                </group>
+
+                             <group>
+                                <group string="Assets">
+                                    <field name="fixed_asset"/>
+                                    <field name="intan_asset"/>
+                                    <field name="non_cur_asset"/>
+                                    <field name="cur_asset"/>
+
+                                </group>
+                                <group string="Capital">
+                                    <field name="issued_cap"/>
+                                    <field name="paid_cap"/>
+                                </group>
+                                <group string="Reserves">
+                                    <field name="subsidy_gov"/>
+                                    <field name="gen_reserve"/>
+                                </group>
+
+                                <group string="Surplus">
+                                    <field name="cr_bal"/>
+
+                                </group>
+
+                                <group string="Liabilities">
+                                    <field name="term_liab"/>
+                                    <field name="curr_liab"/>
+                                </group>
+
+                                <group string="Cash Flows">
+                                    <field name="oper_act"/>
+                                    <field name="invest_act"/>
+                                    <field name="fin_act"/>
+                                </group>
+
+
+                            </group>
+                             <separator string="Credit Application"/>
+                             <group>
+                                 <group>
+                                     <field name="borrow_profile"/>
+                                     <field name="fin_perform"/>
+                                     <field name="borrow_pos"/>
+
+                                 </group>
+                                 <group>
+                                     <field name="risk_mig"/>
+                                     <field name="risk_dept_mig"/>
+                                     <field name="risk_dept_asmt"/>
+                                 </group>
+
+                                 <group>
+                                     <field name="fac_prop"/>
+                                     <field name="app_fac"/>
+                                     <field name="recom"/>
+                                     <field name="term_cond"/>
+                                 </group>
+                             </group>
+
+
+                         </page>
+                         <!--========================================================================-->
+
+                         <!--=================requested tab for company=======================  -->
+                         <!--<page string="Requested" name="requested_comp" attrs="{'invisible':[('appl_type','=','individual')]}">-->
+                         <page string="Requested" name="requested_comp" >
+                             <separator string="Finacing Requested" />
+                             <group>
+                                <group>
+                                    <field name="currency" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="requested_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="tendor" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                                 <group>
+                                    <field name="person_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="family_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="specify_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                                 <group>
+                                    <field name="rate" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="do_pay_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="type_payment" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                             </group>
+
+                            <separator string="Itemizations" />
+                             <field name="req_item_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Income Details" editable='bottom'>
+                                    <field name="itemiztion" />
+                                    <field name="requested_amt"/>
+                                    <field name="comments"/>
+                                    <field name="req_item_id" invisible="True"/>
+                                </tree>
+                             </field>
+                             <separator string="Factoring" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                             <group>
+                                 <group>
+                                <field name="nr_invoice_req" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                <field name="inv_desc_req" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                <field name="buyer_dir_req" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                <field name="supplier_rev_req" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                <field name="invoice_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                <field name="percent_req" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+
+                                 </group>
+                             </group>
+
+                             <separator string="Leasing" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                             <group>
+                                <group>
+                                     <field name="obj_fin" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                     <field name="obj_desc_req" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                     <field name="supp_req" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                     <field name="exp_del_date" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                     <field name="asset_price" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                 <label for="percent_req1" string ='Advance Payment' attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                 <div attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                     Percentage %<field name="percent_req1" string="Percentage %" placeholder="Percentage %" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                     Amount <field name="amount" string="Amount" placeholder="Amount" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                 </div>
+                                    <!--<field name="amount" string="Amount"/>-->
+                                    <label for="percent_req2" string ='Financing Amount' attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                 <div attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                     Percenatge %<field name="percent_req2" string="Percentage %" placeholder="Percentage %" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+
+                                 </div>
+                                     <field name="tendor_months" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                     <field name="terms_usage" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+
+                                </group>
+                             </group>
+
+                         </page>
+                         <!--=================================================================-->
+
+                         <!--=================financing tab=======================  -->
+                         <page string="Financing" name="financing_i" >
+                             <group>
+                                 <button name="create_schedule" string="Create Payment Schedule" type="object"
+                                         default_focus="1" class="oe_highlight" attrs = "{'invisible':[('financing_amt','=','0')]}"/>
+                             </group>
+                             <separator string="Financing Details" />
+                             <group>
+                                <group>
+                                    <field name="currency_fin" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="financing_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="interest_rate" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="rate_code" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="spread" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="cl_acc_no" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="ins_start_date" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="effect_rate" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                                 <group>
+                                    <field name="grace" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="install_count" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="unit_fin" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="freq_fin" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                                 <group>
+                                    <field name="do_pay_amt_fin" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="do_pay_rate" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="rate_fin" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="value_date" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="mature_date" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+
+                                </group>
+                             </group>
+                             <!--=================newly added ======================================-->
+                             <separator string="Information on previous loans"/>
+                             <group>
+                                 <field name="purp_loan_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))],}">
+                                 <tree string="Purpose and Company Shareholders Details" editable='bottom'>
+                                    <field name="purpose" />
+                                    <field name="comp_share" />
+                                    <field name="institute"/>
+                                    <field name="type_loan"/>
+                                    <field name="amt"/>
+                                    <field name="amt_currency"/>
+                                    <field name="intrst_rate"/>
+                                    <field name="start_date"/>
+                                    <field name="tendor"/>
+                                    <field name="instl_amt"/>
+                                    <field name="notes"/>
+                                    <field name="purp_loan_id" invisible="True"/>
+                                </tree>
+                             </field>
+                             </group>
+                                <!--===================================================================-->
+                             <group >
+                                 <group>
+                                    <field name="loan_amt" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="duration" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="nr_credit" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                 </group>
+                                 <group>
+                                    <field name="institute" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="reg_date_new" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="approve_date" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                                 <group>
+                                    <field name="notes_auth" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                    <field name="notes_fin" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                </group>
+                             </group>
+
+                             <group>
+                                 <field name="comp_share_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Company Shareholders Details" editable='bottom'>
+                                    <field name="comp_share" />
+                                    <field name="institute"/>
+                                    <field name="type_loan"/>
+                                    <field name="amt_currency"/>
+                                    <field name="intrst_rate"/>
+                                    <field name="start_date"/>
+                                    <field name="tendor"/>
+                                    <field name="instl_amt"/>
+                                    <field name="comp_share_id" invisible="True"/>
+                                </tree>
+                             </field>
+                             </group>
+                            <separator string="Multi Transaction Loans"/>
+                             <group>
+                                 <field name="tran_loan_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Multi Transaction Loan" editable='bottom'>
+                                    <field name="sr_no" />
+                                    <field name="amount"/>
+                                    <field name="date"/>
+                                    <field name="notes"/>
+
+                                    <field name="tran_loan_id" invisible="True"/>
+                                </tree>
+                             </field>
+                             </group>
+                         </page>
+                        <!--==========================================================-->
+
+                         <!--========================credit score tab===================-->
+                         <page string="Credit Score" name="creditscore_i">
+                             <separator string="Internal Credit Rating" />
+                             <field name="crd_rate_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Internal Credit Rating" editable='bottom'>
+                                    <field name="category" />
+                                    <field name="question"/>
+                                    <field name="answer"/>
+                                    <field name="crd_rate_id" invisible="True"/>
+                                </tree>
+                             </field>
+                             <group>
+                                 <group>
+                                     <field name="rule_id" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                     <field name="grade" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                     <field name="score" attrs="{'readonly':[('status','in',('approve','reject'))]}"/>
+                                 </group>
+                             </group>
+                             <separator string="Risk Factor Details" />
+                             <field name="risk_factor_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Risk Factor Details" editable='bottom'>
+                                    <field name="risk_fac" />
+                                    <field name="description"/>
+                                    <field name="risk_fac_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                         <!--=================================================================-->
+
+                         <!--==================Bureau tab===========================-->
+                         <page string="Bureau" name="bureau_i">
+                             <separator string="Credit Bureau Details" />
+                             <field name="crd_bur_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Internal Credit Rating" editable='bottom'>
+                                    <field name="cust_id" />
+                                    <field name="bureau"/>
+                                    <field name="status"/>
+                                    <field name="remarks"/>
+                                    <field name="crd_bur_id" invisible="True"/>
+                                </tree>
+                             </field>
+
+                             <separator string="External Credit Rating" />
+                             <field name="ext_crd_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="External Credit Rating" >
+                                    <field name="ext_agency" />
+                                    <field name="bureau"/>
+                                    <field name="status"/>
+
+                                </tree>
+                             </field>
+                         </page>
+                         <!--=========================================================-->
+
+                         <!--==================LMC Eligibility Ratio tab===========================-->
+                         <page string="LMC Eligibility Ratio" name="lmc_eligible_i">
+
+                             <group>
+                                 <group string="Stated">
+                                     <field name="monthly_income1" />
+                                     <field name="monthly_debt1" />
+                                 </group>
+                                 <group string="Actual">
+                                     <field name="monthly_income2" />
+                                     <field name="monthly_debt2" />
+                                 </group>
+                             </group>
+                             <group>
+                                 <group>
+                                     <field name="assets" />
+                                     <field name="liabilities" />
+                                     <field name="net_worth" />
+                                 </group>
+                             </group>
+                             <group>
+                                 <group>
+                                     <field name="what_if" />
+                                 </group>
+                             </group>
+                             <separator string="Ratio" />
+                             <field name="lmc_inv_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Internal Credit Rating" editable='bottom'>
+                                     <field name="ratios" />
+                                     <field name="stated_bef1" />
+                                     <field name="stated_aft1" />
+                                     <field name="stated_bef2" />
+                                     <field name="stated_aft2" />
+                                     <field name="lmc_inv_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                         <!--=========================================================-->
+
+                         <!--======================charges tab=================-->
+                          <page string="Charges" name="charges">
+                             <separator string="Details" />
+                             <field name="charge_det_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Charges Details" editable='bottom'>
+                                    <field name="comp_name" />
+                                    <field name="event_code"/>
+                                    <field name="currency_charges"/>
+                                    <field name="charge_amount"/>
+                                    <field name="waive"/>
+                                    <field name="charge_det_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                        <!--=================================================================-->
+
+                        <!--======================Schedule tab===============================-->
+                          <page string="Schedule" name="schedule_i">
+                             <!--<group>-->
+                                 <!--<button name="create_schedule" string="Create Payment Schedule" type="object" default_focus="1" class="oe_highlight"/>-->
+                             <!--</group>-->
+                              <separator string="Schedule Details" />
+                             <field name="schedule_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Schedule Details" editable='bottom'>
+                                    <field name="schdnr" />
+                                    <field name="schddate"/>
+                                    <field name="install_percent"/>
+                                    <field name="install_amt"/>
+                                    <field name="schdint"/>
+                                    <field name="schdprin"/>
+                                    <field name="schdfee"/>
+                                    <field name="outstand_amt"/>
+                                    <field name="schedule_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                        <!--=================================================================-->
+
+                          <!--==================Investigation tab===========================-->
+                         <page string="Investigation" name="invest_i">
+                             <separator string="Invest" />
+                             <field name="inv_det_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Investigation" editable='bottom'>
+                                    <field name="customer_no_inv" />
+                                    <field name="ver_type"/>
+                                    <field name="ver_agency"/>
+                                    <field name="inv_det_id" invisible="True"/>
+                                </tree>
+                             </field>
+
+                         </page>
+                         <!--=========================================================-->
+
+                         <!--======================Checklist tab=================-->
+                          <page string="Checklist" name="chklist_i">
+                             <separator string="Checklist" />
+                             <field name="checklist_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}" >
+                                 <tree string="Checklist Details" editable="bottom" delete="false" create="false">
+                                    <field name="serial_no" readonly="1"/>
+                                    <field name="document" readonly="1"/>
+                                    <field name="status"/>
+                                    <field name="update_date" readonly="1"/>
+                                    <field name="updated_by" readonly="1"/>
+                                    <field name="checklist_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                        <!--=================================================================-->
+
+
+                         <!--======================Collateral tab=================-->
+                          <page string="Collateral" name="collateral_i">
+                             <separator string="Collateral for the Loan Application" />
+                             <group>
+                                 <group>
+                                     <button name="get_collateral_type" string="Update Collateral" type="object" default_focus="1" class="oe_highlight"  />
+                                 </group>
+                             </group>
+                              <group>
+                                 <group>
+                                    <field name="sel_collateral" widget="selection" />
+                                 </group>
+                                 <group>
+                                    <button name="get_collateral_data" string="Get Collateral" type="object" default_focus="1" class="oe_highlight"
+                                    attrs="{'invisible':[('sel_collateral','=',False)]}"/>
+                                 </group>
+                             </group>
+                              <separator />
+                             <field name="col_line_ids" attrs="{'readonly':[('status','in',('approve','reject'))],'invisible':[('sel_collateral','=',False)]}" >
+                                 <tree string="Collateral Details" >
+                                    <field name="col_type" readonly="1"/>
+                                    <field name="col_status" readonly="1"/>
+                                    <field name="data_placement"/>
+                                    <!--<field name="update_date" readonly="1"/>-->
+                                    <!--<field name="updated_by" readonly="1"/>-->
+                                    <field name="col_line_id" invisible="True"/>
+                                </tree>
+                             </field>
+
+                         </page>
+                        <!--=================================================================-->
+
+                         <!--======================Fields tab=================-->
+                          <page string="Fields" name="fields_i">
+                             <!--<separator string="" />-->
+                             <group>
+                                 <group>
+                                     <field name="field1"  />
+                                     <field name="field2"  />
+                                    <field name="field3"  />
+                                    <field name="field4"  />
+                                    <field name="field5"  />
+                                    <field name="field6"  />
+                                    <field name="field7"  />
+                                    <field name="field8"  />
+                                    <field name="field9"  />
+                                    <field name="field10"  />
+                                    <field name="field11"  />
+                                    <field name="field12"  />
+                                    <field name="field13"  />
+                                    <field name="field14"  />
+                                    <field name="field15"  />
+                                    <field name="field16"  />
+                                    <field name="field17"  />
+                                    <field name="field18"  />
+                                    <field name="field19"  />
+                                    <field name="field20" />
+
+                                 </group>
+                                 <group>
+                                     <field name="field_date_1"/>
+                                    <field name="field_date_2"/>
+                                    <field name="field_date_3"/>
+                                    <field name="field_date_4"/>
+                                    <field name="field_date_5"/>
+                                     <field name="field_num_1"/>
+                                     <field name="field_num_2"/>
+                                     <field name="field_num_3"/>
+                                     <field name="field_num_4"/>
+                                     <field name="field_num_5"/>
+                                     <field name="field_num_6"/>
+                                     <field name="field_num_7"/>
+                                     <field name="field_num_8"/>
+                                     <field name="field_num_9"/>
+                                     <field name="field_num_10"/>
+                                     <field name="field_num_11"/>
+                                     <field name="field_num_12"/>
+                                     <field name="field_num_13"/>
+                                     <field name="field_num_14"/>
+                                     <field name="field_num_15"/>
+
+                                 </group>
+
+                             </group>
+
+                         </page>
+                        <!--=================================================================-->
+
+                         <!--======================Document tab=================-->
+                          <page string="Documents" name="docmnts_i">
+                             <separator string="Attached Documents" />
+                             <field name="doc_det_ids" attrs="{'readonly':[('status','in',('approve','reject'))]}" >
+                                 <tree string="Document Details"  >
+                                    <field name="doc_title"/>
+                                    <field name="desc"/>
+                                    <field name="upload_date" readonly="1"/>
+                                    <field name="uploaded_by" readonly="1"/>
+                                    <field name="type" readonly="1"/>
+                                     <field name="doc_file" readonly="1"/>
+                                    <field name="doc_det_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                        <!--=================================================================-->
+
+                         <!--======================Categorization tab=================-->
+                          <page string="Categorization" name="category_i">
+                             <separator string="Categorization" />
+                             <field name="categor_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Categorization Details">
+                                    <field name="serial_no" readonly="1"/>
+                                    <field name="month"/>
+                                    <field name="category"/>
+                                    <field name="subject"/>
+                                    <field name="notes"/>
+                                    <field name="user"/>
+                                    <field name="update_date"/>
+                                    <field name="categor_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                        <!--=================================================================-->
+
+                        <!--======================Comments tab=================-->
+                          <page string="Comments" name="comments_i">
+                             <separator string="Comments" />
+                             <field name="comment_ids" nolabel="1" attrs="{'readonly':[('status','in',('approve','reject'))]}">
+                                 <tree string="Comments Details">
+                                    <field name="update_date" />
+                                    <field name="status"/>
+                                    <field name="event"/>
+                                    <field name="notes"/>
+                                    <field name="module"/>
+                                    <field name="comment_id" invisible="True"/>
+                                </tree>
+                             </field>
+                         </page>
+                        <!--=================================================================-->
+                     </notebook>
+                   <group string="Other Details">
+                       <group>
+                           <field name="created_by" readonly="True"/>
+                           <field name="create_date" readonly="True"/>
+                           <field name="updated_by"  readonly="True"/>
+                           <field name="update_date" readonly="True"/>
+
+                       </group>
+                       <group>
+                           <field name="authorized_by" readonly="True"/>
+                           <field name="auth_date" readonly="True"/>
+                           <field name="approved_by" readonly="True"/>
+                           <field name="approval_date" readonly="True"/>
+                       </group>
+
+                   </group>
+               </sheet>
+            </form>
+        </field>
+    </record>
+
+      <!--===============================================================================================================-->
+    <record id="action_loan_application_form_individual" model="ir.actions.act_window">
+        <field name="name">Loan Application Form(Individual)</field>
+        <field name="res_model">loan.application</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,search</field>
+        <field eval="False" name="view_id"/>
+        <field name="context">{'default_is_company_customer':-10,}</field>
+        <field name="domain">[('is_company_customer','=','-10')]</field>
+        <field name="search_view_id" ref="view_loan_application_filter_individ"/>
+    </record>
+
+     
+
+      <!--view_loan_application_main_tree_indiv-->
+    <record id="action_loan_appplication_tree_view1" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_loan_application_main_tree_indiv"/>
+        <field name="act_window_id" ref="action_loan_application_form_individual"/>
+    </record>
+
+
+
+      <record id="action_loan_application_indiv_view_form" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_loan_application_individual_form"/>
+        <field name="act_window_id" ref="action_loan_application_form_individual"/>
+      </record>
+
+
+    <record id="action_loan_application_form_company" model="ir.actions.act_window">
+        <field name="name">Loan Application Form(Company)</field>
+        <field name="res_model">loan.application</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,search</field>
+        <field eval="False" name="view_id"/>
+        <field name="context">{'default_is_company_customer':-20,}</field>
+        <field name="domain">[('is_company_customer','=','-20')]</field>
+        <field name="search_view_id" ref="view_loan_application_filter_company"/>
+    </record>
+
+      <record id="action_loan_appplication_tree_view2" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_loan_application_main_tree_comp"/>
+        <field name="act_window_id" ref="action_loan_application_form_company"/>
+      </record>
+
+      <record id="action_loan_application_company_view_form" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_loan_application_company_form"/>
+        <field name="act_window_id" ref="action_loan_application_form_company"/>
+      </record>
+
+
+      <menuitem id="menu_loan_application_sub_menu" name = "Loan Application" parent="alban_loan_application.menu_loan_appln_main" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+      <menuitem id="menu_action_loan_application_indiv" parent="menu_loan_application_sub_menu" name ="Individual" sequence="1" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+      <menuitem action="action_loan_application_form_individual" id="menu_loan_application_form_indiv" parent="menu_action_loan_application_indiv" name ="Loan Application" sequence="7" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+
+      <menuitem id="menu_action_loan_application_company" parent="menu_loan_application_sub_menu" name ="Company" sequence="2" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+      <menuitem action="action_loan_application_form_company" id="menu_loan_application_form_comp" parent="menu_action_loan_application_company" name ="Loan Application" sequence="7" groups="alban_loan_application.group_for_admin_alban_new,alban_loan_application.group_for_user_alban_new"/>
+
+  </data>
+</odoo>

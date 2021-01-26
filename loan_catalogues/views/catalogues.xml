@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="loan_catalogues_view_form" model="ir.ui.view">
+            <field name="name">loan.catalogues.view.form</field>
+            <field name="model">loan.catalogues</field>
+            <field name="arch" type="xml">
+                <form string="Catalogues">
+                  <sheet>
+                    <group>
+                        <group>
+                        	<field name="name" placeholder="Catalogue Name"/>
+                        	<field name="name_num" placeholder="Catalogue Name Numeric"/>
+                        </group>
+                         <group>
+                        	<field name="code" placeholder="Catalogue Code"/>
+                        	<field name="parent" placeholder="Check if it is the main"/>
+                        </group>
+                        <group>
+                            <field name="parent_id" domain="[('parent','=',1)]"/>
+                            <field name="parent_name" invisible="1"/>
+                            <field name="account_portfolio_id"/>
+                            <field name="account_provizion_id"/>
+                        </group>
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="loan_catalogues_view_tree" model="ir.ui.view">
+            <field name="name">loan.catalogues.view.tree</field>
+            <field name="model">loan.catalogues</field>
+            <field name="arch" type="xml">
+                <tree string="Catalogues">
+                    <field name="name"/>
+                    <field name="name_num"/>
+                    <field name="code"/>
+                    <field name="parent_id"/>
+                </tree>
+            </field>
+        </record>
+
+		<record id="loan_catalogues_view_search" model="ir.ui.view">
+            <field name="name">loan.catalogues.view.search</field>
+            <field name="model">loan.catalogues</field>
+            <field name="arch" type="xml">
+                <search string="Search Catalogues">
+                   <field name="name"/>
+                   <field name="code"/>
+                   <filter name="parent_id"/>
+                   <group expand="0" string="Group By">
+                       <filter name="parent_name" string="Parent Name" icon="terp-personal" domain="[]" context="{'group_by':'parent_name'}"/>
+                       <filter name="parent_id" string="Parent Catalogue" icon="terp-personal" domain="[]" context="{'group_by':'parent_id'}"/>
+                   </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_loan_catalogues" model="ir.actions.act_window">
+            <field name="name">Catalogues</field>
+            <field name="res_model">loan.catalogues</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="search_view_id" ref="loan_catalogues_view_search"/>
+            <field name="context">{'search_default_parent_id':1}</field>
+        </record>
+
+        <menuitem action="action_loan_catalogues"
+        		id="loan_catalogues_menu"
+        		parent="loan_management-master.loan_management_configuration"
+        		sequence="3"
+        		/>
+
+
+    </data>
+</odoo>

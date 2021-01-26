@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<openerp>
+
+    <data >
+        <!--======================loan config data==============================-->
+        <record id="loan_directory_data" model="loan.config.directory">
+            <field name="parent_directory">c:/odoo/loan</field>
+            <!--<field name="parent_directory">/opt/odoo-10comm/Loan</field>-->
+            <field name="loan_directory">Loan Documents</field>
+            <field name="loan_indiv_directory">Individual</field>
+            <field name="loan_compa_directory">Group</field>
+            <field name="collateral_directory">Collateral Documents</field>
+            <field name="collateral_sub_directory">Documents</field>
+            <field name="lien_directory">Lien Documents</field>
+
+        </record>
+
+    </data>
+</openerp>

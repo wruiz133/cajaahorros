@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<odoo> 
+<data> 
+<!-- Comentario en la Views --> 
+     <record id="view_s_adjuntos_form" model="ir.ui.view"> 
+        <field name="name">s.adjuntos.form</field> 
+        <field name="model">s.adjuntos</field> 
+        <field name="arch" type="xml"> 
+            <form string="Adjuntos"> 
+                <sheet> 
+                    <group col="12"> 
+                        <group colspan="6"> 
+                        </group> 
+                    </group> 
+                    <group col="12"> 
+                    </group> 
+                </sheet> 
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div> 
+            </form> 
+        </field> 
+    </record> 
+     <record id="view_s_adjuntos_tree" model="ir.ui.view"> 
+        <field name="name">s.adjuntos.tree</field> 
+        <field name="model">s.adjuntos</field> 
+        <field name="arch" type="xml"> 
+           <tree> 
+           </tree> 
+        </field> 
+    </record> 
+     <record id="view_s_adjuntos_search" model="ir.ui.view"> 
+        <field name="name">s.adjuntos.search</field> 
+        <field name="model">s.adjuntos</field> 
+        <field name="arch" type="xml"> 
+           <search> 
+           </search> 
+        </field> 
+    </record> 
+<!--  Acciones --> 
+    <record model="ir.actions.act_window" id="act_s_adjuntos"> 
+        <field name="name">adjuntos</field> 
+        <field name="type">ir.actions.act_window</field> 
+        <field name="res_model">s.adjuntos</field> 
+        <field name="view_type">form</field> 
+        <field name="view_mode">tree,form    </field> 
+    </record> 
+<!--  Menus --> 
+<menuitem id="s_persona_menu" name="Persona" sequence="10" web_icon="fin_res_partner,static/description/icon.png"/> 
+<menuitem id="submenu_s_adjuntos_menu" name="Adjuntos" sequence="10" parent="s_persona_menu"/> 
+<menuitem id="submenu_s_adjuntos_action" name="Adjuntos" sequence="10" parent="submenu_s_adjuntos_menu" action="act_s_adjuntos"/> 
+
+</data> 
+</odoo> 

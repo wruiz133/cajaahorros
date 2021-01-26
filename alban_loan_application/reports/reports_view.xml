@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<report
+			id ="id_report_invoice_my"
+			model="alban_loan_application.report_invoice_my"
+			string= "Detailed Allocations of Loans Transactions"
+			report_type="qweb-pdf"
+			name= "alban_loan_application.report_invoice_my"
+			file="alban_loan_application.report_invoice_my"
+			attachment_use="True"
+		/>
+		<report
+			id ="id_report_days_late_schedule"
+			model="alban_loan_application.report_invoice_my"
+			string= "Detailed Allocations for Scheduled Installments"
+			report_type="qweb-pdf"
+			name= "alban_loan_application.days_late_schedule"
+			file="alban_loan_application.days_late_schedule"
+			attachment_use="True"
+		/>
+	</data>
+</openerp>

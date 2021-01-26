@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+  <!-- Vista Formulario de Plazo de interes-->
+   <record model="ir.ui.view" id="saving_management_plazo_form">
+   <field name="name">saving.management.saving.plazo.form</field>
+   <field name="model">saving.management.saving.plazo</field>
+   <field name="arch" type="xml">
+     <form string="Plazo de Ahorro">
+       <sheet>  
+       <separator string="Plazo de Ahorro" />
+       <group colspan="4">
+		<group cols="2">  
+			<field name="name" readonly="1"/>
+			<field name="active"/>
+		</group>
+		<group cols="2"> 
+			<field name="tipo_plazo"/>
+		       <field name="numero_plazo"/>
+		</group>
+	    </group>		
+		</sheet>     
+     </form>
+   </field> 
+   </record>  
+   <!-- Fin de Vista form  -->
+  <!-- Vista Tree de prestamo-->
+<record model="ir.ui.view" id="saving_management_plazo_tree">
+   <field name="name">saving.management.saving.plazo.tree</field>
+   <field name="model">saving.management.saving.plazo</field>
+   <field name="arch" type="xml">
+       <tree string="Tiempo de Ahorro">
+                 <field name="name"/>
+		<field name="tipo_plazo"/>
+		       <field name="numero_plazo"/>
+		       <field name="active"/>
+       </tree>
+   </field> 
+   </record>
+
+   <!--  Accion para prestamo -->
+   <record model="ir.actions.act_window" id="saving_management_plazo_action">
+   <field name="name">Tiempo Estimado Fondo Ahorro</field>
+   <field name="res_model">saving.management.saving.plazo</field>
+   <field name="view_type">form</field>
+   <field name="view_model">tree,form</field>
+   <field name="help" type="html">
+   <p class="oe_view_nocontent_create">Crear plazos de acumulacion del ahorro</p>
+   </field>
+   </record>
+
+<menuitem string="Plazo de Ahorro" action="saving_management_plazo_action" id="saving_management_plazo" parent="saving_management_configuration" sequence="4"/>
+
+   </data>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

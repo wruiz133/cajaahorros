@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_saving_management_calendar" model="ir.ui.view">
+            <field name="name">saving.management.saving.calendar</field>
+            <field name="model">saving.management.saving</field>
+            <field name="arch" type="xml">
+                <calendar string="ahorros" color="afiliado_id" date_start="fecha_solicitud">
+                    <field name="afiliado_id"/>
+                    <field name="monto_solicitado"/>
+                </calendar>
+            </field>
+        </record>
+        <!--WHRC tabla pivot-->
+        <record id="view_pivot_saving" model="ir.ui.view">
+            <field name="name">saving.management.saving.pivot</field>
+            <field name="model">saving.management.saving</field>
+            <field name="arch" type="xml">
+                <pivot string="ahorros" display_quantity="true">
+                    <field name="afiliado_id"/>
+                    <field name="monto_solicitado" type="measure"/>
+                    <field name="total_interes" type="measure" />
+                    <field name="total_monto" type="measure"/>
+                    <field name="saldo_pendiente" type="measure"/>
+                    <!--                    <field name="plazo_pago" type="col"/>
+                                        <field name="state" type="row"/>
+                    -->
+                </pivot>
+            </field>
+        </record>
+        <!--WHRC filtradores predefinidos -->
+        <record model="ir.ui.view" id="saving_management_saving_search">
+            <field name="name">saving.management.saving.search</field>
+            <field name="model">saving.management.saving</field>
+            <field name="arch" type="xml">
+                <search string ='Buscar'>
+                    <field name="afiliado_id" operator="child_of" string="Con parte del nombre"/>
+                    <field name="fecha_solicitud" string="Por fecha de solicitud"/>
+                    <field name="name" string="Por Numero saving"/>
+                    <separator/>
+                    <field name="afiliado_id"/>
+                    <group expand="0" string="Agrupado por">
+                        <filter string="Cliente" domain="[]" context="{'group_by':'afiliado_id'}"/>
+                        <filter string="Mes"  domain="[]" context="{'group_by':'fecha_solicitud'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="saving_management_saving_graph">
+            <field name="name">saving.management.saving.graph</field>
+            <field name="model">saving.management.saving</field>
+            <field name="arch" type="xml">
+                <graph string="Resumen" type="bar">
+                    <field name="afiliado_id" />
+                    <field name="tipo_ahorro_id" type="row"/>
+                    <field name="total_monto" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        <!-- Vista Formulario Presamo-->
+        <record model="ir.ui.view" id="saving_management_saving_form_view">
+            <field name="name">saving.management.saving.form</field>
+            <field name="model">saving.management.saving</field>
+            <field name="arch" type="xml">
+                <form string="Solicitud de saving">
+                    <header>
+                        <field name="forma_producto" />
+                        <button name="action_borrador" type="object" string="Cotizacion" states="rechazado,progress"  class="oe_highlight"/>
+                        <button name="action_solicitar_aprobacion" type="object" string="Solicitar aprobacion" states="cotizacion" class="oe_highlight"/>
+                        <button name="action_aprobar" type="object" string="Aprobar saving" states="progress" class="oe_highlight"/>
+                        <button name="%(action_wizard_pago_cuota_saving)d" type="action" string="Pagar Plazo Fijo"  attrs="{'invisible': [('forma_producto','in',['av','ap'])]}" class="oe_highlight"/>
+                        <button name="%(action_wizard_pago_cuota_saving)d" type="action" string="Captar Cuotas Fondo Programado"  attrs="{'invisible': [('forma_producto','in',['av','pf'])]}" class="oe_highlight"/>
+                        <button name="%(action_wizard_pago_cuota_saving)d" type="action" string="Asentar Depositos" attrs="{'invisible': [('forma_producto','in',['ap','pf'])]}"
+                                context="{'default_registro_tipo': 'deposito'}" class="oe_highlight"/>
+                        <button name="%(action_wizard_pago_cuota_saving)d" type="action" string="Asentar Retiros" attrs="{'invisible': [('forma_producto','in',['ap','pf'])]}"
+                                context="{'default_registro_tipo': 'retiro'}" class="oe_highlight"/>
+
+                        <button name="%(action_wizard_status_cuotas_saving)d" type="action" string="Generar Cobranza" states="aprobado" class="oe_highlight"/>
+                        <button name="generar_contabilidad" type="object" string="Recibir Fondo Plazo Fijo" attrs="{'invisible': [('forma_producto','in',['av','ap'])]}"  class="oe_highlight"/>
+                        <button name="generar_contabilidad" type="object" string="Liquidar Fondo Programado" attrs="{'invisible': [('forma_producto','in',['av','pf'])]}" class="oe_highlight"/>
+
+                        <button name="action_rechazar" type="object" string="Rechazar saving" states="cotizacion,aprobado,progress,desembolso,progreso"
+                                confirm="Esta seguro que elimina asientos, pagos y calculos registrados???"/>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="name" placeholder="Numero de ahorro ..." class="oe_inline" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
+                            - <field name="tipo_ahorro_id" attrs="{'readonly': [('state','!=','cotizacion')]}" options="{'no_create': True}"  placeholder="Tipo de Ahorro" />
+                            - <field name="afiliado_id" attrs="{'readonly': [('state','!=','cotizacion')]}" placeholder="Socio"/>
+                        </h1>
+                        <separator string="Información General"/>
+                        <group col="12">
+                            <group colspan="6">
+                                <field name="currency_id" invisible="1"/>
+                                <field name="fecha_solicitud" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
+                                <field name="fecha_aprobacion" attrs="{'required': [('state','in',['aprobado','desembolso'])]}"/>
+                                <field name="periodo_plazo_pago" readonly="0"/>
+                            </group>
+                            <group colspan="6">
+                                <field name="tasa_interes" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
+                                <field name="plazo_pago" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
+                                <field name="monto_solicitado" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
+                            </group>
+                            <group colspan="6">
+                                <!--<field name="tir"/>
+                                <field name="tea"/>-->
+                                <field name="encaje_aportacion"/>
+                                <field name="encaje_ahorros"/>
+                                <field name="total_fondos_propios"/>
+                                <field name="forma_producto" invisible="1"/>
+                            </group>
+
+                        </group>
+        <notebook>
+        <!--pestañas-->
+            <page string="Plan de pago" attrs="{'invisible': [('forma_producto','in',['av'])]}" >
+                <group colspan="4">
+                    <group cols="2">
+                        <field name="total_interes" readonly="1"/>
+                        <field name="cuota_ahorro" readonly="1"/>
+                    </group>
+                    <group cols="2">
+                        <field name="mora_id" options="{'no_create': True}"  attrs="{'required': [('state','in',['aprobado','desembolso', 'progreso'])]}"/>
+                        <field name="fecha_pago" />
+                        <button name="get_generar_cuotas" class="oe_highlight" attrs="{'invisible': [('state','!=','cotizacion')]}"
+                                string="Calcular plan de pago" type="object" />
+                        <button name="%(action_wizard_pago_cuota_saving)d" class="oe_highlight" attrs="{'invisible': [('state','!=','progreso')]}"
+                                string="Pagar Cuotas" type="action"/>
+                    </group>
+                </group>
+                <field name="cuota_ids">
+                    <tree string="Plan de pago" editable="bottom" delete="0" colors="blue:state == 'novigente';green:state == 'vigente'; red:state == 'morosa'; gray:state == 'pagada'">
+                        <field name="numero_cuota" />
+                        <field name="fecha_pago" readonly="1"/>
+                        <field name="capital" readonly="1" sum="Total"/>
+                        <field name="interes" readonly="1" sum="Total"/>
+                        <field name="monto_cuota" readonly="1" sum="Total"/>
+                        <field name="saldo_pendiente" readonly="1"/>
+                        <field name="state" readonly="1"/>
+                        <field name="mora" readonly="1"/>
+                        <field name="saldo_ahorro" readonly="1"/>
+                        <field name="currency_id" invisible="1"/>
+                    </tree>
+                </field>
+            </page>
+                <!--Depositos / Retiros  "-->
+            <page string="Depositos / Retiros" attrs="{'invisible': [('forma_producto','in',['ap','pf'])]}">
+                <group colspan="4">
+                  <group cols="2">
+                      <field name="fecha_pago" string ="Fecha Liquidacion" />
+                      <button name="get_generar_cuotas" class="oe_highlight" states="aprobado,progreso,desembolso,cotizacion,liquidado"
+                              string="Calcular interes sobre saldos" type="object" />
+                  </group>
+                  <group cols="2">
+                     <field name="cierre" string ="Cierra Libreta Ahorros" />
+                     <field name="saldo_libreta" string ="Saldo Libreta" /> - <field name="fecha_capitaliza" string ="Al: " />
+                  </group>
+              </group>
+                <field name="cuotasaving_ids" attrs="{'redonly': [('state','in',['liquidado'])]}" >
+                    <tree string="Depositos - Retiros"  colors="blue:state == 'novigente';green:state == 'vigente'; red:state == 'morosa'; gray:state == 'pagada'">
+                        <field name="numero_cuota" />
+                        <field name="fecha_pago" />
+                        <field name="deposito"  sum="Total"/>
+                        <field name="retiro"  sum="Total"/>
+                        <field name="interes" string="Interes a favor" sum="Total"/>
+                        <field name="interes_contra" string="Interes en contra" sum="Total"/>
+                        <field name="state" readonly="1"/>
+                        <!--<field name="saldo_pendiente" />-->
+                        <field name="saldo_ahorro"  sum="Total" />
+                        <field name="saldo_acumulado" />
+                        <field name="currency_id" invisible = "1"/>
+                    </tree>
+                </field>
+            </page>
+            <page string="Sumas Impuestos/Montos">
+                <group colspan="4">
+                    <group cols="2">
+                        <field name="ahorro_done" invisible="1"/>
+                    </group>
+                </group>
+                <separator string="Detalle del Ahorro"/>
+                <group colspan="4">
+                    <group cols="2">
+                        <field name="total_monto" readonly="1"/>
+                        <field name="monto_insoluto" readonly="1"/>
+                        <field name="saldo_liquidar" readonly="1"/>
+                        <field name="interes" readonly="1"/>
+                    </group>
+                    <group cols="2">
+                        <field name="saldo_pendiente"/>
+                        <field name="monto_recaudado"/>
+                        <field name="mora_ahorro"/>
+                        <field name="interes_insoluto"/>
+                    </group>
+                </group>
+
+                <group col="6">
+                    <group colspan="2">
+                        <field name="cargos"/>
+                        <field name="legalizacion"/>
+                        <field name="constante_local"/>
+                        <field name="seguro"/>
+                        <field name="imp_solca"/>
+                        <field name="imp_infa"/>
+                        <field name="retencion_ahorros"/>
+                        <field name="retencion_aportes"/>
+                    </group>
+                    <group colspan="2">
+                        <div>
+                            <field name="cargos_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </div>
+
+                    </group>
+                    <group colspan="2">
+                    </group>
+                </group>
+            </page>
+            <page string="Detalles Captacion/desembolso"
+                  attrs="{'invisible': [('state','in',['cotizacion','rechazado'])]}">
+                <group colspan="4">
+                    <group cols="2">
+                        <field name="total_desembolso" readonly="1"/>
+                        <field name="fecha_desembolso" attrs="{'readonly': [('state','!=','desembolso')], 'required': [('state','in',['desembolso', 'progreso', 'liquidado'])]}"/>
+                        <field name="gastos_papeleria"/>
+                        <field name="cuenta_desgravamen"/>
+                        <field name="gasto_timbre"/>
+                    </group>
+                    <group cols="2">
+                        <field name="journal_id" attrs="{'readonly': [('state','!=','desembolso')], 'required': [('state','in',['desembolso', 'progreso', 'liquidado'])]}" options="{'no_create': True}" />
+                        <!--<field name="referencia_desembolso" attrs="{'readonly': [('state','!=','desembolso')], 'required': [('state','in',['desembolso', 'progreso', 'liquidado'])]}"/>-->
+                        <field name="referencia_desembolso" attrs="{'readonly': [('state','!=','desembolso')]}"/>
+                        <field name="move_id"/>
+                        <field name="seq_desembolso"/>
+                    </group>
+                </group>
+                <field name="notas_desembolso" placeholder="Notas de desembolso"/>
+            </page>
+            <page string="Validacion de documentos">
+                <field name="doc_ids"  context="{'ahorros_id' : id }">
+                    <tree string="Documentos">
+                        <field name="name"/>
+                        <field name="documento"/>
+                        <field name="nota"/>
+                        <field name="estado"/>
+                    </tree>
+                </field>
+            </page>
+
+            <page string="Movimientos de Ahorros" attrs="{'invisible': [('state','in',['rechazado'])]}">
+                <field name="pagos_ids">
+                    <tree string="Pagos de cuotas" editable="bottom" delete="0" create="0">
+                        <field name="cliente_id" readonly="1"/>
+                        <field name="fecha" readonly="1"/>
+                        <field name="importe_pagado" readonly="1" sum="Total"/>
+                        <field name="cuotas" readonly="1"/>
+                        <field name="state" readonly="1"/>
+                        <field name="asiento_id" readonly="1"/>
+                        <field name="observaciones" readonly="1"/>
+                    </tree>
+                </field>
+            </page>
+
+            <page string="Notas Generales">
+                <field name="notas" placeholder="Notas generales de desembolso"/>
+            </page>
+        </notebook>
+          </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <!-- Fin de Vista form  -->
+        <!--  Vista Tree Tipo de saving-->
+        <record model="ir.ui.view" id="saving_management_saving_tree_view">
+            <field name="name">saving.management.saving.tree</field>
+            <field name="model">saving.management.saving</field>
+            <field name="arch" type="xml">
+                <tree string="Solicitud de ahorros" colors="blue:state == 'cotizacion';green:state == 'progreso'; red:state == 'rechazado'; green:state == 'aprobado'">
+                    <field name="name"/>
+                    <field name="afiliado_id"/>
+                    <field name="fecha_solicitud" />
+                    <field name="fecha_aprobacion" />
+                    <field name="monto_solicitado" sum="Mnto Solicitado"/>
+                    <field name="total_interes" sum="Total Interes"/>
+                    <field name="total_monto" sum="Total Mnto"/>
+                    <field name="saldo_pendiente" sum="Total Pendiente" attrs="{'invisible': [('state','=','cotizacion')]}"/>
+                    <field name="plazo_pago" />
+                    <field name="state"/>
+                    <field name="ahorro_moroso"/>
+                </tree>
+            </field>
+        </record>
+        <!--  Accion para solicitud de ahorros -->
+        <record model="ir.actions.act_window" id="saving_management_saving_action">
+            <field name="name">Solicitudes de Ahorros</field>
+            <field name="res_model">saving.management.saving</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph,calendar,pivot</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Solicitud de ahorro</p>
+            </field>
+        </record>
+
+        <!--  Accion para aprobcion de ahorros -->
+        <record model="ir.actions.act_window" id="saving_saving_esperando_aprobacion_action">
+            <field name="name">Esperando Aprobación</field>
+            <field name="res_model">saving.management.saving</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph,calendar,pivot</field>
+            <field name="domain">[('state','=','progress')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Ahorro por Aprobar</p>
+            </field>
+        </record>
+
+        <!--  Accion para aprobr de ahorros -->
+        <record model="ir.actions.act_window" id="saving_saving_aprobados_action">
+            <field name="name">Ahorros Aprobados</field>
+            <field name="res_model">saving.management.saving</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph,calendar,pivot</field>
+            <field name="domain">[('state','=','aprobado')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Ahorro Aprobado</p>
+            </field>
+        </record>
+
+        <!--  Accion para ahorros activos -->
+        <record model="ir.actions.act_window" id="saving_saving_activos_action">
+            <field name="name">Ahorros Activos</field>
+            <field name="res_model">saving.management.saving</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph,calendar,pivot</field>
+            <field name="domain">['|',('state','=','progreso'),('state','=','desembolso') ]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Ahorros Activos</p>
+            </field>
+        </record>
+
+        <!--  Accion rechazode ahorros -->
+        <record model="ir.actions.act_window" id="saving_saving_rechazado_action">
+            <field name="name">Ahorros Rechazados</field>
+            <field name="res_model">saving.management.saving</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph,calendar,pivot</field>
+            <field name="domain">[('state','=','rechazado')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Rechazo ahorros</p>
+            </field>
+        </record>
+
+        <!--  Accion para ahorros pagados -->
+        <record model="ir.actions.act_window" id="saving_saving_pagados_action">
+            <field name="name">Ahorros Liquidados</field>
+            <field name="res_model">saving.management.saving</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph,calendar,pivot</field>
+            <field name="domain">[('state','=','liquidado')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear primera solicitud de Ahorro</p>
+            </field>
+        </record>
+
+        <!-- Fin de Action de Contratos -->
+        <!--  Menu Principal de ahorros-->
+        <menuitem id="saving_management_general" name="Gestion de ahorros" string="Gestion de ahorros" parent="saving_management_main" sequence="1"/>
+        <menuitem string="ahorros Activos" id="menu_saving_con_activos" parent="saving_management_general" action="saving_saving_activos_action" sequence="1"/>
+
+        <menuitem string="Solicitudes de Ahorro"  id="menu_solicitud_saving" parent="saving_management_general" action="saving_management_saving_action" sequence="2"/>
+
+        <menuitem string="Esperando aprobación"  id="menu_saving_esperando_aprobacion" parent="saving_management_general" action="saving_saving_esperando_aprobacion_action" sequence="10"/>
+
+        <menuitem string="Ahorros aprobados"  id="menu_saving_aprobados" parent="saving_management_general" action="saving_saving_aprobados_action" sequence="20"/>
+
+        <menuitem string="Ahorros rechazado"  id="menu_saving_rechazado" parent="saving_management_general" action="saving_saving_rechazado_action" sequence="40"/>
+
+        <menuitem string="Ahorros Liquidados" id="menu_saving_pagados" parent="saving_management_general" action="saving_saving_pagados_action" sequence="50"/>
+
+    </data>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

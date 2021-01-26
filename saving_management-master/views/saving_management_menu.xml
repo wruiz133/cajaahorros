@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+ 		<menuitem id="saving_management_main" name="Ahorros" string="Gestion de Ahorros"
+ 		web_icon="saving_management-master,static/description/icon.png"/>
+    </data>
+</odoo>

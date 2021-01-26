@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+ <record model="ir.module.category" id="module_funds_requisition">
+            <field name="name">Fund Requisition</field>
+            <field name="description">Fund Requisition.</field>
+            <field name="sequence">4</field>
+ </record>
+
+<record id="group_funds_requisition_user" model="res.groups">
+<field name="category_id" ref="module_funds_requisition"/>
+<field name="name">Funds requisition / User</field>
+</record>
+
+<record id="group_funds_requisition_manager" model="res.groups">
+<field name="category_id" ref="module_funds_requisition"/>
+<field name="name">Funds Requisition / Manager</field>
+</record>
+  
+
+</data>
+</openerp>
+
+

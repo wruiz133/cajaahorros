@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_loan_ahorro_type1" model="ir.sequence">
+            <field name="name">Ahorro ID</field>
+            <field name="code">ahorro</field>
+            <field name="prefix">Aportación. </field>
+            <field name="prefix">Aportación. </field>
+            <field name="prefix">Aportación. </field>
+            <field name="prefix">Aportación. </field>
+
+        </record>
+    </data>
+</odoo>

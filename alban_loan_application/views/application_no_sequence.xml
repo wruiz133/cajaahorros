@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- Sequence for application number  -->
+
+	<!-- albani <record id="seq_appln_number" model="ir.sequence"> -->
+	<!-- albani 	<field name="name">Application Number</field> -->
+	<!-- albani 	<field name="code">loan.application</field> -->
+	<!-- albani 	<field name="prefix">LOAN</field> -->
+	<!-- albani 	<field name="padding">6</field> -->
+	<!-- albani 	<field name="appln_no" eval="False"/> -->
+	<!-- albani </record> -->
+
+	<!--<record id="seq_number_one1" model="ir.sequence">-->
+		<!--<field name="name">Sequence Number 1</field>-->
+		<!--<field name="code">loan.application1</field>-->
+		<!--<field name="prefix">1</field>-->
+		<!--<field name="padding">6</field>-->
+		<!--<field name="seq_no1" eval="False"/>-->
+	<!--</record>-->
+
+	<!--<record id="seq_number_two2" model="ir.sequence">-->
+		<!--<field name="name">Sequence Number 2</field>-->
+		<!--<field name="code">loan.application2</field>-->
+		<!--<field name="prefix">2</field>-->
+		<!--<field name="padding">6</field>-->
+		<!--<field name="seq_no2" eval="False"/>-->
+	<!--</record>-->
+
+	 <!--<record id="seq_number_three3" model="ir.sequence">-->
+		<!--<field name="name">Sequence Number 3</field>-->
+		<!--<field name="code">loan.application3</field>-->
+		<!--<field name="prefix">3</field>-->
+		<!--<field name="padding">6</field>-->
+		<!--<field name="seq_no3" eval="False"/>-->
+	 <!--</record>-->
+
+	 <!--<record id="seq_number_four4" model="ir.sequence">-->
+		<!--<field name="name">Sequence Number 4</field>-->
+		<!--<field name="code">loan.application4</field>-->
+		<!--<field name="prefix">4</field>-->
+		<!--<field name="padding">6</field>-->
+		<!--<field name="seq_no4" eval="False"/>-->
+	<!--</record>-->
+
+	<!--<record id="seq_number_five5" model="ir.sequence">-->
+		<!--<field name="name">Sequence Number 4</field>-->
+		<!--<field name="code">loan.application5</field>-->
+		<!--<field name="prefix">5</field>-->
+		<!--<field name="padding">6</field>-->
+		<!--<field name="seq_no5" eval="False"/>-->
+	<!--</record>-->
+	<record id="seq_number_prelim_id" model="ir.sequence">
+			<field name="name">Sequence Number Preliminary Id</field>
+			<field name="code">loan.prelim.id</field>
+			<field name="prefix">PId-</field>
+			<field name="padding">8</field>
+			<field name="prelim_id" eval="False"/>
+		</record>
+
+
+    </odoo>

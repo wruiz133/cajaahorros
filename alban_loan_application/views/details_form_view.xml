@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+  <data>
+
+    <record id="applicant_details_form_view" model="ir.ui.view">
+        <field name="name">applicant.details.form.view</field>
+        <field name="model">applicant.details</field>
+        <field name="arch" type="xml">
+            <form>
+               <sheet>
+                   <h2>Applicant Details</h2>
+                    <group>
+                                <group>
+                                    <field name="partner_id" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                                    
+                                    <field name="type" required = "1" />
+                                    <field name="is_company_customer_det" invisible = "1" />
+                                    <field name="existing" readonly="1"/>
+                                    <field name="customer_no1" readonly="1" required = "1"/>
+                                    <field name="customer_type_name" required = "1"/>
+                                    <field name="f_name" readonly="1" required = "1"/>
+                                    <field name="m_name" attrs="{'required':[('is_company_customer_det','=',-10)],'invisible':[('is_company_customer_det','=',-20)]}"/>
+                                    <field name="l_name" readonly="1" required = "1"/>
+                                    <field name="national_id" readonly="1" required = "1"/>
+                                    <field name="in_cont" required = "1"/>
+
+                                    <field name="gender" attrs="{'required':[('is_company_customer_det','=',-10)],'invisible':[('is_company_customer_det','=',-20)]}"/>
+                                    <field name="birthdate" required="1" string="Birthdate/Date Registration"/>
+                                    <field name="country_birth" widget="selection" required = "1" string="Country"/>
+                                    <field name="city_birth" widget="selection" required="1" string="City"/>
+                                    <field name="type_of_rel" attrs="{'required':[('type','=','co_appl')]}"/>
+                                    <field name="mother_name" attrs="{'required':[('is_company_customer_det','=',-10)],'invisible':[('is_company_customer_det','=',-20)]}"/>
+
+                                    <field name="last_name_bef" attrs="{'required':[('is_company_customer_det','=',-10)],'invisible':[('is_company_customer_det','=',-20)]}"/>
+
+                                </group>
+                                <group>
+                                    <field name="country" widget="selection" required="1"/>
+                                    <field name="nationality" required="1"/>
+                                    <field name="language" required="1"/>
+                                    <field name="mobile_no" required="1"/>
+                                    <field name="landline_no" />
+                                    <field name="office_no" />
+                                    <field name="fax_no" />
+                                    <field name="email" />
+                                    <field name="name_last_name" attrs="{'required':[('is_company_customer_det','=',-10)],'invisible':[('is_company_customer_det','=',-20)]}"/>
+                                    <field name="exp_wife_husband" attrs="{'required':[('is_company_customer_det','=',-10)],'invisible':[('is_company_customer_det','=',-20)]}"/>
+                                    <field name="ext_audit" attrs="{'required':[('is_company_customer_det','=',-20)],'invisible':[('is_company_customer_det','=',-10)]}"/>
+                                    <field name="email_audit" attrs="{'required':[('is_company_customer_det','=',-20)],'invisible':[('is_company_customer_det','=',-10)]}"/>
+                                    <field name="industry_sector" attrs="{'required':[('is_company_customer_det','=',-20)]}"/>
+                                    <field name="industry_group" attrs="{'required':[('is_company_customer_det','=',-20)]}"/>
+                                    <field name="industry_code" attrs="{'required':[('is_company_customer_det','=',-20)]}"/>
+                                    <field name="no_of_owners" attrs="{'required':[('is_company_customer_det','=',-20)],'invisible':[('is_company_customer_det','=',-10)]}"/>
+                                    <field name="no_of_employees" attrs="{'required':[('is_company_customer_det','=',-20)],'invisible':[('is_company_customer_det','=',-10)]}"/>
+                                    <field name="business_env" attrs="{'required':[('is_company_customer_det','=',-20)],'invisible':[('is_company_customer_det','=',-10)]}"/>
+                                    
+                                </group>
+                            </group>
+                            <group>
+                                  <group>
+                                  </group>
+                                  <group string="Incorporation" attrs="{'invisible':[('is_company_customer_det','=',-10)]}">
+                                      <field name="date_incopr" attrs="{'required':[('is_company_customer_det','=',-20)],'invisible':[('is_company_customer_det','=',-10)]}"/>
+                                      <field name="capital" attrs="{'required':[('is_company_customer_det','=',-20)],'invisible':[('is_company_customer_det','=',-10)]}"/>
+                                      <field name="net_worth" attrs="{'required':[('is_company_customer_det','=',-20)],'invisible':[('is_company_customer_det','=',-10)]}"/>
+                                      <field name="country_1" attrs="{'required':[('is_company_customer_det','=',-20)],'invisible':[('is_company_customer_det','=',-10)]}"/>
+                                      <field name="currency_amt" attrs="{'required':[('is_company_customer_det','=',-20)],'invisible':[('is_company_customer_det','=',-10)]}"/>
+                                   
+
+
+                                  </group>  
+                            </group>
+
+                            <group>
+                                <group>
+                                    <field name="type_of_id1" />
+                                    <field name="country_issuer" />
+                                    <field name="city_issued" />
+
+                                    <field name="passport_no" />
+                                    <field name="pas_issue_date" />
+                                    <field name="pas_exp_date" />
+                                    <field name="marital_status" attrs="{'required':[('is_company_customer_det','=',-10)],'invisible':[('is_company_customer_det','=',-20)]}"/>
+                                    <field name="education" attrs="{'required':[('is_company_customer_det','=',-10)],'invisible':[('is_company_customer_det','=',-20)]}"/>
+                                </group>
+                                <group>
+                                    <field name="type_of_id2" />
+                                    <field name="passport_no1" />
+                                    <field name="pas_issue_date1" />
+                                    <field name="pas_exp_date1" />
+                                    <field name="no_of_people" attrs="{'required':[('is_company_customer_det','=',-10)],'invisible':[('is_company_customer_det','=',-20)]}"/>
+                                    <field name="dependents" attrs="{'required':[('is_company_customer_det','=',-10)],'invisible':[('is_company_customer_det','=',-20)]}"/>
+
+                                    <field name="exp" attrs="{'required':[('is_company_customer_det','=',-10)],'invisible':[('is_company_customer_det','=',-20)]}"/>
+                                    <field name="social_sit" attrs="{'required':[('is_company_customer_det','=',-10)],'invisible':[('is_company_customer_det','=',-20)]}"/>
+                                </group>
+                            </group>
+               </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+
+
+    <record id="address_details_form_view" model="ir.ui.view">
+        <field name="name">address.details.form.view</field>
+        <field name="model">address.details</field>
+        <field name="arch" type="xml">
+            <form>
+               <sheet>
+                   <h2>Address Details</h2>
+                    <group >
+                        <group>
+                            <field name="address_type" />
+                            <field name="mailing" />
+                            <field name="add_line1" />
+                            <field name="add_line2" />
+                            <field name="add_line3" />
+                        </group>
+                        <group>
+                            <field name="country_add" />
+                            <field name="placement_date1" />
+                             <field name="zip" />
+                            <field name="contact_no" />
+                        </group>
+                   </group>
+               </sheet>
+            </form>
+        </field>
+    </record>
+      <record id="employment_details_form_view" model="ir.ui.view">
+        <field name="name">employment.details.form.view</field>
+        <field name="model">employment.details</field>
+        <field name="arch" type="xml">
+            <form>
+               <sheet>
+                   <h2>Employment Details</h2>
+                    <group >
+                        <group>
+                            <field name="employer" />
+                            <field name="empl_type" />
+                            <field name="occupation" />
+                            <field name="designation" />
+                             <field name="empl_id" />
+                        </group>
+                        <group>
+                             <field name="add_line12" />
+                            <field name="add_line22" />
+                            <field name="add_line32" />
+                             <field name="country_add2" />
+                            <field name="placement_date2" />
+                            <field name="zip2" />
+                            <field name="phone_no" />
+                        </group>
+                        <group>
+                            <field name="extension" />
+                            <field name="cont_phone_no" />
+                            <field name="contact_name" />
+                            <field name="contact_ext" />
+                            <field name="comments" />
+                        </group>
+                   </group>
+               </sheet>
+            </form>
+        </field>
+    </record>
+      <record id="insurance_details_form_view" model="ir.ui.view">
+        <field name="name">insurance.details.form.view</field>
+        <field name="model">insurance.details</field>
+        <field name="arch" type="xml">
+            <form>
+               <sheet>
+                   <h2>Insurance Details</h2>
+                    <group >
+                        <group>
+                           <field name="sec_company" />
+                            <field name="nr_policy" />
+                            <field name="renew_date1" />
+                        </group>
+                        <group>
+                            <field name="policy_holder" />
+                            <field name="contact_info" />
+                        </group>
+                   </group>
+               </sheet>
+            </form>
+        </field>
+    </record>
+      <record id="information_links_form_view" model="ir.ui.view">
+        <field name="name">information.links.form.view</field>
+        <field name="model">information.links</field>
+        <field name="arch" type="xml">
+            <form>
+               <sheet>
+                   <h2>Information Links</h2>
+                    <group >
+                        <group>
+                           <field name="part_of_an" />
+                            <field name="specify" />
+                        </group>
+                        <group>
+                            <field name="member_of_foun" />
+                            <field name="connection_type" />
+                        </group>
+                   </group>
+               </sheet>
+            </form>
+        </field>
+      </record>
+      <record id="asset_details_form_view" model="ir.ui.view">
+        <field name="name">asset.details.form.view</field>
+        <field name="model">asset.details</field>
+        <field name="arch" type="xml">
+            <form>
+               <sheet>
+                   <!--<h2>Asset Details</h2>-->
+                   <group>
+                       <group string="Asset Details">
+                            <field name="type" />
+                            <field name="asset_sub_type" />
+                            <field name="desc" />
+                            <field name="asset_value" />
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Vehicle">
+                            <field name="make" />
+                            <field name="model" />
+                            <field name="man_yr" />
+                            <field name="body" />
+                            <field name="reg_no" />
+                        </group>
+                        <group string="Home">
+                            <field name="add_line1" />
+                            <field name="add_line2" />
+                            <field name="add_line3" />
+                            <field name="width" />
+                            <field name="length" />
+                            <field name="occupancy" />
+                        </group>
+                   </group>
+               </sheet>
+            </form>
+        </field>
+      </record>
+      <!--==========================External Credit Rating==========================-->
+
+      <record id="external_credit_rating_form_view" model="ir.ui.view">
+        <field name="name">ext.credit.rating.form.view</field>
+        <field name="model">ext.credit.rating</field>
+        <field name="arch" type="xml">
+            <form>
+               <sheet>
+                   <h2>External Credit Rating</h2>
+                    <group >
+                        <group>
+                           <field name="ext_agency" />
+                            <field name="bureau" />
+                            <field name="recommended" />
+                            <field name="score" />
+                        </group>
+                        <group>
+                            <field name="status" />
+                            <field name="remarks" />
+                        </group>
+                   </group>
+               </sheet>
+            </form>
+        </field>
+      </record>
+        <!--==========================================================================-->
+
+      <!--==========================Comments Form==========================-->
+
+          <record id="comments_details_form_view" model="ir.ui.view">
+            <field name="name">comments.details.form.view</field>
+            <field name="model">comments.details</field>
+            <field name="arch" type="xml">
+                <form>
+                   <sheet>
+                       <h2>Comments Details</h2>
+                        <group >
+                            <group>
+                               <field name="update_date" />
+                                <field name="status" />
+                                <field name="event" />
+
+                            </group>
+                            <group>
+                                <field name="notes" />
+                                <field name="user" />
+                                <field name="module" />
+                            </group>
+                       </group>
+                   </sheet>
+                </form>
+            </field>
+          </record>
+            <!--==========================================================================-->
+
+      <!--==========================Caegorization Form==========================-->
+
+                  <record id="categ_details_form_view" model="ir.ui.view">
+                    <field name="name">categ.details.form.view</field>
+                    <field name="model">categ.details</field>
+                    <field name="arch" type="xml">
+                        <form>
+                           <sheet>
+                               <h2>Categorization</h2>
+                                <group >
+                                    <group>
+                                       <field name="month" />
+                                        <field name="category" />
+                                        <field name="subject" />
+                                    </group>
+                                    <group>
+                                        <field name="notes" />
+                                        <field name="user" />
+                                        <field name="update_date" />
+                                    </group>
+                               </group>
+                           </sheet>
+                        </form>
+                    </field>
+                  </record>
+      <!--==========================================================================-->
+
+      <!--==========================Documents Form==========================-->
+
+              <record id="document_details_form_view" model="ir.ui.view">
+                <field name="name">document.details.form.view</field>
+                <field name="model">document.details</field>
+                <field name="arch" type="xml">
+                    <form>
+                       <sheet>
+                           <h2>Document Details</h2>
+                            <group >
+                                <group>
+                                    <!--<field name="serial_no" readonly="1"/>-->
+                                    <field name="doc_title" />
+                                    <field name="desc"/>
+                                    <field name="doc_file" filename="filename"/>
+                                    <field name="filename" invisible="1" />
+                                    <field name="static_test" readonly="1"/>
+                                    <field name="doc_det_id" invisible="True"/>
+                                </group>
+                           </group>
+                       </sheet>
+                    </form>
+                </field>
+              </record>
+      <!--==========================================================================-->
+
+    <record id="action_address_details_form" model="ir.actions.act_window">
+        <field name="name">Address Details</field>
+        <field name="res_model">address.details</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+    </record>
+    <record id="action_applicant_details_form" model="ir.actions.act_window">
+        <field name="name">Applicant Details</field>
+        <field name="res_model">applicant.details</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+    </record>
+
+      <record id="action_employment_details_form" model="ir.actions.act_window">
+        <field name="name">Employment Details</field>
+        <field name="res_model">employment.details</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+      </record>
+
+      <record id="action_insurance_details_form" model="ir.actions.act_window">
+        <field name="name">Insurance Details</field>
+        <field name="res_model">insurance.details</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+      </record>
+
+      <record id="action_information_links_form" model="ir.actions.act_window">
+        <field name="name">Information Links</field>
+        <field name="res_model">information.links</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+      </record>
+
+    <record id="action_asset_details_form" model="ir.actions.act_window">
+        <field name="name">Asset Details</field>
+        <field name="res_model">asset.details</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+      </record>
+
+      <!--========================external credit rating==========================-->
+      <record id="action_ext_credit_rating_form" model="ir.actions.act_window">
+        <field name="name">Ext Credit Rating</field>
+        <field name="res_model">ext.credit.rating</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+      </record>
+
+     <!--========================comments================================-->
+      <record id="action_comments_details_form" model="ir.actions.act_window">
+        <field name="name">Comments Details</field>
+        <field name="res_model">comments.details</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+      </record>
+    <!--========================categorization======================-->
+      <record id="action_categ_details_form" model="ir.actions.act_window">
+        <field name="name">Categorization</field>
+        <field name="res_model">categ.details</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+      </record>
+
+    <!--========================document  Details======================-->
+      <record id="action_document_details_form" model="ir.actions.act_window">
+          <field name="name">Document Details</field>
+          <field name="res_model">document.details</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form,tree</field>
+          <!--<field name="nocreate" eval="True"/>-->
+      </record>
+
+      <!--=======================for collateral details==========================-->
+
+       <!--==========================Comments Form for collateral==========================-->
+
+          <record id="comments_details_col_form_view" model="ir.ui.view">
+            <field name="name">comments.details.col.form.view</field>
+            <field name="model">comments.details.col</field>
+            <field name="arch" type="xml">
+                <form>
+                   <sheet>
+                       <h2>Comments Details</h2>
+                        <group >
+                            <group>
+                               <field name="update_date" />
+                                <field name="status" />
+                                <field name="event" />
+
+                            </group>
+                            <group>
+                                <field name="notes" />
+                                <field name="user" />
+                                <field name="module" />
+                            </group>
+                       </group>
+                   </sheet>
+                </form>
+            </field>
+          </record>
+            <!--==========================================================================-->
+
+        <!--==========================Documents Form==========================-->
+
+              <record id="document_details_col_form_view" model="ir.ui.view">
+                <field name="name">document.details.col.form.view</field>
+                <field name="model">document.details.col</field>
+                <field name="arch" type="xml">
+                    <form>
+                       <sheet>
+                           <h2>Document Details</h2>
+                            <group >
+                                <group>
+                                    <!--<field name="serial_no" readonly="1"/>-->
+                                    <field name="doc_title" />
+                                    <field name="desc"/>
+                                    <field name="doc_file" filename="filename"/>
+                                    <field name="filename" invisible="1" />
+                                    <field name="static_test" readonly="1"/>
+                                    <field name="doc_det_id" invisible="True"/>
+                                </group>
+                           </group>
+                       </sheet>
+                    </form>
+                </field>
+              </record>
+      <!--==========================================================================-->
+
+     <!--==========================Revaluation Form==========================-->
+
+                  <record id="collateral_revaluation_form_view" model="ir.ui.view">
+                    <field name="name">revaluation.details.form.view</field>
+                    <field name="model">revaluation.details</field>
+                    <field name="arch" type="xml">
+                        <form>
+                           <sheet>
+                               <h2>Revaluation Details</h2>
+
+                               <group >
+                                    <group string="Vehicle Records">
+                                        <!--<field name="serial_no" readonly="1"/>-->
+                                        <field name="val_src" />
+                                        <field name="id_no"/>
+                                        <field name="val_type" />
+                                        <!--<field name="filename" invisible="1" />-->
+                                        <!--<field name="static_test" readonly="1"/>-->
+                                        <!--<field name="doc_det_id" invisible="True"/>-->
+                                    </group>
+                               </group>
+                               <separator string="Vehicle Valuation" />
+                               <group>
+                                   <group>
+                                        <field name="whole_value" />
+                                        <field name="ret_value" />
+                                        <field name="use_value" />
+                                   </group>
+                                   <group>
+                                       <field name="attr_value" />
+                                       <field name="total_value" />
+                                       <field name="val_date" />
+                                   </group>
+                               </group>
+                           </sheet>
+                        </form>
+                    </field>
+                  </record>
+          <!--==========================================================================-->
+
+        <!--==========================Linkage Details Form==========================-->
+
+                  <record id="collateral_linkage_details_form_view" model="ir.ui.view">
+                    <field name="name">linkage.details.form.view</field>
+                    <field name="model">linkage.details</field>
+                    <field name="arch" type="xml">
+                        <form>
+                           <sheet>
+
+                               <group >
+                                    <group >
+                                        <field name="res_part_id" />
+                                        <field name="cust_id" />
+                                        <field name="role"/>
+                                        <field name="name_c" />
+                                        <field name="father_name_c"/>
+                                        <field name="last_name_c"/>
+
+                                    </group>
+                                   <group >
+
+                                        <field name="country" />
+                                        <field name="city"/>
+                                        <field name="address" />
+                                        <field name="telephone"/>
+
+                                    </group>
+                                   <group>
+                                       <field name="id_type"/>
+                                        <field name="card_id"/>
+                                        <field name="nation_id"/>
+
+                                        <field name="country_issuer"/>
+                                        <field name="city_issued"/>
+                                        <field name="issue_date"/>
+                                        <field name="exp_date"/>
+
+                                   </group>
+
+                               </group>
+
+                           </sheet>
+                        </form>
+                    </field>
+                  </record>
+          <!--==========================================================================-->
+
+            <!--==========================Owner Details Form==========================-->
+
+                  <record id="collateral_owner_details_form_view" model="ir.ui.view">
+                    <field name="name">owner.details.form.view</field>
+                    <field name="model">owner.details</field>
+                    <field name="arch" type="xml">
+                        <form>
+                           <sheet>
+
+                               <group >
+                                    <group >
+
+                                        <field name="res_part_id" />
+                                        <field name="cust_id" />
+                                        <field name="role"/>
+                                        <field name="name_c" />
+                                        <field name="father_name_c"/>
+                                        <field name="last_name_c"/>
+
+                                    </group>
+                                   <group >
+
+                                        <field name="country" />
+                                        <field name="city"/>
+                                        <field name="address" />
+                                        <field name="telephone"/>
+
+                                    </group>
+                                   <group>
+                                       <field name="id_type"/>
+                                        <field name="card_id"/>
+                                        <field name="nation_id"/>
+
+                                        <field name="country_issuer"/>
+                                        <field name="city_issued"/>
+                                        <field name="issue_date"/>
+                                        <field name="exp_date"/>
+
+                                   </group>
+
+                               </group>
+
+                           </sheet>
+                        </form>
+                    </field>
+                  </record>
+          <!--==========================================================================-->
+
+        <!--==========================payment details inherited view==========================-->
+
+                  <record id="account_payment_details_inherited_form_view" model="ir.ui.view">
+                    <field name="name">account.payment.inherited.form.view</field>
+                    <field name="model">account.payment</field>
+                     <field name="inherit_id" ref="account.view_account_payment_form"/>
+                        <field name="arch" type="xml">
+                            <!--<xpath expr="//field@name['payment_transaction_id']" position="after">-->
+                            <xpath expr="//field[@name='payment_date']" position="after">
+                                <field name="bank_date" attrs="{'invisible':[('payment_type','=','transfer')],
+                                    'required':[('payment_type','!=','transfer')],'readonly':[('state','!=','draft')]}"/>
+                                <field name="receipt_no" attrs="{'invisible':[('payment_type','=','transfer')],
+                                    'required':[('payment_type','!=','transfer')],'readonly':[('state','!=','draft')]}"/>
+                                <field name="loan_no" attrs="{'invisible':[('payment_type','=','transfer')],
+                                    'required':[('payment_type','!=','transfer')],'readonly':[('state','!=','draft')]}"/>
+                                 <field name="fund_src" attrs="{'invisible':[('payment_type','=','transfer')],
+                                    'readonly':[('state','!=','draft')]}"/>
+
+                            </xpath>
+
+                            <xpath expr="//field[@name='payment_date']" position="before">
+                                <field name="created_by" readonly="1"/>
+                            </xpath>
+                            <xpath expr="//field[@name='communication']" position="replace">
+                                <field name="communication" />
+
+                            </xpath>
+
+                             <xpath expr="//field[@name='journal_id']" position="after">
+                                <field name="trans_type" attrs="{'invisible':['|',('payment_type','!=','inbound'),('payment_type','=','transfer'),]
+                                    ,'readonly':[('state','!=','draft')]}"/>
+                                 <field name="last_pmt_date" attrs="{'invisible':['|',('payment_type','!=','inbound'),('payment_type','=','transfer'),]
+                                    ,'readonly':[('state','!=','draft')]}"/>
+                                 <field name="tot_close" attrs="{'invisible':['|',('payment_type','!=','inbound'),('payment_type','=','transfer'),],
+                                    'readonly':[('state','!=','draft')]}"/>
+
+                            </xpath>
+                        </field>
+
+                  </record>
+        <!--==========================================================================-->
+
+        <!--============================collateral line from view =====================-->
+        <record id="view_collateral_details_line_form" model="ir.ui.view">
+        <field name="name">view.collateral.details.line.form</field>
+        <field name="model">collateral.details.line</field>
+        <field name="arch" type="xml">
+            <form>
+
+               <sheet>
+                   <h2>Collateral Details</h2>
+                   <group>
+                       <group>
+                           <field name="sel_collateral" readonly="1" invisible="0"/>
+                           <field name="property_type" readonly="1"/>
+                           <field name="nr_pasurise" readonly="1"/>
+                           <field name="phone" readonly="1"/>
+                           <field name="col_type" widget="selection" readonly="1"/>
+                           <!--<field name="col_type" widget="selection" readonly="1" invisible="0"/>-->
+                           <field name="collateral_type" widget="selection" readonly="1" invisible="0"/>
+                       </group>
+                       <group >
+                           <!--<field name="col_status" widget="selection" readonly="1"/>-->
+                           <!--<field name="col_status" widget="selection" readonly="1" invisible="0"/>-->
+                           <field name="collatoral_status" widget="selection" readonly="1" invisible="0"/>
+                           <field name="area" readonly="1"/>
+                           <field name="dt_prone" readonly="1"/>
+                           <field name="phone" readonly="1"/>
+                       </group>
+                   </group>
+                    <separator string="Linkage" />
+                     <field name="link_det_line_ids" readonly="1">
+                         <tree string="Linkage Details" editable='bottom'>
+                            <field name="cust_id" />
+                            <field name="name_c"/>
+                            <field name="father_name_c"/>
+                            <field name="last_name_c"/>
+                            <field name="country"/>
+                            <field name="city"/>
+
+                            <field name="street"/>
+                            <field name="wire"/>
+
+                            <field name="link_det_id" invisible="True"/>
+                        </tree>
+                     </field>
+                      <separator string="Owners" />
+                     <field name="owner_det_line_ids" readonly="1">
+                         <tree string="Owner Details" editable='bottom'>
+                             <field name="cust_id" />
+
+                            <field name="name_c"/>
+                            <field name="father_name_c"/>
+                            <field name="last_name_c"/>
+
+                            <field name="country"/>
+                            <field name="city"/>
+
+                            <field name="street"/>
+                            <field name="wire"/>
+
+                            <field name="owner_det_id" invisible="True"/>
+                        </tree>
+                     </field>
+                   <group>
+                       <group>
+                           <label for="country" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="country" widget="selection" placeholder="Country" />
+                                <field name="district_id" widget="selection" placeholder="District" domain="[('circle_id', '=', country)]" />
+                                <field name="municipality" widget="selection" placeholder="Commune" domain="[('circle_id', '=', country),('district_id', '=', district_id)]" />
+                                <field name="city_village" widget="selection" placeholder="Village" domain="[('circle_id', '=', country),('district_id', '=', district_id),('municipal_id', '=', municipality)]" />
+                                <field name="street" placeholder="Street" />
+                            </div>
+                            <field name="property_value1" />
+                            <field name="data_placement" />
+                            <field name="nr_inskriptimi" />
+                      </group>
+                       <group>
+                           <field name="exp_date" />
+                            <field name="unblock_date" />
+                       </group>
+                   </group>
+                   <group>
+                       <group>
+                           <field name="col_notes" readonly="1"/>
+                       </group>
+
+                       <group>
+                           <field name="loan_notes" />
+                       </group>
+                   </group>
+
+
+               </sheet>
+            </form>
+        </field>
+    </record>
+
+
+      <!--=============================================================================-->
+
+
+        <!--========================comments================================-->
+          <record id="action_comments_details_col_form" model="ir.actions.act_window">
+            <field name="name">Comments Details</field>
+            <field name="res_model">comments.details.col</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+          </record>
+
+      <!--========================document  Details======================-->
+      <record id="action_document_details_col_form" model="ir.actions.act_window">
+          <field name="name">Document Details</field>
+          <field name="res_model">document.details.col</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form,tree</field>
+          <!--<field name="nocreate" eval="True"/>-->
+      </record>
+
+      <!--========================document  Details======================-->
+      <record id="action_revaluation_details_form" model="ir.actions.act_window">
+          <field name="name">Revaluation Details</field>
+          <field name="res_model">revaluation.details</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form,tree</field>
+          <!--<field name="nocreate" eval="True"/>-->
+      </record>
+
+      <!--========================linkage  Details======================-->
+      <record id="action_linkage_details_form" model="ir.actions.act_window">
+          <field name="name">Linkage Details</field>
+          <field name="res_model">linkage.details</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form,tree</field>
+          <!--<field name="nocreate" eval="True"/>-->
+      </record>
+   <!--========================owner  Details======================-->
+      <record id="action_owner_details_form" model="ir.actions.act_window">
+          <field name="name">Owner Details</field>
+          <field name="res_model">owner.details</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form,tree</field>
+          <!--<field name="nocreate" eval="True"/>-->
+      </record>
+ <!--========================Collateral  Details======================-->
+      <record id="action_collateral_details_line_form" model="ir.actions.act_window">
+          <field name="name">Collateral Details</field>
+          <field name="res_model">collateral.details.line</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form,tree</field>
+          <!--<field name="nocreate" eval="True"/>-->
+      </record>
+            <!--===================================================================-->
+      <!--============================Newly added============================-->
+      <!--====================================================================-->
+      <!--==========================clac_meth Form==========================-->
+
+              <record id="clac_meth_form_view" model="ir.ui.view">
+                <field name="name">clac.meth.form.view</field>
+                <field name="model">calculation.meth</field>
+                <field name="arch" type="xml">
+                    <form>
+                       <sheet>
+                           <h2>Calculation Meth</h2>
+                            <group >
+                                <group>
+                                    <!--<field name="serial_no" readonly="1"/>-->
+                                    <field name="name" required="1"/>
+                                </group>
+                                <group>
+                                    <field name="desc" required="1"/>
+                                </group>
+                           </group>
+                       </sheet>
+                    </form>
+                </field>
+              </record>
+      <!--==========================================================================-->
+      <!--========================lien chronology  Details action======================-->
+      <record id="action_calculation_meth_form" model="ir.actions.act_window">
+          <field name="name">Calculation Meth Details</field>
+          <field name="res_model">calculation.meth</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form,tree</field>
+          <!--<field name="nocreate" eval="True"/>-->
+      </record>
+    <!--================================================================================-->
+      <!--==========================schedule_type Form==========================-->
+
+              <record id="schedule_type_form_view" model="ir.ui.view">
+                <field name="name">schedule.type.form.view</field>
+                <field name="model">schedule.type</field>
+                <field name="arch" type="xml">
+                    <form>
+                       <sheet>
+                           <h2>Schedule Type</h2>
+                            <group >
+                                <group>
+                                    <!--<field name="serial_no" readonly="1"/>-->
+                                    <field name="name" required="1"/>
+                                </group>
+                                <group>
+                                    <field name="desc" required="1"/>
+                                </group>
+                           </group>
+                       </sheet>
+                    </form>
+                </field>
+              </record>
+      <!--==========================================================================-->
+      <!--========================lien chronology  Details action======================-->
+      <record id="action_schedule_type_form" model="ir.actions.act_window">
+          <field name="name">Schedule Type </field>
+          <field name="res_model">schedule.type</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form,tree</field>
+          <!--<field name="nocreate" eval="True"/>-->
+      </record>
+    <!--================================================================================--><!--==========================clac_meth Form==========================-->
+
+              <record id="term_length_form_view" model="ir.ui.view">
+                <field name="name">term.length.form.view</field>
+                <field name="model">term.length</field>
+                <field name="arch" type="xml">
+                    <form>
+                       <sheet>
+                           <h2>Term Length</h2>
+                            <group >
+                                <group>
+                                    <!--<field name="serial_no" readonly="1"/>-->
+                                    <field name="name" required="1"/>
+                                </group>
+                                <group>
+                                    <field name="desc" required="1"/>
+                                </group>
+                           </group>
+                       </sheet>
+                    </form>
+                </field>
+              </record>
+      <!--==========================================================================-->
+      <!--========================lien chronology  Details action======================-->
+      <record id="action_term_length_form" model="ir.actions.act_window">
+          <field name="name">Term Length Details</field>
+          <field name="res_model">term.length</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form,tree</field>
+          <!--<field name="nocreate" eval="True"/>-->
+      </record>
+    <!--================================================================================--><!--==========================clac_meth Form==========================-->
+
+              <record id="rounding_form_view" model="ir.ui.view">
+                <field name="name">rounding.form.view</field>
+                <field name="model">rounding</field>
+                <field name="arch" type="xml">
+                    <form>
+                       <sheet>
+                           <h2>Rounding Details</h2>
+                            <group >
+                                <group>
+                                    <!--<field name="serial_no" readonly="1"/>-->
+                                    <field name="name" required="1"/>
+                                </group>
+                                <group>
+                                    <field name="desc" required="1"/>
+                                </group>
+                           </group>
+                       </sheet>
+                    </form>
+                </field>
+              </record>
+      <!--==========================================================================-->
+      <!--========================lien chronology  Details action======================-->
+      <record id="action_rounding_form" model="ir.actions.act_window">
+          <field name="name">Rounding Details</field>
+          <field name="res_model">rounding</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form,tree</field>
+          <!--<field name="nocreate" eval="True"/>-->
+      </record>
+    <!--================================================================================-->
+
+      <!--==========================payment.day Form==========================-->
+
+              <record id="payment_day_form_view" model="ir.ui.view">
+                <field name="name">payment.day.form.view</field>
+                <field name="model">payment.day</field>
+                <field name="arch" type="xml">
+                    <form>
+                       <sheet>
+                           <h2>Payment Day Details</h2>
+                            <group >
+                                <group>
+                                    <!--<field name="serial_no" readonly="1"/>-->
+                                    <field name="name" required="1"/>
+                                </group>
+                                <group>
+                                    <field name="desc" required="1"/>
+                                </group>
+                           </group>
+                       </sheet>
+                    </form>
+                </field>
+              </record>
+      <!--==========================================================================-->
+      <!--========================lien chronology  Details action======================-->
+      <record id="action_payment_details_form" model="ir.actions.act_window">
+          <field name="name">Payment Day Details</field>
+          <field name="res_model">payment.day</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form,tree</field>
+          <!--<field name="nocreate" eval="True"/>-->
+      </record>
+    <!--================================================================================-->
+      <!--==========================loan.amt.control Form==========================-->
+
+              <record id="loan_amt_control_form_view" model="ir.ui.view">
+                <field name="name">loan.amt.control.form.view</field>
+                <field name="model">loan.amt.control</field>
+                <field name="arch" type="xml">
+                    <form>
+                       <sheet>
+                           <h2>Loan Amount Control</h2>
+                            <group >
+                                <group>
+                                    <!--<field name="serial_no" readonly="1"/>-->
+                                    <field name="name" required="1"/>
+                                </group>
+                                <group>
+                                    <field name="desc" required="1"/>
+                                </group>
+                           </group>
+                       </sheet>
+                    </form>
+                </field>
+              </record>
+      <!--==========================================================================-->
+      <!--========================lien chronology  Details action======================-->
+      <record id="action_loan_amt_controls_form" model="ir.actions.act_window">
+          <field name="name">loan amt control</field>
+          <field name="res_model">loan.amt.control</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form,tree</field>
+          <!--<field name="nocreate" eval="True"/>-->
+      </record>
+    <!--================================================================================-->
+
+
+  </data>
+</odoo>

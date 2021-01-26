@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_loan_directory_config_directory_new" model="ir.ui.view">
+            <field name="name">loan.settings</field>
+            <field name="model">loan.config.directory</field>
+            <field name="arch" type="xml">
+                <form string="Configure Loan Directories" create="false" delete="false">
+
+                    <sheet>
+                        <group string="Documents" name="directories">
+                            <field name="parent_directory" required="1"/>
+                             <!--<button name="create_parent_directory" string="Check" type="object" class="oe_highlight"/>-->
+                        <!--</group>-->
+                        <!--<group >-->
+                            <!--<field name="parent_directory" required="1"/>-->
+                            <field name="parent_dir_exists" required="0" invisible="1"/>
+                            <field name="loan_directory" required="1"/>
+                            <field name="loan_indiv_directory" required="1"/>
+                            <field name="loan_compa_directory" required="1"/>
+                            <field name="collateral_directory" required="1"/>
+                            <field name="collateral_sub_directory" required="1"/>
+                            <field name="lien_directory" required="1"/>
+                        </group>
+                        <div>
+                            <span>*Make sure that the parent directory path given <is></is> accurate and exists in the system.</span>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="loan_config_directory_tree" model="ir.ui.view">
+            <field name="name">loan.config.directory.tree</field>
+            <field name="model">loan.config.directory</field>
+            <field name="arch" type="xml">
+                <tree string="Loan Directory" delete="true" create="false">
+                    <field name="parent_directory"/>
+                    <field name="loan_directory"/>
+                    <field name="collateral_directory"/>
+                    <field name="collateral_sub_directory"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_loan_directory_config_directory" model="ir.actions.act_window">
+            <field name="name">Configure Loan Directory</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">loan.config.directory</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="target">inline</field>-->
+        </record>
+
+        <!--<menuitem id="menu_loan_directory_config_settings_new" name="Configuration" parent="menu_loan_appln_main"
+            sequence="6"/>
+        -->
+        
+        <menuitem id="menu_loan_general_settings_new" name="Settings Document Management" parent="view_admin_lbl"
+            sequence="60" action="action_loan_directory_config_directory"/>
+    </data>
+</odoo>

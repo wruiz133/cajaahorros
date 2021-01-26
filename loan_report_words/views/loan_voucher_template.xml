@@ -1,0 +1,235 @@
+<odoo>
+    <data>
+
+        <template id="loan_voucher_template">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="report.external_layout">
+                        <div class="page">
+                            <div class="oe_structure"/>
+                            <div class="row">
+                                <div class="col-xs-8 text-center" style="font:Castellar ;font-size:18;color: Black;">
+                                    <div class="row">
+                                        NÚCLEO AEROTÉCNICOS SERVICIO PASIVO REGIÓN SIERRA
+                                    </div>
+                                    <div class="row">
+                                        DEPARTAMENTO ADMINISTRATIVO
+                                    </div>
+                                    <div class="row">
+                                        COMPROBANTE DE EGRESO DE CRÉDITO
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 text-left">
+                                    <div class="row">
+                                        <strong>NÚMERO:</strong>
+                                        <span t-field="o.name"/>
+                                        <br/>
+                                    </div>
+                                    <div class="row">
+                                        <strong>EMISIÓN:</strong>
+                                        <span t-field="o.fecha_solicitud"/>
+                                        <br/>
+                                    </div>
+                                    <div class="row">
+                                        <strong>COMPRO:</strong>
+                                        <span t-field="o.referencia_desembolso"/>
+                                        <br/>
+                                    </div>
+                                    <div class="row">
+                                        <strong>IMPRESIÓN:</strong>
+                                        <span t-field="o.fecha_solicitud"/>
+                                    </div>
+                                    <div class="row">
+                                        <strong>NroEgreso:</strong>
+                                        <span t-field="o.seq_desembolso"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br></br>
+
+                            <br></br>
+                            <br></br>
+                            <div class="row" style="font:Castellar ;font-size:12;color: Black;">
+                                <div class="row">
+                                    <div class="col-xs-4 text-right">
+                                        <div class="row">
+                                            <span t-field="o.afiliado_id.name"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-1 text-left"/>
+                                    <div class="col-xs-7 text-left">
+                                        <div class="row">
+                                            <span t-field="o.monto_neto_desembolso" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 text-right">
+                                        SON:
+                                    </div>
+                                    <div class="col-xs-1 text-left"/>
+                                    <div class="col-xs-7 text-left">
+                                        <span style="text-transform:uppercase" t-field="o.monto_en_letras"/>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 text-center">
+                                        D.M. Quito,
+                                        <span t-field="o.fecha_desembolso"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <body>
+                                <br></br>
+                                <br></br>
+
+                                <br></br>
+                                <t t-set="total1" t-value="0"/>
+                                <t t-set="total2" t-value="0"/>
+
+                                <br></br>
+                                <br></br>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="8">
+                                                <strong>Cuenta Corriente:</strong>
+                                                <span t-field="o.journal_id"/>
+                                            </td>
+
+                                            <td colspan="4">
+                                                <strong>CHEQUE No:</strong>
+                                                <span t-field="o.referencia_desembolso"/>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <t t-set="total1" t-value="0"/>
+                                <t t-set="total2" t-value="0"/>
+                                <table class="table table-bordered">
+                                    <br></br>
+
+                                    <thead>
+
+                                        <tr style="font-size:15px">
+                                            <th>CÓDIGO</th>
+                                            <th>NOMBRE DE LA CUENTA CONTABLE</th>
+                                            <th>DEBE</th>
+                                            <th>HABER</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <t t-foreach="o.move_id" t-as="c">
+                                            <t t-foreach="c.line_ids" t-as="d">
+                                                <tr style="font-size:15px">
+                                                    <td>
+                                                        <span t-field="d.account_id"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="d.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="d.debit"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="d.credit"/>
+                                                    </td>
+
+                                                </tr>
+                                            </t>
+                                        </t>
+
+                                        <t t-foreach="o.move_id" t-as="c">
+                                            <!--<t t-foreach="c.line_ids" t-as="d">
+                                            </t>-->
+                                            <td style="text-align:right" colspan="2">
+                                                TOTALES:
+                                            </td>
+                                            <td style="text-align:left">
+                                                <span t-field="o.currency_id.symbol"/>
+                                                <t t-set="total1" t-value="sum(a.debit for a in c.line_ids)"/>
+                                                <t t-esc="'%.2f'% total1"/>
+                                            </td>
+                                            <td style="text-align:left">
+                                                <span t-field="o.currency_id.symbol"/>
+                                                <t t-set="total2" t-value="sum(b.credit for b in c.line_ids)"/>
+                                                <t t-esc="'%.2f'% total2"/>
+                                            </td>
+                                        </t>
+
+
+                                    </tbody>
+                                </table>
+                            </body>
+
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4" align="center">
+                                            <strong>DESCRIPCIÓN DEL ASIENTO CONTABLE No.SYS:</strong>
+                                            <span t-field="o.move_id"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PRESTAMO
+                                            <span t-field="o.tipo_prestamo_id" style="text-transform:uppercase"/>
+                                            concedido a
+                                            <span t-field="o.afiliado_id"/>
+                                            a
+                                            <span t-field="o.plazo_pago"/>
+                                            meses con un monto:
+                                            <span t-field="o.monto_solicitado"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <table class="table table-bordered">
+
+                                <thead>
+
+                                    <tr style="font-size:15px" align="center">
+                                        <th>Elaborado por:</th>
+                                        <th>Tesorero</th>
+                                        <th>Contador</th>
+                                        <th>Presidente</th>
+                                        <th>Comisario</th>
+                                        <th>Recibí Conforme</th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr style="font-size:15px">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <br></br>
+                                            <br></br>
+                                            <br></br>
+                                            <!--<span t-field="o.afiliado_id.identifier"/>-->
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
+

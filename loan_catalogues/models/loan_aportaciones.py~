@@ -1,0 +1,24 @@
+# -*- encoding: utf-8 -*-
+from odoo import models, fields, api, _
+from odoo.exceptions import Warning
+
+
+class Aportaciones(models.Model):
+    _inherit = "loan.aportaciones"
+
+    details_ids = fields.One2many("loan.details", "loan_aportaciones_id","Loan Detalles")
+
+    #@api.onchange("monto_aportacion")
+    @api.multi
+    def set_values(self):
+        obj_catalogues = self.env['loan.catalogues'].search([('parent_name','=','CLASSIFICATION')])
+	obj_details = self.env['loan.details']
+	self.details_ids.unlink()
+        if self.monto_aportacion > 0:
+            for cat in obj_catalogues:
+                values = dict( loan_aportaciones_id = self.id,
+				catalogues_id = cat.id,
+				name_num = cat.name_num,
+                                value = self.monto_aportacion*float(float(cat.name_num)/100),
+				)
+		obj_details.create(values)

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_loan_portfolio" model="ir.actions.act_window">
+            <field name="name">Contributions Portfolio</field>
+            <field name="res_model">loan.details</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="action_loan_portfolio_tree" model="ir.actions.act_window">
+            <field name="name">Contributions Portfolio Tree</field>
+            <field name="res_model">loan.details</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+    
+        <menuitem action="action_loan_portfolio"
+        		id="loan_portfolio_menu"
+        		parent="loan_management-master.loan_aportaciones_management"
+        		sequence="0"
+        		/>
+
+    </data>
+</odoo>

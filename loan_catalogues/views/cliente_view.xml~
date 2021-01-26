@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="tree_loan_details" model="ir.ui.view">
+            <field name="name">tree.loan.details</field>
+            <field name="model">loan.details</field>
+            <field name="arch" type="xml">
+                <tree string="Plan vehicle contract">
+                    <field name="loan_aportaciones_id"/>
+                    <field name="catalogues_id"/>
+                    <field name="name_num" sum="Total"/>
+                    <field name="value" sum="Total" />
+                    <field name="customer_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_tree_loan_details" model="ir.ui.view">
+            <field name="name">search.tree.loan.details</field>
+            <field name="model">loan.details</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="loan_aportaciones_id"/>
+                    <field name="catalogues_id"/>
+                    <field name="name_num"/>
+                    <field name="value"/>
+                    <field name="customer_id" />
+                    <filter string = "Número aportación" name="loan_aportaciones_id"/>
+                    <filter string = "Ingreso ordinario" name="catalogues_id"/>
+                    <filter string = "% Ingreso" name="name_num"/>
+                    <filter string = "Valor" name="value" />
+
+                </search>
+            </field>
+        </record>
+
+
+        <record id="act_loan_details" model="ir.actions.act_window">
+            <field name="name">Loan Details</field>
+            <field name="res_model">loan.details</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree</field>
+	 <field name="context">{'search_default_customer_id': [active_id]}</field>
+            <field name="search_view_id" ref="search_tree_loan_details"/>
+        </record>
+
+
+        <record id="act_tree_vehicle_open" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="tree_loan_details"/>
+            <field name="act_window_id" ref="act_loan_details"/>
+        </record>
+
+        <record model="ir.ui.view" id="mapia_management_cliente_form_inherit">
+            <field name="name">mapia.management.cliente.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="loan_management-master.mapia_management_cliente_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div/button[@id='loan_button']" position="replace">
+                    <button id="view_details"
+                            class="oe_stat_button"
+                            type="action"
+                            name="%(act_loan_details)d"
+                            icon="fa-pencil-square-o"
+                            string="Details"
+                    />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

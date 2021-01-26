@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_invoice_my">
+    <t t-call="report.internal_layout">
+        <div class="page">
+            <div class="row">
+            	<h2>Schedule Client</h2>
+
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <strong>Client:</strong>
+                            <span t-esc="data['partner_id'][1]"/>
+
+                            <!--
+                            	<span t-esc="data['partner_id'][1]"/>
+                            <pt t-if="data['form']['partner_id']"/>
+                        	-->
+                        </div>
+                        <div class="col-xs-3">
+                            <t ><strong>Date from :</strong> <span/><br/></t>
+                            <t ><strong>Date to :</strong> <span/></t>
+                        </div>
+                        <div class="col-xs-3">
+                            <strong>Target Moves:</strong>
+                            <p >All Entries</p>
+                            <p >All Posted Entries</p>
+                        </div>
+                    </div>
+
+
+            
+					<table class="table table-condensed" >
+                        <thead>
+                            <tr>
+                                <th><i class="text-left">Transaction Date,Type and Amount</i><br/>Installment Date</th>
+                                <th class="text-right">Principal</th>
+                                <th class="text-right">Interest</th>
+                                <th class="text-right">Penalties</th>
+								<th class="text-right">Ovd Interest</th>
+								
+								<th class="text-right">Fees</th>
+								<!--
+                                <th class="text-right">VAT</th>
+                                -->
+                            </tr>
+                        </thead>
+                        <tbody>
+							
+							<t t-foreach="lines(data,1,0)" t-as="meme">
+	                            <tr style="font-weight: bold;border: 0px white;" >
+	                                
+				                       	<td class="text-left" style="border: 0px white;">
+				                                    
+		                                    <i><span t-esc="meme['payment_date']"/>
+		                                    <span t-esc="meme['transtype']"/>
+		                                    <span t-esc="meme['amount_residual']"/></i>
+		                                    <!--
+		                                    <br/>
+		                                    <span t-esc="meme['schddate']"/>
+		                                	-->
+		                                
+		                                </td>
+
+	                            </tr>
+
+
+
+
+	                        	<tr t-foreach="lines(data,2,meme['payment_id'])" t-as="line">
+	                        		
+	                                	
+				                            
+				                                <td class="text-center">
+				                                    
+				                                    
+				                                    <span t-esc="line['schddate']"/>
+				                                
+				                                </td>
+				                                
+				                                
+				                                <td class="text-right">
+				                                	
+				                                	
+				                                    <span t-esc="line['prindue']"/>
+				                                    <!--
+				                                    <p t-esc="line['prinnotdue']"/>
+				                                    -->
+				                                    
+				                                </td>
+				                                
+				                                <td class="text-right">
+				                                	
+				                                	
+				                                    <span t-esc="line['intdue']"/>
+				                                </td>
+				                                <td class="text-right">
+				                                	
+				                                	
+				                            
+				                                    <span t-esc="line['penpaid']"/>
+				                                </td>
+				                                <td class="text-right">
+				                                	
+				                                	
+				                                	
+				                                    <span t-esc="line['ovdintacc']"/>
+				                                </td>
+				                                <td class="text-right">
+
+				                                	
+				                                	
+				                                    <span t-esc="line['feesdue']"/>
+				                                </td>
+				                                
+				                            
+			                             
+		                               
+	                            </tr>
+	                            
+	                        </t>
+
+                        </tbody>
+                    </table>
+
+
+
+
+
+            </div>
+        </div>
+    </t>
+</template>
+
+<template id="days_late_schedule">
+    <t t-call="report.internal_layout">
+        <div class="page">
+            <div class="row">
+            	<h2>Schedule Client</h2>
+
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <strong>Client:</strong>
+                            <span t-esc="data['partner_id'][1]"/>
+
+                            <!--
+                            	<span t-esc="data['partner_id'][1]"/>
+                            <pt t-if="data['form']['partner_id']"/>
+                        	-->
+                        </div>
+                        <div class="col-xs-3">
+                            <t ><strong>Date from :</strong> <span/><br/></t>
+                            <t ><strong>Date to :</strong> <span/></t>
+                        </div>
+                        <div class="col-xs-3">
+                            <strong>Target Moves:</strong>
+                            <p >All Entries</p>
+                            <p >All Posted Entries</p>
+                        </div>
+                    </div>
+
+
+            
+					<table class="table table-condensed" >
+                        <thead>
+                            <tr>
+                                <th><i class="text-left">Sched Installment</i><br/>Payment</th>
+                                <th class="text-center">DaysLate</th>
+                                <th class="text-right">Total</th>
+                                <th class="text-right">Principal</th>
+                                <th class="text-right">Interest</th>
+								<th class="text-right">Fees</th>
+								<!--
+                                <th class="text-right">VAT</th>
+                                -->
+                            </tr>
+                        </thead>
+                        <tbody>
+							<!--
+							<t t-foreach="lines(data,1,0)" t-as="meme">
+	                            <tr style="font-weight: bold;border: 0px white;" >
+	                                
+				                       	<td class="text-left" style="border: 0px white;">
+				                                    
+		                                    <i><span t-esc="meme['payment_date']"/>
+		                                    <span t-esc="meme['transtype']"/>
+		                                    <span t-esc="meme['amount_residual']"/></i>
+		                                    		                                    <br/>
+		                                    <span t-esc="meme['schddate']"/>
+		                                			                                
+		                                </td>
+
+	                            </tr>
+
+	                         -->
+
+
+	                        	<tr t-foreach="lines(data,1,0)" t-as="line">
+	                        		
+	                                	
+				                            
+				                                <td >
+				                                    
+				                                    <div class="text-left">
+					                                    <t t-if="line['transtypeid']==4"> 
+					                                    	<i class="text-left"><span t-esc="line['transdate']"/></i>
+					                                	</t>
+					                                </div>
+					                                <div class="text-center">
+					                  					<t t-if="line['transtypeid']==55">
+					                                    	<strong><span t-esc="line['transdate']"/></strong>
+					                                	</t>
+
+					                                	<t t-if="not line['transtypeid']==4 and not line['transtypeid']==55"> 
+					                                    	<span t-esc="line['transdate']"/>
+					                                    </t>
+					                                </div>
+				                                	
+				                                	
+
+				                                </td>
+				                                <td class="text-center">
+				                                	<span t-esc="line['days_late']"/>
+				                                </td>
+				                                
+				                                
+				                                <td class="text-right">
+				                                	
+				                                	<t t-if="line['transtypeid']==4"> 
+					                                    <i><span t-esc="line['installment']"/></i>
+					                                </t>
+				                                    <t t-if="line['transtypeid']==55">
+					                                    <strong><span t-esc="line['installment']"/></strong>
+					                                </t>
+
+					                                <t t-if="not line['transtypeid']==4 and not line['transtypeid']==55"> 
+					                                    <span t-esc="line['installment']"/>
+					                                </t>
+				                                    <!--
+				                                    <p t-esc="line['prinnotdue']"/>
+				                                    -->
+				                                    
+				                                </td>
+				                                
+				                                <td class="text-right">
+				                                	<t t-if="line['transtypeid']==4"> 
+					                                    <i><span t-esc="line['prindue']"/></i>
+					                                </t>
+				                                    <t t-if="line['transtypeid']==55">
+					                                    <strong><span t-esc="line['prindue']"/></strong>
+					                                </t>
+
+					                                <t t-if="not line['transtypeid']==4 and not line['transtypeid']==55"> 
+					                                    <span t-esc="line['prindue']"/>
+					                                </t>
+				                                </td>
+
+				                                <td class="text-right">
+				                                	<t t-if="line['transtypeid']==4"> 
+					                                    <i><span t-esc="line['intdue']"/></i>
+					                                </t>
+				                                    <t t-if="line['transtypeid']==55">
+					                                    <strong><span t-esc="line['intdue']"/></strong>
+					                                </t>
+
+					                                <t t-if="not line['transtypeid']==4 and not line['transtypeid']==55"> 
+					                                    <span t-esc="line['intdue']"/>
+					                                </t>
+				                                </td>
+				                                <td class="text-right">
+				                                	<t t-if="line['transtypeid']==4"> 
+					                                    <i><span t-esc="line['feesdue']"/></i>
+					                                </t>
+				                                    <t t-if="line['transtypeid']==55">
+					                                    <strong><span t-esc="line['feesdue']"/></strong>
+					                                </t>
+
+					                                <t t-if="not line['transtypeid']==4 and not line['transtypeid']==55"> 
+					                                    <span t-esc="line['feesdue']"/>
+					                                </t>
+				                                    
+				                                </td>
+				                                
+				                                
+				                            
+			                             
+		                               
+	                            </tr>
+	                     <!--       
+	                        </t>
+	                      -->
+
+                        </tbody>
+                    </table>
+
+
+
+
+
+            </div>
+        </div>
+    </t>
+</template>
+
+
+</data>
+</openerp>

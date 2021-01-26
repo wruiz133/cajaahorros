@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+<report id="issfa_cash_management"
+    model="loan.management.loan.cuota"
+    name="purchase_dilicom_csv.report_cash_issfa"
+    string="Gestión de Efectivo (Cash-ISSFA)"
+    report_type="qweb-txt-csv"
+    file="purchase_dilicom_csv.report_cash_issfa"
+    />
+
+<report id="ruminahui_cash_management"
+    model="loan.management.loan.cuota"
+    name="purchase_dilicom_csv.report_cash_ruminahui"
+    string="Gestión de Efectivo (Cash-Rumiñahui)"
+    report_type="qweb-txt-csv"
+    file="purchase_dilicom_csv.report_cash_ruminahui"
+    />
+
+<report id="pichincha_cash_management"
+    model="loan.management.loan.cuota"
+    name="purchase_dilicom_csv.report_cash_pichincha"
+    string="Gestión de Efectivo (Cash-Pichincha)"
+    report_type="qweb-txt-csv"
+    file="purchase_dilicom_csv.report_cash_pichincha"
+    />
+
+<report id="produbanco_cash_management"
+    model="loan.management.loan.cuota"
+    name="purchase_dilicom_csv.report_cash_produbanco"
+    string="Gestión de Efectivo (Cash-Produbanco)"
+    report_type="qweb-txt-csv"
+    file="purchase_dilicom_csv.report_cash_produbanco"
+    />
+
+<report
+    string="Comprobante de Ingreso/Egreso Ventas"
+    id="action_loan_pagos_ventas_report"
+    model="account.payment"
+    report_type="qweb-pdf"
+    name="purchase_dilicom_csv.loan_pagos_ventas_template"
+/>  
+
+<report
+    string="Comprobante de Ingreso/Egreso Compras"
+    id="action_loan_pagos_compras_report"
+    model="account.payment"
+    report_type="qweb-pdf"
+    name="purchase_dilicom_csv.loan_pagos_compras_template"
+/> 
+
+</odoo> 

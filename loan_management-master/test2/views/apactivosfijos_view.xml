@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<odoo> 
+<!-- Comentario en la Views --> 
+     <record id="view_s_apactivosfijos_form" model="ir.ui.view"> 
+        <field name="name">s.apactivosfijos.form</field> 
+        <field name="model">s.apactivosfijos</field> 
+        <field name="arch" type="xml"> 
+            <form string="Apactivosfijos"> 
+                <sheet> 
+                    <group col="12"> 
+                        <group colspan="6"> 
+                        <field name="codigoactivo"/> 
+                        <field name="nombredelactivo"/> 
+                        <field name="codigoingreso"/> 
+                        <field name="fechaingreso"/> 
+                        <field name="centrocostos"/> 
+                        <field name="ubicacion"/> 
+                        <field name="vidautil"/> 
+                        <field name="valorinicial"/> 
+                        <field name="fechaultimadepreciacion"/> 
+                        <field name="metododedepreciacion"/> 
+                        <field name="tasadepreciacionanual"/> 
+                        <field name="fechaultimarevalorizacion"/> 
+                        </group> 
+                        <group colspan="6"> 
+                        </group> 
+                    </group> 
+                    <group col="12"> 
+                    </group> 
+                </sheet> 
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div> 
+            </form> 
+        </field> 
+    </record> 
+     <record id="view_s_apactivosfijos_tree" model="ir.ui.view"> 
+        <field name="name">s.apactivosfijos.tree</field> 
+        <field name="model">s.apactivosfijos</field> 
+        <field name="arch" type="xml"> 
+           <tree> 
+           </tree> 
+        </field> 
+    </record> 
+<!--  Acciones --> 
+    <record model="ir.actions.act_window" id="act_s_apactivosfijos"> 
+        <field name="name">apactivosfijos</field> 
+        <field name="type">ir.actions.act_window</field> 
+        <field name="res_model">s.apactivosfijos</field> 
+        <field name="view_type">form</field> 
+        <field name="view_mode">tree,form</field> 
+    </record> 
+<!--  Menus --> 
+<menuitem id="s_test2_menu" name="Test2" sequence="10" web_icon="fin_res_partner,static/description/icon.png"/> 
+<menuitem id="submenu_s_apactivosfijos_menu" name="Apactivosfijos" sequence="10" parent="s_test2_menu"/> 
+<menuitem id="submenu_s_apactivosfijos_action" name="Apactivosfijos" sequence="10" parent="submenu_s_apactivosfijos_menu" action="act_s_apactivosfijos"/> 
+

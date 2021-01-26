@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<form>
+               <sheet>
+                   <h2>Funds Management</h2>
+                       <group string="Application Info.">
+                           <group>
+                                <field name="created_by" readonly="1"/>
+                           </group>
+                           <group>
+                                <field name="create_date" readonly="1"/>
+                           </group>
+                           <group>
+                               <field name="branch" readonly="1"/>
+                               <field name="file_officer"/>
+                               <field name="individual" invisible="1"/>
+                               <field name="company" invisible="1"/>
+                               <field name="loanof_id" readonly="1"/>
+                               </group>
+                               <group>
+                               <field name="z_lokale" readonly="1"/>
+                               <field name="officer" readonly="1"/>
+                           </group>
+                        </group>
+
+                        <group string="Client Information">
+                           <group>
+                               <field name="account_id" readonly="1"/>
+                               <field name="name" required="0" readonly="1"/>
+                               <field name="fatherhood" readonly="1"/>
+                               <field name="surname" readonly="1"/>
+                               <field name="date" readonly="1"/>
+                           </group>
+                           <group>
+                               <field name="nr_inskript" readonly="1"/>
+                               <field name="m_name" readonly="1"/>
+                               <field name="date1" readonly="1"/>
+                               <field name="nr_doku" readonly="1"/>
+                           </group>
+
+                        </group>
+                        <notebook>
+                            <page string="Assistent Branch" groups="alban_loan_application.group_alban_sub_assistent_branch">
+                               <group groups="alban_loan_application.group_alban_sub_assistent_branch">
+                                   <group>
+                                       <field name="changed_by_as_br" readonly="1" invisible="0"/>
+                                       <!--<field name="changed_by_as_br_name" readonly="1" invisible="1"/>-->
+                                   </group>
+                                   <group>
+                                       <field name="change_date_as_br" readonly="1"/>
+                                   </group>
+                                   <group>
+                                       <field name="nr_ceku"/>
+                                       <field name="mf_donor"/>
+                                       <field name="many_words"/>
+                                       <field name="amount_type"/>
+                                       <field name="nr_bank"/>
+                                       <field name="nr_liogarie"/>
+                                       <field name="formati_czech"/>
+                                   </group>
+                                   <group>
+                                       <field name="product_loans"/>
+                                       <field name="maiden_nameyn"/>
+                                       <field name="notes_czech"/>
+                                       <field name="notes_asst"/>
+
+                                   </group>
+                               </group>
+                            </page>
+                            <page string="Branch Manager" groups="alban_loan_application.group_alban_sub_funds_branch_manager">
+                               <group>
+                                   <group>
+                                       <field name="changed_by_br_mr" readonly="1"/>
+                                   </group>
+                                   <group>
+                                       <field name="change_date_br_mr" readonly="1"/>
+                                   </group>
+                                    <group>
+                                       <field name="fund_mgmt"/>
+                                       <field name="certified"/>
+                                       <field name="pg_fund"/>
+                                       <field name="nr_noteri"/>
+                                    </group>
+                                   <group>
+                                       <field name="amount_paid"/>
+                                       <field name="est_amount"/>
+                                       <field name="notes_mngr"/>
+                                   </group>
+                            </group>
+                            </page>
+                            <page string="Assistant Finance" groups="alban_loan_application.group_alban_sub_assistant_finance">
+                                <group>
+                                    <group>
+                                        <field name="changed_by_as_fi" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="change_date_as_fi" readonly="1"/>
+                                    </group>
+                                    <group>
+                                       <field name="surplus_amount"/>
+                                       <field name="surplus_date"/>
+                                       <field name="notes_surplus"/>
+                                       <field name="transfer"/>
+                                       <field name="date_execution"/>
+                                    </group>
+                                    <group>
+                                       <field name="remaining_loan"/>
+                                       <field name="notes_oftrans"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Finance Manager and Risk" groups="alban_loan_application.group_alban_sub_finance_manager">
+                                <group>
+                                    <group>
+                                        <field name="changed_by_fi_mr" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="change_date_fi_mr" readonly="1"/>
+                                    </group>
+                                    <group>
+                                       <field name="status"/>
+                                       <field name="ceku_print"/>
+                                   </group>
+                                   <group>
+                                       <field name="for_printing"/>
+                                       <field name="notes_mgr"/>
+                                    </group>
+                               </group>
+                            </page>
+                                <page string="Audit Chase" groups="alban_loan_application.group_alban_sub_audit_chase">
+                               <group>
+                                    <group>
+                                       <field name="loans_os"/>
+                                       <field name="write_off"/>
+                                       <field name="amount_tbp"/>
+                                       <field name="write_offdate"/>
+                                   </group>
+                                   <group>
+                                       <field name="creditcode"/>
+                                       <field name="cip"/>
+                                       <field name="ila"/>
+                                       <field name="ical"/>
+                                   </group>
+                               </group>
+                            </page>
+                            <page string="Audit Assistant" groups="alban_loan_application.group_alban_sub_audit_assistenthq">
+                               <group>
+                                  <group>
+                                      <field name="notes_aa"/>
+                                  </group>
+                               </group>
+                            </page>
+                            <page string="Audit Branch" groups="alban_loan_application.group_alban_sub_audit_branch">
+                               <group>
+
+                                   <field name="notes_bm"/>
+                               </group>
+
+                            </page>
+                            <page string="Audit Manager" groups="alban_loan_application.group_alban_sub_audit_manager">
+                               <group>
+                                   <field name="notes_am"/>
+                               </group>
+                            </page>
+                    </notebook>
+                </sheet>
+            </form>
+        
